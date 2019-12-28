@@ -195,6 +195,12 @@
 	overflow-x: hidden;
 	position: relative;
 }
+.tab-vehicles .veh-list.xl {
+	width: 50%;
+}
+.tab-vehicles .veh-list.xl + .veh-info {
+	width: 50%;
+}
 
 .veh-item {
 	display: flex;
@@ -204,6 +210,12 @@
 	font-size: 1.5vw;
 	position: relative;
 	transition: 0.3s;
+}
+.veh-item .item-quantity{
+	text-align: right;
+    right: 10px;
+    position: absolute;
+    padding-right: 1em;
 }
 
 .veh-item.lefted {
@@ -286,7 +298,25 @@
 	text-transform: uppercase;
 }
 
-
+.tab-inventory{
+	width: 100%;	
+}
+.tab-inventory img { 
+	filter: brightness(1000%);
+	background-color: red;
+}
+.inventory-item{
+	width: 80%;
+	border: 1px solid #aaa;
+}
+.inventory-name{
+	padding: 1em auto 1em 4em;
+	width: 90%;
+}
+.inventory-quantity{
+	padding: 1em auto 1em 4em;
+	width: 10%;
+}
 
 .sell-for-player {
 	display: flex;

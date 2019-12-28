@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const misc = require('../sMisc');
 const vehicleAPI = require('./Vehicles/sVehicleSingletone');
+const inventoryManager = require('./Inventory/sInventoryManager');
 const i18n = require('../sI18n');
 const mailer = require('../sMailer');
 
@@ -14,6 +15,7 @@ class Menu {
                 execute += `app.pName = '${player.name}';`;
                 execute += `app.d.loyality = ${player.loyality};`;
                 if (player.vehicle) execute += `app.d.currentVehicleId = ${player.vehicle.id};`;
+                execute += `app.loadInventory('${inventoryManager.getInventory(player)}');`;
                 execute += `app.loadVehicles('${vehicleAPI.getVehiclesForPlayerMenu(player.guid)}');`;
                 execute += `app.loadPassengers('${vehicleAPI.getPassengersForPlayerMenu(player)}');`;
                 execute += `app.loadViolations('${JSON.stringify(player.jail.violations)}');`;

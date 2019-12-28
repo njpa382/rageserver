@@ -49,6 +49,9 @@
 	</section>
 </script>
 
+
+
+
 <script type="text/x-template" id="tab-gps">
 	<section class="info tab-vehicles">
 		<div class="veh-list">
@@ -270,6 +273,22 @@
 </script>
 
 
+<script type="text/x-template" id="tab-inventory">
+	<section class="info tab-vehicles" v-if="d.inventory.length > 0">
+		<div class="veh-list xl">
+			<a class="veh-item" v-for="(item, i) in d.inventory"  @click="currentItem = i" :class="[{ active: currentItem === i }]">
+				<p>{{item.name}} <span class="item-quantity">{{item.quantity}}</span></p>				
+			</a>
+		</div>
+		<div class="veh-info">
+			<div class="veh-info_title">{{ d.inventory[currentItem].name }}</div>
+			<div class="veh-info_number">{{ d.inventory[currentItem].description }}</div>
+		</div>
+	</section>
+	<section class="info tab-vehicles" v-else>
+		<div class="no-veh">No tienes putos items desgraciao pobre!</div>
+	</section>
+</script>
 
 
 
@@ -376,6 +395,10 @@ const settings = new tab('#tab-settings', {
 	newPass: '',
 });
 
+const inventory = new tab('#tab-inventory', {
+	currentItem: 0,
+});
+
 
 const app = new Vue({
 	el: '#app',
@@ -385,6 +408,7 @@ const app = new Vue({
 		d: {
 			cash: 0,
 			loyality: 0,
+			inventory: [],
 			vehicles: [
 				//{ id: 54, title: "Declasse Tornado Custom", number: "FDG45GF", price: 15500, fTank: 55, fRate: 15 },
 				//{ id: 4, title: "Declasse Tornado Custom", number: "FDG45GF", price: 15500, fTank: 55, fRate: 15 },
@@ -398,7 +422,7 @@ const app = new Vue({
 			],
 			languages: [ 'English', 'Russian', 'German', 'Brasilian', 'Simplified Chinese', 'Traditional Chinese', 'Czech'],
 			i18n: {
-				tabs: ['Home', 'GPS', 'Vehicles', 'Violations', 'Help', 'Settings'],
+				tabs: ['Home', 'GPS', 'Vehicles', 'Violations', 'Help', 'Settings', 'Inventory'],
 				cash: 'cash',
 				loyality: 'loyality points',
 				gps: ["Basic", "Jobs", "Businesses"],
@@ -458,6 +482,10 @@ const app = new Vue({
 	methods: {
 		loadVehicles: function(str) {
 			this.d.vehicles = JSON.parse(str);
+		},
+		loadInventory: function(str) {
+			this.d.inventory = JSON.parse(str);
+			console.log(this.d.inventory);
 		},
 		loadPassengers: function(str) {
 			this.d.passengers = JSON.parse(str);

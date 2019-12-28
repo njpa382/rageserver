@@ -45,6 +45,12 @@ class VehiclesDataSingleton {
 			{	model: "mule2",			title: "Maibatsu Mule 2",			fuelTank: 200,	fuelRate: 25,	price: 50000,	},
 			{	model: "mule3",			title: "Maibatsu Mule 3",			fuelTank: 200,	fuelRate: 28,	price: 75000,	},
 			{	model: "mule4",			title: "Maibatsu Mule Custom",		fuelTank: 250,	fuelRate: 30,	price: 150000,	},
+			{	model: "stinger",		title: "Stinger Deportivo",	    	fuelTank: 250,	fuelRate: 30,	price: 150000,	},
+			{	model: "polmav",		title: "Police Helicopter",	    	fuelTank: 250,	fuelRate: 30,	price: 150000,	},
+			{	model: "zr380",		title: "arena war",	    	fuelTank: 250,	fuelRate: 30,	price: 150000,	},
+			{	model: "shotaro",		title: "Super moto tron",	    	fuelTank: 250,	fuelRate: 30,	price: 150000,	},
+			{	model: "insurgent",		title: "Insurgent",	    	fuelTank: 250,	fuelRate: 30,	price: 150000,	},
+			{	model: "police3",		title: "Police3",	    	fuelTank: 250,	fuelRate: 30,	price: 150000,	},
 		
 		];
 	}

@@ -124,6 +124,14 @@ class MiscSingleton {
 		return JSON.stringify(obj);
 	}
 
+	isNull(obj) {
+		return obj === undefined || obj === null;
+	}
+
+	isNotNull(obj) {
+		return !this.isNull(obj);
+	}
+
 }
 const miscSingleton = new MiscSingleton();
 module.exports = miscSingleton;
