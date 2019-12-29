@@ -10,8 +10,8 @@
 		<b class="fixed fixed_full app" id="app">
 			<b style="margin: auto; width: 20vw;">
 				<b>
-					<input type="email" class="input input_transparent-with-buttom-border" placeholder="Email" v-model="enteredMail" :disabled="showCode" autofocus>
-					<input type="password" class="input input_transparent-with-buttom-border" placeholder="Password" v-model="enteredPass" :disabled="showCode">
+					<input type="email" class="input input_transparent-with-buttom-border" placeholder="Email" @keyup.enter="login" v-model="enteredMail" :disabled="showCode" autofocus>
+					<input type="password" class="input input_transparent-with-buttom-border" placeholder="Password" @keyup.enter="login" v-model="enteredPass" :disabled="showCode">
 					<b class="code-block" v-if="showCode">
 						<input type="text" class="input input_transparent-with-buttom-border" @input="verifyCode" v-model="enteredCode">
 						<a class="link-button link-button_theme-white transition-02 hover" @click="mailGetCode">Get code</a>

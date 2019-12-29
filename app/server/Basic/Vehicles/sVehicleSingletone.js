@@ -219,6 +219,8 @@ class VehicleSingleton {
 	getPassengersForPlayerMenu(player) {
 		if (!player.vehicle) return false;
 		const passengers = player.vehicle.getOccupants();
+		var adasdas = JSON.stringify(passengers);
+		misc.log.debug("getOccupants del personaje: " + player.guid + " - " + adasdas);
 		if (passengers < 2) return false;
 		const playerPassengers = [];
 		for (const pass of passengers) {
@@ -274,9 +276,20 @@ class VehicleSingleton {
 		}
 	}
 
-	async loadPlayerVehicles(id) {
-		const data = await misc.query(`SELECT * FROM vehicles WHERE ownerId = '${id}'`);
-		for (const d of data) new Vehicle(d);
+	async loadPlayerVehicles(player) {
+		
+		const data = await misc.query(`SELECT * FROM vehicles WHERE ownerId = '${player.guid}'`);
+
+		var idsSpawnedVehicles = [];
+		const vehicles = mp.vehicles.toArray();
+		for (const veh of vehicles) {
+			if (veh.ownerId !== player.guid) continue;
+			idsSpawnedVehicles.push(veh.guid);
+		}
+		
+		for (const d of data){
+			if(!idsSpawnedVehicles.includes(d.id)) new Vehicle(d);
+		} 		
 	}
 
 	async loadFactionVehicles(name) {

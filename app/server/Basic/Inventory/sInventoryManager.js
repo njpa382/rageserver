@@ -19,7 +19,7 @@ class InventorySingleton {
 
 	}	
 
-	async loadUser(player) {	
+	async loadInventory(player) {	
 		this.updateInventory(player);
 	}	
 

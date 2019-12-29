@@ -9,6 +9,7 @@ const faction = require('../Factions/sFaction');
 const hospital = require('../Factions/Hospital/sHospital');
 const prison = require('../Factions/Police/Prison/sPrison');
 const inventoryManager = require('../Basic/Inventory/sInventoryManager');
+const garages = require('../Basic/Garage/sGarageSingleton');
 
 class PlayerSingleton {
 
@@ -47,12 +48,13 @@ class PlayerSingleton {
         const q2 = characterSingleton.loadPlayerBody(player);
         const q3 = clothesSingleton.loadPlayerClothes(player);
         const q4 = headOverlaySingleton.loadUser(player);
-        const q5 = vehiclesSingleton.loadPlayerVehicles(player.guid);
+        const q5 = vehiclesSingleton.loadPlayerVehicles(player);
         const q6 = faction.loadUser(player);
         const q7 = hospital.loadUser(player);
         const q8 = prison.loadUser(player);
-        const q9 = inventoryManager.loadUser(player);
-        await Promise.all([q1, q2, q3, q4, q5, q6, q7, q8, q9]);
+        const q9 = inventoryManager.loadInventory(player);
+        const q10 = garages.loadPlayerGarages(player);
+        await Promise.all([q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]);
 
         misc.log.debug(`${player.name} logged in`);
     }
