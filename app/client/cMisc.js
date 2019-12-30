@@ -73,6 +73,16 @@ function destroyCam() {
 exports.destroyCam = destroyCam;
 // CAMERA //
 
+
+function isNull(obj) {
+	return obj === undefined || obj === null;
+}
+
+function isNotNull(obj) {
+	return !this.isNull(obj);
+}
+	
+
 mp.events.add(
 {		
 	"cInjectCef" : execute => injectCef(execute),
@@ -104,4 +114,4 @@ mp.events.add(
 	}
 	
 });
-	
+

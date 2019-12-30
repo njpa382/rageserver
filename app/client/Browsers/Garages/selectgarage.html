@@ -1,0 +1,43 @@
+﻿<html>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="garages.css">
+  <script src="../vue.js"></script>
+	<body>
+		<div id="app">
+      <div class="b3-close" @click="exit">X</div>
+    
+      <div class="message">
+        <h1><b>{{ garage.name }}</b></h1>
+        <br><br>
+        <p>Precio: <span class="text-green">${{ garage.price  }}</span></p>
+      </div>
+    
+      ESTA COMPRADOOOO !!! 
+    </div>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+  el: '#app',
+  data: {
+    garage: {},
+  },
+  methods: {
+    buyGarage: function() {
+      this.exit();
+      mp.trigger("cMisc-CallServerEvent", "sGarageSingleton-BuyGarage");
+    },
+    exit: function() {
+      mp.trigger("cCloseCef");
+    },
+		loadGarage: function(str) {
+      mp.trigger("cMisc-CallServerEvent", "sGarageSingleton-SellGarage");
+      this.garage = JSON.parse(str);
+		},
+  }
+});
+
+
+</script>

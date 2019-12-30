@@ -21,7 +21,8 @@ class VehicleSingleton {
 			
 			"playerExitVehicle" : (player, vehicle, seat) => {
 				player.call("cVehicle-setFuel", [null, 0]);
-				player.call("cVehicle-setLights", [vehicle, 0]);
+				//player.call("cVehicle-setLights", [vehicle, 0]);
+				//misc.log.debug("playerExitVehicle: " + JSON.stringify(vehicle));				
 			},
 
 			"sVehicle-SetFuel" : (player, vehicle, fuel) => {

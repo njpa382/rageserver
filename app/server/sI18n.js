@@ -385,6 +385,28 @@ const i18n = {
 		},
 	},
 
+	sGarage: {
+		buyGarage: {
+			eng: 'Success',
+			rus: 'Лояльность',
+			ger: '',
+			br: 'Fidelidade', 
+			zhs: '忠诚值',
+			zht: '忠誠值',
+			cs: 'Věrnost',
+		},
+
+		noVehicle: {
+			eng: 'You are not in a vehicle.',
+			rus: 'Лояльность',
+			ger: '',
+			br: 'Fidelidade', 
+			zhs: '忠诚值',
+			zht: '忠誠值',
+			cs: 'Věrnost',
+		},
+	},
+
 	sChat: {
 		someone: {
 			eng: 'Someone',
