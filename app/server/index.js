@@ -3,6 +3,7 @@ require('./Basic/Auth/sRegister');
 require('./Basic/sChat');
 require('./Basic/Inventory/sInventoryManager');
 require('./Basic/Garage/sGarageSingleton');
+require('./Basic/Weapons/sWeapon');
 require('./Basic/Money/sATM');
 require('./Business/sBarberShop');
 require('./Business/sClothingShop');

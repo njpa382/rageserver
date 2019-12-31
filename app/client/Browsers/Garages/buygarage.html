@@ -35,7 +35,6 @@ const app = new Vue({
       mp.trigger("cCloseCef");
     },
 		loadGarage: function(str) {
-      mp.trigger("cMisc-CallServerEvent", "sGarageSingleton-SellGarage");
       this.garage = JSON.parse(str);
 		},
   }

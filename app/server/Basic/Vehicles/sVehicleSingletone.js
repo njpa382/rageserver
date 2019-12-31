@@ -9,79 +9,79 @@ const Vehicle = require('./sVehicle');
 
 class VehicleSingleton {
 	constructor() {
-		
+
 		mp.events.add({
-			"playerStartExitVehicle" : (player) => {
+			"playerStartExitVehicle": (player) => {
 				if (player.vehicle.engine) player.vehicle.engine = true;
 			},
 
-			"playerEnterVehicle" : (player, vehicle, seat) => {
+			"playerEnterVehicle": (player, vehicle, seat) => {
 				if (seat === -1) player.call("cVehicle-setFuel", [vehicle.fuel, vehicle.fuelRate]);
 			},
-			
-			"playerExitVehicle" : (player, vehicle, seat) => {
+
+			"playerExitVehicle": (player, vehicle, seat) => {
 				player.call("cVehicle-setFuel", [null, 0]);
 				//player.call("cVehicle-setLights", [vehicle, 0]);
 				//misc.log.debug("playerExitVehicle: " + JSON.stringify(vehicle));				
 			},
 
-			"sVehicle-SetFuel" : (player, vehicle, fuel) => {
+			"sVehicle-SetFuel": (player, vehicle, fuel) => {
 				vehicle.fuel = misc.roundNum(fuel, 3);
 				if (fuel <= 0.1) vehicle.engine = false;
 			},
 
-			"sKeys-Num0" : (player) => {
+			"sKeys-Num0": (player) => {
 				if (!player.loggedIn || !player.isDriver() || player.vehicle.fuel <= 0.1) return;
 				player.vehicle.engine = !player.vehicle.engine;
 			},
 
-			"sKeys-Num+" : (player) => {
+			"sKeys-Num+": (player) => {
 				if (!player.loggedIn) return;
 				const vehicle = this.getNearestPlayerVehicleInRange(player, 50);
 				if (vehicle) vehicle.toggleDoorsLock(player);
 			},
 
-			"sKeys-Num7" : (player) => {
+			"sKeys-Num7": (player) => {
 				if (!player.loggedIn || !player.vehicle) return;
 				player.vehicle.toggleWindow(player, 0);
 			},
 
-			"sKeys-Num9" : (player) => {
+			"sKeys-Num9": (player) => {
 				if (!player.loggedIn || !player.vehicle) return;
 				player.vehicle.toggleWindow(player, 1);
 			},
 
-			"sKeys-Num1" : (player) => {
+			"sKeys-Num1": (player) => {
 				if (!player.loggedIn || !player.vehicle) return;
 				player.vehicle.toggleWindow(player, 2);
 			},
 
-			"sKeys-Num3" : (player) => {
+			"sKeys-Num3": (player) => {
 				if (!player.loggedIn || !player.vehicle) return;
 				player.vehicle.toggleWindow(player, 3);
 			},
 
-			"sVehicle-SellToGovernment" : (player, id) => {
+			"sVehicle-SellToGovernment": (player, id) => {
 				mp.vehicles.at(id).sellToGovernment(player)
 			},
 
-			"sVehicle-SellToPlayer" : (player, str) => {
+			"sVehicle-SellToPlayer": (player, str) => {
 				this.sellVehicleToPlayer(player, str);
 			},
 
-			"sVehicle-ConfirmSellVehicleToPlayer" : (player, sellerId, price) => {
+			"sVehicle-ConfirmSellVehicleToPlayer": (player, sellerId, price) => {
 				this.confirmSellVehicleToPlayer(player, sellerId, price);
 			},
 
-			"sVehicle-RejectSellVehicleToPlayer" : (player, sellerId) => {
+			"sVehicle-RejectSellVehicleToPlayer": (player, sellerId) => {
 				this.rejectSellVehicleToPlayer(player, sellerId);
 			},
 
 		});
 
 
-		mp.events.addCommand({	
-			'v' : (player, fullText, model) => {
+		mp.events.addCommand({
+			'v': (player, fullText, model) => {
 				if (player.adminlvl < 1) return;
 				if (!model) return player.notify("Model required");
 				const d = {
@@ -97,15 +97,15 @@ class VehicleSingleton {
 					whoCanOpen: JSON.stringify([player.guid]),
 					factionName: '',
 					numberPlate: this.generateRandomNumberPlate(),
-					primaryColor: JSON.stringify([ misc.getRandomInt(0, 159), misc.getRandomInt(0, 159), misc.getRandomInt(0, 159) ]),
-					secondaryColor: JSON.stringify([ misc.getRandomInt(0, 159), misc.getRandomInt(0, 159), misc.getRandomInt(0, 159) ]),
+					primaryColor: JSON.stringify([misc.getRandomInt(0, 159), misc.getRandomInt(0, 159), misc.getRandomInt(0, 159)]),
+					secondaryColor: JSON.stringify([misc.getRandomInt(0, 159), misc.getRandomInt(0, 159), misc.getRandomInt(0, 159)]),
 				}
 				const vehicle = new Vehicle(d);
 				player.putIntoVehicle(vehicle, -1);
 				misc.log.debug(`${player.name} spawned ${model}`);
 			},
-		
-			'veh' : (player) => {  // Temporary vehicle spawning
+
+			'veh': (player) => {  // Temporary vehicle spawning
 				if (player.adminlvl < 1) return;
 				if (player.health < 5) return;
 				const d = {
@@ -121,20 +121,20 @@ class VehicleSingleton {
 					whoCanOpen: JSON.stringify([player.guid]),
 					factionName: '',
 					numberPlate: this.generateRandomNumberPlate(),
-					primaryColor: JSON.stringify([ misc.getRandomInt(0, 159), misc.getRandomInt(0, 159), misc.getRandomInt(0, 159) ]),
-					secondaryColor: JSON.stringify([ misc.getRandomInt(0, 159), misc.getRandomInt(0, 159), misc.getRandomInt(0, 159) ]),
+					primaryColor: JSON.stringify([misc.getRandomInt(0, 159), misc.getRandomInt(0, 159), misc.getRandomInt(0, 159)]),
+					secondaryColor: JSON.stringify([misc.getRandomInt(0, 159), misc.getRandomInt(0, 159), misc.getRandomInt(0, 159)]),
 				}
 				new Vehicle(d);
 				misc.log.debug(`${player.name} spawned faggio2`);
 				player.notify(`${i18n.get('sVehicle', 'helpUnlock', player.lang)}`);
-				player.notify(`${i18n.get('sVehicle', 'helpEngine', player.lang)}`);		
+				player.notify(`${i18n.get('sVehicle', 'helpEngine', player.lang)}`);
 			},
-		
-			'tp' : (player, fullText, a, b, c) => { 
+
+			'tp': (player, fullText, a, b, c) => {
 				if (player.adminlvl < 1) return;
 				player.position = new mp.Vector3(+a, +b, +c);
 			},
-		
+
 		});
 	}
 
@@ -159,7 +159,7 @@ class VehicleSingleton {
 		for (const vehicle of vehiclesInRange) {
 			if (vehicle.dist(player.position) < nearestVeh.dist(player.position)) nearestVeh = vehicle;
 		}
-		return nearestVeh;		
+		return nearestVeh;
 	}
 
 	async sellVehicleToPlayer(seller, str) {
@@ -250,11 +250,12 @@ class VehicleSingleton {
 			primaryColor: JSON.stringify(color),
 			secondaryColor: JSON.stringify(color),
 			numberPlate: this.generateRandomNumberPlate(),
+			ingarage: false,
 		}
 		await misc.query(`INSERT INTO vehicles 
 			(model, title, fuel, fuelTank, fuelRate, price, ownerId, whoCanOpen, primaryColor, secondaryColor, numberPlate, coord) VALUES
 			('${d.model}', '${d.title}', '${d.fuel}', '${d.fuelTank}', '${d.fuelRate}', '${d.price}', '${d.ownerId}', '${d.whoCanOpen}', '${d.primaryColor}', '${d.secondaryColor}', '${d.numberPlate}', '${coord}')`);
-	
+
 		const car = await misc.query(`SELECT * FROM vehicles WHERE ownerId = '${player.guid}' ORDER BY id DESC LIMIT 1`);
 		new Vehicle(car[0]);
 	}
@@ -264,33 +265,51 @@ class VehicleSingleton {
 		for (const vehicle of vehicles) {
 			if (vehicle.ownerId !== ownerId) continue;
 			const obj = {
-                x: misc.roundNum(vehicle.position.x, 1),
-                y: misc.roundNum(vehicle.position.y, 1),
-                z: misc.roundNum(vehicle.position.z, 1),
-                rot: misc.roundNum(vehicle.rotation.z, 1),
-                dim: vehicle.dimension,
+				x: misc.roundNum(vehicle.position.x, 1),
+				y: misc.roundNum(vehicle.position.y, 1),
+				z: misc.roundNum(vehicle.position.z, 1),
+				rot: misc.roundNum(vehicle.rotation.z, 1),
+				dim: vehicle.dimension,
 			}
 			const f = vehicle.fuel;
 			const id = vehicle.guid;
 			misc.query(`UPDATE vehicles SET coord = '${JSON.stringify(obj)}', fuel = '${f}' WHERE id = '${id}'`);
-//			vehicle.destroy();
+			//			vehicle.destroy();
 		}
 	}
 
 	async loadPlayerVehicles(player) {
-		
-		const data = await misc.query(`SELECT * FROM vehicles WHERE ownerId = '${player.guid}'`);
 
+		var data = await misc.query(`SELECT * FROM vehicles WHERE ownerId = '${player.guid}'`);
+
+		player.allVehicles = this.parsePlayerVehicles(data);
+		misc.log.debug("...VEHICULOS DEL JUGADOR: " + JSON.stringify(data));
+
+		data = data.filter(v => !v.ingarage);
+		misc.log.debug("...VEHICULOS DEL JUGADOR FUERA DE GARAGE: " + JSON.stringify(data));
 		var idsSpawnedVehicles = [];
 		const vehicles = mp.vehicles.toArray();
 		for (const veh of vehicles) {
+			misc.log.debug("VEHICULOS comparados : " + veh.ownerId + " id jugador: " + player.guid);
 			if (veh.ownerId !== player.guid) continue;
 			idsSpawnedVehicles.push(veh.guid);
 		}
-		
-		for (const d of data){
-			if(!idsSpawnedVehicles.includes(d.id)) new Vehicle(d);
-		} 		
+
+
+		for (const d of data) {
+			if (!idsSpawnedVehicles.includes(d.id)) new Vehicle(d);
+		}
+	}
+
+	parsePlayerVehicles(veh){
+		var vehicles = [];
+		if(misc.isNotNull(veh)){
+			for(var i = 0; i < veh.length; i++){
+				vehicles.push(veh[i]);
+				vehicles[i]["coord"] = JSON.parse(veh[i].coord);
+			}
+		}
+		return vehicles;
 	}
 
 	async loadFactionVehicles(name) {

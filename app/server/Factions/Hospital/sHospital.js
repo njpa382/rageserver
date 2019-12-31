@@ -3,13 +3,14 @@ const sFaction = require('../sFaction');
 const hospitalBuilding = require('./sHospitalBuilding');
 const hospitalVisitorsGarage = require('./sHospitalVisitorsGarage');
 const i18n = require('../../sI18n');
+const hostpital_id = 2;
 
 
 
 
 class Hospital extends sFaction {
 	constructor() {
-		super("Hospital");
+		super("Hospital", hostpital_id);
 
 		mp.events.add({
 			"playerDeath" : (player, reason, killer) => {

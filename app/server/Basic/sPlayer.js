@@ -165,6 +165,11 @@ mp.events.addCommand({
         const str = `x: ${misc.roundNum(pos.x, 3)}, y: ${misc.roundNum(pos.y, 3)}, z: ${misc.roundNum(pos.z, 3)}, rot: ${misc.roundNum(rot, 2)}`;
         player.outputChatBox(str);
         misc.log.debug(str);
+    }, 
+
+    'hp' : (player) => { 
+        if (player.adminlvl < 1) return;
+        player.health = 100;
     },
     
 });

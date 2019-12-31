@@ -7,8 +7,9 @@ const vehicleSingletone = require('../Basic/Vehicles/sVehicleSingletone');
 const factionsList = [];
 
 class faction {
-	constructor(factionName) {
+	constructor(factionName, faction_id) {
 		this.name = factionName;
+		this.faction_id = faction_id;
 		this.maxRank = 10;
 		vehicleSingletone.loadFactionVehicles(this.name);
 		factionsList.push(this);
@@ -16,8 +17,8 @@ class faction {
 
 	createEvents() {
 		mp.events.addCommand({		
-			'invite' : async (player, id) => {
-				this.invite(player, +id);
+			'invite' : async (player, full, player_guid, faction_id, rank) => {
+				this.invite(player, full, player_guid, faction_id, rank);
 			},	
 
 			'setrank' : async (player, full, id, rank) => {
@@ -120,7 +121,8 @@ class faction {
 		misc.log.debug(`${leader.name} sets ${player.name} rank to ${value}`);
 	}
 
-	invite(leader, id) {
+	async invite(player, fulltext, player_guid, faction_id, rank) {
+		/*
 		if (!misc.isValueNumber(id) || !this.isInThisFaction(leader) || this.getRank(leader) < 9) return;
 		const player = mp.players.at(id);
 		if (!player || !this.isDistanceRight(leader, player) || this.isInOtherFaction(player)) return;
@@ -134,6 +136,23 @@ class faction {
 		leader.notify(`~g~${i18n.get('basic', 'success', leader.lang)}!`);
 		this.updateClothingMarker(player);
 		misc.log.debug(`${leader.name} invited ${player.name} to ${this.name}`);
+		*/
+		misc.log.debug("INVITANDO JUGADOR...");
+
+		if (player.adminlvl < 1) return; // AGREegar validacion para ver si es rank 10
+		await this.addPlayerToFactionDB(player_guid, faction_id, rank); // validar que no este en la faccion previamente y no tenga faccion.
+		const playerToAdd = mp.players.at(player_guid);
+		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
+		playerToAdd.notify(`~g~${i18n.get('basic', 'success', playerToAdd.lang)}!`);
+
+
+	}
+
+	async addPlayerToFactionDB(player_guid, faction_id, rank) {
+		misc.log.debug("PLAYER ID object : " + player_guid);
+		misc.log.debug("PLAYER faction to add : " + faction_id);
+		misc.log.debug("PLAYER rank : " + rank);
+		await misc.query(`INSERT INTO usersfaction VALUES ('${player_guid}', '${faction_id}','${rank}')`);
 	}
 
 	setAsLeader(admin, id) {
@@ -222,22 +241,39 @@ module.exports = faction;
 
 
 async function createNewUser(id) {
-	await misc.query(`INSERT INTO usersFaction (id, info) VALUES ('${id}', '[]')`);
+	//await misc.query(`INSERT INTO usersFaction (id, info) VALUES ('${id}', '[]')`);
 }
 module.exports.createNewUser = createNewUser;
 
 
 async function loadUser(player) {
-	const d = await misc.query(`SELECT * FROM usersFaction WHERE id = '${player.guid}' LIMIT 1`);
-	player.faction = {
-		name: d[0].name,
-		rank: d[0].rank,
-		info:  JSON.parse(d[0].info),
-		working: false,
-	}
+	const d = await misc.query(`SELECT * FROM usersfaction f1 INNER JOIN factions f2 ON f1.faction_id = f2.id WHERE f1.user_id = '${player.guid}' LIMIT 1`);
+		if(misc.isNotNull(d[0])) {
+			player.faction = {
+				name: d[0].name,
+				rank: d[0].rank,
+				faction_id: d[0].faction_id,
+				//LARGUI, LOS SIGUIENTES DOS PARAMETROS NO EXISTEN EN LA CONSULTA
+				//info:  JSON.parse(d[0].info),
+				//working: false,
+			}
 
-	for (const f of factionsList) {
-		if (f.isInThisFaction(player)) return f.updateClothingMarker(player);
-	}
+		} else {
+			player.faction = {
+				name: "Ciudadano",
+				rank: 0,
+				faction_id: 0,
+				//info:  "",
+				//working: false,
+			}
+
+		}
+		
+		misc.log.debug("PLAYER faction object : " + JSON.stringify(player.faction));
+	
+		for (const f of factionsList) {
+			if (f.isInThisFaction(player)) return f.updateClothingMarker(player);
+		}
+	
 }
 module.exports.loadUser = loadUser;

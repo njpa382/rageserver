@@ -5,7 +5,13 @@ const i18n = require('../../sI18n');
 
 class Vehicle {
 	constructor (d) {
-		const pos = JSON.parse(d.coord);
+		var pos;
+		try{
+			pos = JSON.parse(d.coord);
+		}
+		catch(e){
+			pos = d.coord;
+		}
 		const vehicle = mp.vehicles.new(d.model, new mp.Vector3(pos.x, pos.y, pos.z),
 		{
 			heading: pos.rot,
@@ -24,6 +30,7 @@ class Vehicle {
 		vehicle.factionName = d.factionName;
 		vehicle.windowsOpened = [false, false, false, false];
 		vehicle.numberPlate = d.numberPlate;
+		vehicle.ingarage = false;
 
 		const primaryColor = JSON.parse(d.primaryColor);
 		const secondaryColor = JSON.parse(d.secondaryColor);

@@ -27,7 +27,7 @@ class Prison {
 		}
 
 		player.isWanted = function() {
-			if (this.jail.violations.length > 0) return true;
+			if (misc.isNotNull(this.jail.violations) && this.jail.violations.length > 0) return true;
 			return false;
 		}
 
