@@ -16,33 +16,33 @@ class faction {
 	}
 
 	createEvents() {
-		mp.events.addCommand({		
-			'invite' : async (player, full, player_guid, faction_id, rank) => {
+		mp.events.addCommand({
+			'invite': async (player, full, player_guid, faction_id, rank) => {
 				this.invite(player, full, player_guid, faction_id, rank);
-			},	
-
-			'setrank' : async (player, full, id, rank) => {
-				this.setRank(player, +id, +rank);
 			},
 
-			'uninvite' : async (player, id) => {
-				this.uninvite(player, +id);
-			},	
+			'setrank': async (player, full, id, rank) => {
+				this.setRank(player, id, rank);
+			},
+
+			'uninvite': async (player, id) => {
+				this.uninvite(player, id);
+			},
 		});
 
 		mp.events.add({
-			"playerEnterColshape" : (player, shape) => {
+			"playerEnterColshape": (player, shape) => {
 				if (!player.loggedIn || !this.isInThisFaction(player) || shape !== this.clothingShape) return;
 				player.faction.canChangeClothes = true;
 				player.notify(`${i18n.get('basic', 'pressE', player.lang)} ${i18n.get('sFaction', 'changeClothes', player.lang)}`);
 			},
-		
-			"playerExitColshape" : (player, shape) => {
+
+			"playerExitColshape": (player, shape) => {
 				if (!player.loggedIn || !this.isInThisFaction(player) || shape !== this.clothingShape) return;
-					player.faction.canChangeClothes = false;
+				player.faction.canChangeClothes = false;
 			},
-		
-			"sKeys-E" : (player) => {
+
+			"sKeys-E": (player) => {
 				if (!player.loggedIn || !this.isInThisFaction(player) || !player.faction.canChangeClothes) return;
 				this.changeClothes(player);
 			},
@@ -51,11 +51,11 @@ class faction {
 
 	createClothingShape(pos) {
 		this.clothingShape = mp.colshapes.newSphere(pos.x, pos.y, pos.z, 1);
-		this.clothingMarker = mp.markers.new(1, new mp.Vector3(pos.x, pos.y, pos.z - 1), 0.75, 
-		{
-			color: [255, 255, 0, 15],
-			visible: false,
-		});
+		this.clothingMarker = mp.markers.new(1, new mp.Vector3(pos.x, pos.y, pos.z - 1), 0.75,
+			{
+				color: [255, 255, 0, 15],
+				visible: false,
+			});
 	}
 
 	savePlayerData(player) {
@@ -110,7 +110,9 @@ class faction {
 		return player.faction.rank;
 	}
 
-	setRank(leader, id, value) {
+	async setRank(player, id, rank) {	
+
+		/*
 		if (!misc.isValueNumber(id) || !misc.isValueNumber(value) || !this.isInThisFaction(leader) || this.getRank(leader) < 9) return;
 		const player = mp.players.at(id);
 		if (!player || !this.isInThisFaction(player) || !this.isDistanceRight(leader, player)) return;
@@ -119,6 +121,14 @@ class faction {
 		leader.outputChatBox(`!{0, 225, 0}${i18n.get('sFaction', 'setNewRank', leader.lang)} ${player.name}: ${value}`);
 		player.outputChatBox(`!{0, 225, 0}${leader.name} ${i18n.get('sFaction', 'changedYourRank', player.lang)} ${value}`);
 		misc.log.debug(`${leader.name} sets ${player.name} rank to ${value}`);
+		*/
+		if (player.adminlvl < 1) return; // AGREegar validacion para ver si es rank 10
+		misc.log.debug("SOS ADMIN, realizando cambio...");
+
+		await this.updateRankInDB(id, rank);
+
+		player.outputChatBox(`!{0, 225, 0}${player.name} ${i18n.get('sFaction', 'changedYourRank', player.lang)} ${rank}`);
+
 	}
 
 	async invite(player, fulltext, player_guid, faction_id, rank) {
@@ -137,7 +147,6 @@ class faction {
 		this.updateClothingMarker(player);
 		misc.log.debug(`${leader.name} invited ${player.name} to ${this.name}`);
 		*/
-		misc.log.debug("INVITANDO JUGADOR...");
 
 		if (player.adminlvl < 1) return; // AGREegar validacion para ver si es rank 10
 		await this.addPlayerToFactionDB(player_guid, faction_id, rank); // validar que no este en la faccion previamente y no tenga faccion.
@@ -149,10 +158,18 @@ class faction {
 	}
 
 	async addPlayerToFactionDB(player_guid, faction_id, rank) {
-		misc.log.debug("PLAYER ID object : " + player_guid);
-		misc.log.debug("PLAYER faction to add : " + faction_id);
-		misc.log.debug("PLAYER rank : " + rank);
 		await misc.query(`INSERT INTO usersfaction VALUES ('${player_guid}', '${faction_id}','${rank}')`);
+	}
+
+	async removePlayerFromFactionDB(player_guid) {
+		misc.log.debug("removePlayerFromFactionDB player_guid : " + player_guid);
+		await misc.query(`DELETE FROM usersfaction where user_id = ${player_guid}`);
+	}
+
+	async updateRankInDB(id, rank) {
+		misc.log.debug("updateRankInDB id : " + id);
+		misc.log.debug("updateRankInDB id : " + rank);
+		await misc.query(`UPDATE usersfaction set rank = ${rank} where user_id = ${id}`);
 	}
 
 	setAsLeader(admin, id) {
@@ -171,7 +188,9 @@ class faction {
 		misc.log.debug(`${admin.name} sets ${player.name} as a ${this.name} leader`);
 	}
 
-	uninvite(leader, id) {
+	async uninvite(player, id) {
+		misc.log.debug("EXPULSANDO ..." + id );
+		/*
 		if (!misc.isValueNumber(id) || !this.isInThisFaction(leader) || this.getRank(leader) < 9) return;
 		const player = mp.players.at(id);
 		if (!player || !this.isInThisFaction(player)) return;
@@ -185,7 +204,20 @@ class faction {
 		this.updateClothingMarker(player);
 		clothes.loadPlayerClothes(player);
 		misc.log.debug(`${leader.name} uninvited ${player.name} from ${this.name}`);
-	}
+		*/
+		var idToRemove;
+		if (player.adminlvl < 1) {
+			idToRemove = player.guid;
+		} else {
+			idToRemove = id;
+		}
+
+		misc.log.debug("EXPULSANDO ..." + idToRemove );
+
+		await this.removePlayerFromFactionDB(idToRemove);
+
+		player.outputChatBox(`!{225, 0, 0}${player.name} ${i18n.get('sFaction', 'uninvited', player.lang)}`);
+	}	
 
 	updateLastOfferTime(player) {
 		player.faction.lastOfferTime = new Date().getTime();
@@ -248,32 +280,32 @@ module.exports.createNewUser = createNewUser;
 
 async function loadUser(player) {
 	const d = await misc.query(`SELECT * FROM usersfaction f1 INNER JOIN factions f2 ON f1.faction_id = f2.id WHERE f1.user_id = '${player.guid}' LIMIT 1`);
-		if(misc.isNotNull(d[0])) {
-			player.faction = {
-				name: d[0].name,
-				rank: d[0].rank,
-				faction_id: d[0].faction_id,
-				//LARGUI, LOS SIGUIENTES DOS PARAMETROS NO EXISTEN EN LA CONSULTA
-				//info:  JSON.parse(d[0].info),
-				//working: false,
-			}
-
-		} else {
-			player.faction = {
-				name: "Ciudadano",
-				rank: 0,
-				faction_id: 0,
-				//info:  "",
-				//working: false,
-			}
-
+	if (misc.isNotNull(d[0])) {
+		player.faction = {
+			name: d[0].name,
+			rank: d[0].rank,
+			faction_id: d[0].faction_id,
+			//LARGUI, LOS SIGUIENTES DOS PARAMETROS NO EXISTEN EN LA CONSULTA
+			//info:  JSON.parse(d[0].info),
+			//working: false,
 		}
-		
-		misc.log.debug("PLAYER faction object : " + JSON.stringify(player.faction));
-	
-		for (const f of factionsList) {
-			if (f.isInThisFaction(player)) return f.updateClothingMarker(player);
+
+	} else {
+		player.faction = {
+			name: "Ciudadano",
+			rank: 0,
+			faction_id: 0,
+			//info:  "",
+			//working: false,
 		}
-	
+
+	}
+
+	misc.log.debug("PLAYER faction object : " + JSON.stringify(player.faction));
+
+	for (const f of factionsList) {
+		if (f.isInThisFaction(player)) return f.updateClothingMarker(player);
+	}
+
 }
 module.exports.loadUser = loadUser;

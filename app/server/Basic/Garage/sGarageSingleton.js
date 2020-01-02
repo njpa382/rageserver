@@ -1,7 +1,9 @@
 const misc = require('../../sMisc');
 const i18n = require('../../sI18n');
+const vehicle = require('../../Basic/Vehicles/sVehicle');
+const sVehicleSingletone = require('../../Basic/Vehicles/sVehicleSingletone');
 const moneySingletone = require('../../Basic/Money/sMoney');
-const sVehicleSingletone = require('../../Basic/Money/sMoney');
+//const sVehicleSingletone = require('../../Basic/Money/sMoney');
 const savecoord = "savecoord";
 const pickcoord = "pickcoord";
 
@@ -45,10 +47,29 @@ class GarageSingleton {
             "sGarageSingleton-SellGarage": (player) => {
                 misc.log.debug("sGarageSingleton-SellGarage: " + player.guid);
             },
-            "sGarageSingleton-PickVehicle": (player) => {
-                misc.log.debug("sGarageSingleton-PickVehicle: " + player.guid);
+            "sGarageSingleton-PickVehicle": async (player, vehicle_id) => {
+
+
+                var vehicleToAdd = misc.isNotNull(player.allVehicles) ? player.allVehicles.filter(v => v.id === vehicle_id)[0] : null;
+
+                if (misc.isNotNull(vehicleToAdd)) {
+                    vehicleToAdd.coord = misc.getPlayerCoordJSON(player);
+
+                    new vehicle(vehicleToAdd);
+                }
+                await this.updateInGarageInDB(player, vehicle_id);
+                await this.updatePlayerVehicles(player);
+
             }
         });
+    }
+
+    async updateInGarageInDB(player, vehicle_id) {
+        await misc.query(`UPDATE vehicles set ingarage = false where id = ${vehicle_id}`);
+    }
+
+    async updatePlayerVehicles(player) {
+        sVehicleSingletone.getPlayerVehiclesFromDBAndUpdate(player);
     }
 
     async initSingleton() {
@@ -128,14 +149,25 @@ class GarageSingleton {
     }
 
     pickCarFromGarage(player, garage) {
-        var allVehicles = misc.isNotNull(player.allVehicles) ? player.allVehicles.filter(v => v.ingarage) : [];
-        let execute = '';
-        execute += `app.loadGarage('${garage}');`; // JSON.stringify(allVehicles)
-        execute += `app.loadVehicles('${JSON.stringify(allVehicles)}');`;
-        player.call("cGarageMenu-CarSelectMenu", [player.lang, execute]);
+
+        var needToBuy = true;
+
+        player.playerGarages.forEach(element => {
+            if (element.garage_id === player.canOpenGarageMenu) {
+                var allVehicles = misc.isNotNull(player.allVehicles) ? player.allVehicles.filter(v => v.ingarage) : [];
+                let execute = '';
+                execute += `app.loadGarage('${garage}');`; // JSON.stringify(allVehicles)
+                execute += `app.loadVehicles('${JSON.stringify(allVehicles)}');`;
+                misc.log.debug("pickCarFromGarage all vehicles : " + JSON.stringify(allVehicles));
+                player.call("cGarageMenu-CarSelectMenu", [player.lang, execute]);
+                needToBuy = false;
+                return;
+            }
+        });
+
+        if (needToBuy) player.notify(`~r~${i18n.get('sGarage', 'buyGarageError', player.lang)}!`);
+
     }
-
-
 }
 const garageSingletone = new GarageSingleton();
 module.exports = garageSingletone;
@@ -174,8 +206,8 @@ async function buyGarageById(player, garageToBuy) {
 }
 
 async function updateInGarageDB(player) {
-    player.allVehicles.forEach(function(veh){
-        if(veh.id === player.vehicle.guid){
+    player.allVehicles.forEach(function (veh) {
+        if (veh.id === player.vehicle.guid) {
             veh.ingarage = true;
         }
     });

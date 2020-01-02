@@ -280,9 +280,7 @@ class VehicleSingleton {
 
 	async loadPlayerVehicles(player) {
 
-		var data = await misc.query(`SELECT * FROM vehicles WHERE ownerId = '${player.guid}'`);
-
-		player.allVehicles = this.parsePlayerVehicles(data);
+		var data = await this.getPlayerVehiclesFromDBAndUpdate(player);
 		misc.log.debug("...VEHICULOS DEL JUGADOR: " + JSON.stringify(data));
 
 		data = data.filter(v => !v.ingarage);
@@ -299,6 +297,14 @@ class VehicleSingleton {
 		for (const d of data) {
 			if (!idsSpawnedVehicles.includes(d.id)) new Vehicle(d);
 		}
+	}
+
+	async getPlayerVehiclesFromDBAndUpdate(player) {
+		var data = await misc.query(`SELECT * FROM vehicles WHERE ownerId = '${player.guid}'`);
+
+		player.allVehicles = this.parsePlayerVehicles(data);
+
+		return data;
 	}
 
 	parsePlayerVehicles(veh){

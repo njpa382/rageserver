@@ -396,6 +396,16 @@ const i18n = {
 			cs: 'Věrnost',
 		},
 
+		buyGarageError: {
+			eng: 'Please buy this garage to use it',
+			rus: 'Лояльность',
+			ger: '',
+			br: 'Fidelidade', 
+			zhs: '忠诚值',
+			zht: '忠誠值',
+			cs: 'Věrnost',
+		},
+
 		noVehicle: {
 			eng: 'You are not in a vehicle.',
 			rus: 'Лояльность',

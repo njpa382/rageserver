@@ -23,7 +23,7 @@
             <td class="text-capitalize">{{vehicle.title}}</td>
             <td class="text-capitalize">{{vehicle.numberPlate}} <i class="fas fa-id-card-alt"></i></td>
             <td class="text-capitalize">{{vehicle.fuel}}<i class="fas fa-gas-pump"></i></td>
-            <td><a class="btn btn-success float-right text-white"><i class="fas fa-car"></i> <i class="fas fa-angle-right"></i></a></td>
+            <td><a class="btn btn-success float-right text-white" @click="pickVehicle(vehicle.id)"><i class="fas fa-car"></i> <i class="fas fa-angle-right"></i></a></td>
           </tr>
         </tbody>
       </table>
@@ -51,6 +51,10 @@
       },
       loadGarage: function (str) {
         this.garage = JSON.parse(str);
+      },
+      pickVehicle: function (vehicle_id) {
+        this.exit();
+        mp.trigger("cMisc-CallServerEvent", "sGarageSingleton-PickVehicle", vehicle_id);
       },
       loadVehicles: function (str) {
         this.allVehicles = JSON.parse(str);
