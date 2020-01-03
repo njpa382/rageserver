@@ -5,7 +5,7 @@ const Job = require('./sJob');
 
 class ClickinBellCourier extends Job {
     constructor() {
-        const d = { name: "Cluckin Bell Courier", x: -145.918, y: 6303.983, z: 31.559, rot: 131.94, dim: 0 }
+        const d = { name: "Cluckin Bell Courier", x: -145.918, y: 6303.983, z: 31.559, rot: 131.94, dim: 0 , blipInfo: {id:512, color: 60}}
         super(d);
         this.getOrderCoord = { x: -139.975, y: 6301.485, z: 31.488, rot: 134.19 };
         this.deliveryPoints = [
@@ -82,11 +82,6 @@ class ClickinBellCourier extends Job {
         });
 
         this.createEntities();
-    }
-
-    setLocalSettings() {
-        this.blip.model = 514;
-        this.blip.color = 60;
     }
 
     createEntities() {

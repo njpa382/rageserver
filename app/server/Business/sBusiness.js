@@ -17,6 +17,7 @@ class business {
 		this.balance = d.balance;
 		this.buyerMenuCoord = JSON.parse(d.buyerMenuCoord);
 		this.updateOwner();
+		misc.log.debug("ID SHOp: "+ this.id  +" ownerId: " + this.ownerId);
 
 		businessList.push(this);
 		this.createMainEntities();
@@ -29,6 +30,7 @@ class business {
 		this.colshape.businessId = this.id;
 
 		this.marker = mp.markers.new(1, new mp.Vector3(this.coord.x, this.coord.y, this.coord.z - 1), 0.75);
+		
 		this.updateMarker();
 	}
 

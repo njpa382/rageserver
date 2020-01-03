@@ -10,7 +10,7 @@ const refinedMariaEquivalent = 5;
 
 class MariaCollector extends Job {
     constructor() {
-        const d = { name: "Maria Collector", x: 2212.994, y: 5577.482, z: 53.786, rot: 0, dim: 0 }
+        const d = { name: "Maria Collector", x: 2212.994, y: 5577.482, z: 53.786, rot: 0, dim: 0, blipInfo: {id:140, color: 25}}
         super(d);
         this.posToDrop = {x: -273.107, y: 2197.09, z: 129.837};
         this.sellPosition = {x: -1172.152, y: -1571.8, z: 4.664};
@@ -63,11 +63,6 @@ class MariaCollector extends Job {
         this.createMenuToDrop();
         this.createMenuTosell();
         this.createCheckpoints();
-    }
-
-    setLocalSettings() {
-        this.blip.model = 514;
-        this.blip.color = 17;
     }
 
     createMenuToDrop() {

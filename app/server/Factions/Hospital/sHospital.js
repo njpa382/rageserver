@@ -24,10 +24,10 @@ class Hospital extends sFaction {
 				this.spawnAfterDeath(player);
 			},
 
-			"sKeys-F4" : (player) => {
+			/*"sKeys-F4" : (player) => {
 				if (!player.loggedIn) return;
 				this.openInteractionMenu(player);
-			},
+			},*/ 
 			
 			"sHospital-IncreaseHealingSpeed" : (player, id) => {
 				if (!player.loggedIn) return;

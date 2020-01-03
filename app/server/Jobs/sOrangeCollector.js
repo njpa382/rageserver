@@ -6,7 +6,7 @@ const Job = require('./sJob');
 
 class OrangeCollector extends Job {
     constructor() {
-        const d = { name: "Orange Collector", x: 405.676, y: 6526.119, z: 27.709, rot: 0, dim: 0 }
+        const d = { name: "Orange Collector", x: 405.676, y: 6526.119, z: 27.709, rot: 0, dim: 0 ,blipInfo: {id:681, color: 17}}
         super(d);
         this.posToDrop = {x: 331.74, y: 6541.576, z: 28.417};
         this.checkPoints = [
@@ -70,11 +70,6 @@ class OrangeCollector extends Job {
 
         this.createMenuToDrop();
         this.createCheckpoints();
-    }
-
-    setLocalSettings() {
-        this.blip.model = 514;
-        this.blip.color = 17;
     }
 
     createMenuToDrop() {

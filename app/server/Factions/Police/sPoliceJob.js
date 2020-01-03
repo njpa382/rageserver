@@ -11,30 +11,65 @@ class PoliceJob extends FactionJob {
     constructor() {
 
         var jobParamenters = {};
-        //jobParamenters.basicInformation = {
-        //    name: "Police Job", x: 441.211, y: -976.772, z: 30.69, rot: 0,
-        //    dim: 0, faction_id: faction_id_const, className: "sPoliceJob"
-        //};
         jobParamenters.basicInformation = {
+            name: "Police Job", x: 441.211, y: -976.772, z: 30.69, rot: 0,
+            dim: 0, faction_id: faction_id_const, className: "sPoliceJob", blipInfo: { id: 526, color: 3 }
+        };
+        /*jobParamenters.basicInformation = {
             name: "Police", x: 429.284, y: -998.777, z: 25.739, rot: 84.36,
             dim: 0, faction_id: faction_id_const, className: "sPoliceJob"
-        };
-        
+        };*/
+
         jobParamenters.pickVehicleCoords = [
-            { x: 428.908, y: -1000.204, z: 25.78, rot: 295.54 , spawn: {x: 431.2, y: -997.116, z: 25.763, rot: 176.75}},
-            { x: 438.975, y: -999.889, z: 25.774, rot: 173.55 , spawn: {x: 436.206, y: -997.36, z: 25.769, rot: 177.29 }},
+            { x: 428.908, y: -1000.204, z: 25.78, rot: 295.54, spawn: { x: 431.2, y: -997.116, z: 25.763, rot: 176.75 } },
+            { x: 438.975, y: -999.889, z: 25.774, rot: 173.55, spawn: { x: 436.206, y: -997.36, z: 25.769, rot: 177.29 } },
+        ];
+
+        jobParamenters.dropVehicleCoords = [
+            { x: 446.895, y: -996.799, z: 25.767, rot: 183.93 },
+            { x: 452.167, y: -997.041, z: 25.763, rot: 173.36 },
         ];
 
         jobParamenters.factionVehiclesList = [
-            { model: "police3", minimunRank: 1, title:"Police 3", fuel:40 , id:0 , numberPlate:"POLICE000"},
+            { model: "police3", minimunRank: 1, title: "Police 3", fuel: 40, id: 0, numberPlate: "POLICE000" },
         ];
-        
-        super(jobParamenters);
-    }
 
-    setLocalSettings() {
-        this.blip.model = 514;
-        this.blip.color = 17;
+        super(jobParamenters);
+
+        mp.events.add({
+            "sPoliceJob-removerCargos": async (player, str) => {
+                var frontInfo = JSON.parse(str);
+                misc.log.debug("sPoliceJob-removerCargos: " + str);
+            },
+            "sPoliceJob-arrestar": async (player, str) => {
+                var frontInfo = JSON.parse(str);
+                misc.log.debug("sPoliceJob-arrestar: " + str);
+            },
+            "sPoliceJob-multar": async (player, str) => {
+                var frontInfo = JSON.parse(str);
+                misc.log.debug("sPoliceJob-multar: " + str);
+            },
+            "sPoliceJob-cachear": async (player, str) => {
+                var frontInfo = JSON.parse(str);
+                misc.log.debug("sPoliceJob-cachear: " + str);
+            },
+            "sPoliceJob-esposar": async (player, str) => {
+                var frontInfo = JSON.parse(str);
+                var targetPlayer = misc.getPlayerById(misc.getGuidFromDNI(frontInfo.targetPlayerInformation.dni));
+
+                if(misc.isNotNull(targetPlayer.isArrested) && targetPlayer.isArrested) {
+                    targetPlayer.stopAnimation();
+                    targetPlayer.isArrested = false;
+                } else {
+                    targetPlayer.playAnimation('mp_arresting', 'idle', 1, 2);
+                    targetPlayer.isArrested = true;
+                }
+
+                
+                misc.log.debug("sPoliceJob-esposar: " + str);
+            }
+        });
+
     }
 
     pressedKeyOnMainShape(player) {
@@ -43,6 +78,27 @@ class PoliceJob extends FactionJob {
         player.call("sPoliceJob-OpenMainMenu", [player.lang, execute]);
     }
 
+    openInteractionMenu(player) {
+        if (player.job.isActive && player.faction.faction_id === faction_id_const) {
+            const nearestPlayer = misc.getNearestPlayerInRange(player, player.position, 1);
+            if (!nearestPlayer) return;
+            misc.log.debug("Jugador cercano: " + JSON.stringify(nearestPlayer));
+
+            var playerInformation = this.generatePlayerInfo(nearestPlayer);
+
+            let execute = '';
+            execute = `app.loadTargetPlayerInformation('${JSON.stringify(playerInformation)}');`;
+            player.call("sPoliceJob-ShowPoliceMenu", [player.lang, execute]);
+        }
+    }
+
+    generatePlayerInfo(nearestPlayer) {
+        var playerInformation = {};
+        playerInformation.dni = nearestPlayer.dni;
+        playerInformation.isArrested = misc.isNull(nearestPlayer.isArrested) ? false : nearestPlayer.isArrested;
+        playerInformation.fullName = nearestPlayer.firstName + " " + nearestPlayer.lastName;
+        return playerInformation;
+    }    
 
     setWorkingClothesForMan(player) {
         this.giveInitialSet(player);

@@ -2,6 +2,7 @@
 
 const log4js = require('log4js');
 const mysql = require("./sMysql");
+const algorithDNI = 1937328;
 
 
 /*
@@ -81,8 +82,47 @@ class MiscSingleton {
 		return playersInRange;
 	}
 
+	getPlayerById(guid) {
+		const players = mp.players.toArray();
+		var returnPlayer = undefined;
+		for (const player of players) {
+			this.log.debug("guid: " + guid + " - player.guid: " + player.guid);
+			if(guid === player.guid) {
+				returnPlayer = player;
+			}
+
+		}
+		this.log.debug("returnPlayer: " + returnPlayer);
+		return returnPlayer;
+	}
+
 	getNearestPlayerInRange(position, range) {
 		const playersInRange = this.getPlayersInRange(position, range);
+		if (!playersInRange) return false;
+		let nearestPlayer = 0;
+		for (const player of playersInRange) {
+			if (player.dist(position) < playersInRange[nearestPlayer].dist(position)) {
+				nearestPlayer = playersInRange.indexOf(player);
+			}
+		}
+		return playersInRange[nearestPlayer];
+	}
+
+	getPlayersInRange(originPlayer, position, range) {
+		if (!this.isValueNumber(range)) return false;
+		const players = mp.players.toArray();
+		const playersInRange = [];
+		for (const player of players) {
+			if(originPlayer.guid === player.guid) continue;
+			if (player.dist(position) < range) {
+				playersInRange.push(player);
+			}
+		}
+		return playersInRange;
+	}
+
+	getNearestPlayerInRange(originPlayer, position, range) {
+		const playersInRange = this.getPlayersInRange(originPlayer, position, range);
 		if (!playersInRange) return false;
 		let nearestPlayer = 0;
 		for (const player of playersInRange) {
@@ -140,6 +180,30 @@ class MiscSingleton {
 	isNotNull(obj) {
 		return !this.isNull(obj);
 	}
+
+	getLetraDNI(numero) {
+        numero = numero % 26;
+        var letra = 'PUOIAFSDLKJGHTYMNBQWERVCXZ';
+        return letra.substring(numero, numero + 1);
+    }
+    getNumberDNI(dni) {
+        return parseInt(dni.substring(0, dni.lastIndexOf('-')), 16);
+    }
+
+    generateDNIFromGuid(guid) {
+        var numero = guid + algorithDNI;
+        return numero.toString(16).toUpperCase() + "-" + this.getLetraDNI(numero);
+    }
+
+
+    getGuidFromDNI(dni) {
+
+        return this.getNumberDNI(dni) - algorithDNI;
+    }
+
+    isCorrectDNI(dni) {
+        return this.getLetraDNI(this.getNumberDNI(dni)) === dni.substring(dni.lastIndexOf('-') + 1);
+    }
 
 }
 const miscSingleton = new MiscSingleton();

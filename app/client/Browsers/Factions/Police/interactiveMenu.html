@@ -1,92 +1,155 @@
 ﻿<html>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="interactiveMenu.css">
-	<script src="../../vue.js"></script>
-	<body>
-		<section id="app">
-	
-			<div class="b-patient">
-				{{ patientName }}<br>
-				<span>{{ currentPatientText }}</span>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../bootstrap.min.css">
+<link rel="stylesheet" href="../../all.min.css">
+<link rel="stylesheet" href="interactiveMenu.css">
+<script src="../../jquery-3.4.1.min.js"></script>
+<script src="../../bootstrap.bundle.min.js"></script>
+<script src="../../vue.js"></script>
+
+<body class="bg-dark">
+	<section id="app">
+		<!-- Modal -->
+		<div class="modal fade" id="multarModal" tabindex="-1" role="dialog" aria-labelledby="multarModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="multarModalLabel">Formulario de multas</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Cantidad de la multa:</p>
+						<input type="text" v-model="priceMulta" class="form-control">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-primary" @click="multar()">Multar</button>
+					</div>
+				</div>
 			</div>
-		
-			<section class="items">
-				<div class="item" v-on:click="increase">
-					<div>{{ increaseText }}</div>
-					<div class="item_price">$500</div>
+		</div>
+
+		<div class="container mt-30vh text-white">
+			<h1 class="text-center"><b>{{ targetPlayerInformation.fullName }}</b></h1>
+			<h2 class="text-center"><b>{{ targetPlayerInformation.dni }}</b></h2>
+			<div class="row text-center mt-5">
+				<div class="col-4">
+					<a @click="removerCargos()" class="btn btn-primary text-white">Remover cargos</a>
 				</div>
-				<div class="item" @click="heal">
-					<div>{{ healText }}</div>
-					<div class="item_price">$5 000</div>
+				<div class="col-4">
+					<a @click="arrestar()" class="btn btn-primary text-white">Arrestar</a>
 				</div>
-			</section>
-			
-			<div class="b3-close" id="close-button" @click="exit">X</div>
-		</section>
-	</body>
+				<div class="col-4">
+					<a class="btn btn-primary text-white" data-toggle="modal" data-target="#multarModal">Multar</a>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-6 mt-5">
+					<a @click="cachear()" class="btn btn-primary text-white">Cachear</a>
+				</div>
+				<div class="col-6 mt-5">
+					<a @click="esposar()" v-if="!targetPlayerInformation.isArrested" class="btn btn-primary text-white">Poner esposas</a>
+					<a @click="esposar()" v-else class="btn btn-primary text-white">Quitar esposas</a>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="b3-close" id="close-button" @click="exit">X</div>
+	</section>
+</body>
+
 </html>
 
 
 <script>
-const app = new Vue({
-	el: '#app',
-	data: {
-		patientId: 0,
-		patientName: "",
-		currentPatientText: "Current patient", 
-		increaseText: "Increase healing speed",
-		healText: "Heal",
-	},
-	methods: {
-		increase: function() {
-			mp.trigger("cMisc-CallServerEvent", "sHospital-IncreaseHealingSpeed", this.patientId);
-			this.exit();
+	const app = new Vue({
+		el: '#app',
+		data: {
+			targetPlayerInformation: {},
+			currentPatientText: "Datos personales",
+			increaseText: "Increase healing speed",
+			priceMulta: ""
 		},
-		
-		heal: function() {
-			mp.trigger("cMisc-CallServerEvent", "sHospital-Heal", this.patientId);
-			this.exit();
-		},
+		methods: {
 
+			removerCargos() {	
+				app.exit();		
+				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-removerCargos", this.generateFrontInfo());
+			},
 
-		exit: function() {
-			mp.trigger("cCloseCef"); 
-		},
-	}
-});
+			arrestar() {
+				app.exit();
+				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-arrestar", this.generateFrontInfo());				
+			},
 
+			multar() {
+				app.exit();
+				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-multar", this.generateFrontInfo());
+			},
 
+			cachear() {
+				app.exit();
+				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-cachear", this.generateFrontInfo());
+			},
 
-function loadRusLang() {
-	app.currentPatientText = "Текущий пациент";
-	app.increaseText = "Увеличить скорость выздоровления";
-	app.healText = "Вылечить";
-}
+			esposar() {
+				app.exit();
+				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-esposar", this.generateFrontInfo());
+			},
 
-function loadGerLang() {
-	app.currentPatientText = "Aktueller Patient";
-	app.increaseText = "Erhöhen Sie die Wiederherstellungsrate";
-	app.healText = "Patient Heilen";
-}
+			loadTargetPlayerInformation: function (str) {
+				this.targetPlayerInformation = JSON.parse(str);
+			},
 
-function loadBrLang() {
+			generateFrontInfo: function () {
+				var obj = {
+					targetPlayerInformation: this.targetPlayerInformation,
+					priceMulta: this.priceMulta,
+				};
+				return JSON.stringify(obj);
+			},
+
+			exit: function () {
+				mp.trigger("cCloseCef");
+			},
+		}
+	});
+
 	
-}
 
-function loadzh_CNLang() {
-	app.currentPatientText = "当前病患";
-	app.increaseText = "加速治疗";
-	app.healText = "治疗";
-}
+	function loadRusLang() {
+		app.currentPatientText = "Текущий пациент";
+		app.increaseText = "Увеличить скорость выздоровления";
+		app.healText = "Вылечить";
+	}
 
-function loadzh_TWLang() {
-	app.currentPatientText = "當前病患";
-	app.increaseText = "加速治療";
-	app.healText = "治療";
-}
-function loadCsLang() {
-	app.currentPatientText = "Aktuální pacient";
-	app.increaseText = "Zvýšit rychlost uzdravení";
-	app.healText = "Uzdravit";
-}
+	function loadGerLang() {
+		app.currentPatientText = "Aktueller Patient";
+		app.increaseText = "Erhöhen Sie die Wiederherstellungsrate";
+		app.healText = "Patient Heilen";
+	}
+
+	function loadBrLang() {
+
+	}
+
+	function loadzh_CNLang() {
+		app.currentPatientText = "当前病患";
+		app.increaseText = "加速治疗";
+		app.healText = "治疗";
+	}
+
+	function loadzh_TWLang() {
+		app.currentPatientText = "當前病患";
+		app.increaseText = "加速治療";
+		app.healText = "治療";
+	}
+	function loadCsLang() {
+		app.currentPatientText = "Aktuální pacient";
+		app.increaseText = "Zvýšit rychlost uzdravení";
+		app.healText = "Uzdravit";
+	}
 </script>

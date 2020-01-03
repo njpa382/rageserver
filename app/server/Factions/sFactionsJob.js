@@ -4,6 +4,7 @@ const Job = require('../Jobs/sJob');
 const VehicleSingletone = require('../Basic/Vehicles/sVehicleSingletone');
 const Vehicle = require('../Basic/Vehicles/sVehicle');
 const pickVehicleCoords_id = 1;
+const dropVehicleCoords_id = 2;
 
 
 class FactionJob extends Job {
@@ -11,6 +12,7 @@ class FactionJob extends Job {
 
         super(jobParamenters.basicInformation);
         this.pickVehicleCoords = jobParamenters.pickVehicleCoords;
+        this.dropVehicleCoords = jobParamenters.dropVehicleCoords;
         this.faction_id = jobParamenters.basicInformation.faction_id;
         this.className = jobParamenters.basicInformation.className;
         this.factionVehiclesList = jobParamenters.factionVehiclesList;
@@ -23,14 +25,7 @@ class FactionJob extends Job {
                 misc.log.debug("shape.factionShapeType: " + shape.factionShapeType);
                 misc.log.debug("shape.spawnCoords: " + shape.spawnCoords);
                 player.job.vehicleSpawnCoords = shape.spawnCoords;
-                player.canOpenFaction = shape.factionShapeType;
-                /*switch (shape.factionShapeType) {
-                    case 1:
-                        break;
-                    default:
-                        player.canOpenFaction = -1;
-                        break;
-                }*/
+                player.canOpenFaction = shape.factionShapeType;                
 
             },
 
@@ -52,6 +47,11 @@ class FactionJob extends Job {
                 //this.enteredSellShape(player);
             },
 
+            "sKeys-F4" : (player) => {
+                if (!player.loggedIn) return;
+				this.openInteractionMenu(player);
+			},
+
             "sFactionJob-StartWork": (player) => {
                 this.startWork(player);
             },
@@ -70,6 +70,9 @@ class FactionJob extends Job {
                         case 1:
                             this.showSelectVehicleMenu(player);
                             break;
+                        case 2:
+                            this.dropVehicleToGarage(player);
+                            break;
                     }
                 }
             },
@@ -77,7 +80,21 @@ class FactionJob extends Job {
         });
 
         this.createPickVehicleLocatins();
+        this.createDropVehicleLocatins();
     }
+
+    async dropVehicleToGarage(player) {
+        //settear la flag de la DB
+        await misc.query(`UPDATE vehicles SET ingarage = TRUE where id = ${player.vehicle.guid}`);
+        //despawnear el auto
+        var vehicleToDestroy = player.vehicle;
+        vehicleToDestroy.destroy();
+    
+    }    
+
+    openInteractionMenu(player) {        
+        misc.log.debug("NO TIENE MENU ESTA FACCION");
+	}
 
     showSelectVehicleMenu(player) {
         var allVehicles = misc.isNotNull(this.factionVehiclesList) ? this.factionVehiclesList : [];
@@ -101,7 +118,7 @@ class FactionJob extends Job {
         misc.log.debug("pickCarFromGarage all vehicles : " + JSON.stringify(allVehicles));
         misc.log.debug("pickCarFromGarage garage : " + JSON.stringify(garage));
         player.call("cGarageMenu-CarSelectMenu", [player.lang, execute]);
-    }
+    }    
 
     spawnAnyVehicle(player) {
         misc.log.debug("player.job.vehicleSpawnCoords: " + player.job.vehicleSpawnCoords);
@@ -129,15 +146,28 @@ class FactionJob extends Job {
 
     createPickVehicleLocatins() {
         this.pickVehicleCoords.forEach(element => {
-            var dropMarker = mp.markers.new(1, new mp.Vector3(element.x, element.y, element.z - 1), 0.75,
+            var dropMarker = mp.markers.new(36, new mp.Vector3(element.x, element.y, element.z), 0.75,
                 {
-                    color: [0, 0, 255, 100],
+                    color: [0, 255, 0, 100],
                     visible: true,
                 });
 
             var dropShape = mp.colshapes.newSphere(element.x, element.y, element.z, 1);
             dropShape.factionShapeType = pickVehicleCoords_id;
             dropShape.spawnCoords = element.spawn;
+        });
+    }
+
+    createDropVehicleLocatins() {
+        this.dropVehicleCoords.forEach(element => {
+            var dropMarker = mp.markers.new(36, new mp.Vector3(element.x, element.y, element.z), 0.75,
+                {
+                    color: [255, 0, 0, 100],
+                    visible: true,
+                });
+
+            var dropShape = mp.colshapes.newSphere(element.x, element.y, element.z, 1);
+            dropShape.factionShapeType = dropVehicleCoords_id;
         });
     }
 
@@ -174,4 +204,6 @@ class FactionJob extends Job {
 
 
 }
+
+
 module.exports = FactionJob;

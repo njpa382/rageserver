@@ -45,7 +45,7 @@ class Job {
         this.mainMenu = { x: d.x, y: d.y, z: d.z, rot: d.rot, dim: d.dim };
 
         this.createMainEntities();
-        this.setLocalSettings();
+        this.createBlip(d);
         jobsList.push(this);
     }
 
@@ -56,14 +56,17 @@ class Job {
             visible: true,
         });
         this.mainShape = mp.colshapes.newSphere(this.mainMenu.x, this.mainMenu.y, this.mainMenu.z, 1);
-        this.mainShape.job = this.name;
-    
-        this.blip = mp.blips.new(514, new mp.Vector3(this.mainMenu.x, this.mainMenu.y, this.mainMenu.z),
+        this.mainShape.job = this.name;   
+        
+    }
+
+    createBlip(generalInformation) {
+        this.blip = mp.blips.new(generalInformation.blipInfo.id, new mp.Vector3(generalInformation.x, generalInformation.y, generalInformation.z),
         {	
             name: this.name,
             shortRange: true,
             scale: 0.7,
-            color: 17,
+            color: generalInformation.blipInfo.color,
         });
     }
 

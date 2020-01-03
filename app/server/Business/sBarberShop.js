@@ -4,7 +4,7 @@ const headOverlaySingletone = require('../Character/sHeadOverlay');
 const i18n = require('../sI18n');
 
 
-class ClothingShop extends business {
+class BarberShop extends business {
     constructor(d) {
 		super(d);
 		this.camData = JSON.parse(d.camData);
@@ -75,7 +75,8 @@ class ClothingShop extends business {
 async function loadBarberShops() {
 	const d = await misc.query("SELECT * FROM business INNER JOIN barbershop ON business.id = barbershop.id");
 	for (let i = 0; i < d.length; i++) {
-		new ClothingShop(d[i]);
+		misc.log.debug("BARBERIA: " + JSON.stringify(d[i]));
+		new BarberShop(d[i]);
 	}
 }
 loadBarberShops();
