@@ -54,7 +54,7 @@ class faction {
 		this.clothingMarker = mp.markers.new(1, new mp.Vector3(pos.x, pos.y, pos.z - 1), 0.75,
 			{
 				color: [255, 255, 0, 15],
-				visible: false,
+				visible: true,
 			});
 	}
 

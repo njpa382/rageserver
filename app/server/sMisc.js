@@ -123,6 +123,15 @@ class MiscSingleton {
 		if (player.vehicle) obj.rot = player.vehicle.rotation.z;
 		return JSON.stringify(obj);
 	}
+	
+	generateRandomNumberPlate() {
+		const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		let number = '';
+		for (let i = 0; i < 8; i++) {
+			number += possible.charAt(this.getRandomInt(0, possible.length));
+		}
+		return number;
+	}
 
 	isNull(obj) {
 		return obj === undefined || obj === null;

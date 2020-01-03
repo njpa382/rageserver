@@ -38,6 +38,8 @@ class Vehicle {
 
 		vehicle.canOpen = function(player) {
 			if (player.dimension !== this.dimension) return false;
+			misc.log.debug("player.faction.name: " + player.faction.name);
+			misc.log.debug("this.factionName: " + this.factionName);
 			if (player.faction.name && player.faction.name === this.factionName) return true;
 			for (const p of this.whoCanOpen) {
 				if (p !== player.guid) continue;

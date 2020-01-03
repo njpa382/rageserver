@@ -47,19 +47,34 @@ class GarageSingleton {
             "sGarageSingleton-SellGarage": (player) => {
                 misc.log.debug("sGarageSingleton-SellGarage: " + player.guid);
             },
-            "sGarageSingleton-PickVehicle": async (player, vehicle_id) => {
+            "sGarageSingleton-PickVehicle": async (player, str ) => {
+                var garageInfo = JSON.parse(str);
+                var vehicleToAdd = null;
+                misc.log.debug("GarageInfo: " + JSON.stringify(garageInfo));
 
+                if(garageInfo.isPersonalGarage) {
+                    vehicleToAdd = misc.isNotNull(player.allVehicles) ? player.allVehicles.filter(v => v.id === garageInfo.vehicle_id)[0] : null;
+                } else {                    
+                    vehicleToAdd = misc.isNotNull(garageInfo.garageVehicles) ? garageInfo.garageVehicles.filter(v => v.id === garageInfo.vehicle_id)[0] : null;
+                    vehicleToAdd.factionName = player.faction.name;
+                    vehicleToAdd.whoCanOpen = JSON.stringify([player.guid]);
+                    vehicleToAdd.primaryColor = JSON.stringify([0, 0,0]);
+					vehicleToAdd.secondaryColor = JSON.stringify([0, 0,0]);
+                }
 
-                var vehicleToAdd = misc.isNotNull(player.allVehicles) ? player.allVehicles.filter(v => v.id === vehicle_id)[0] : null;
+                misc.log.debug("vehicleToAdd: before: " + JSON.stringify(vehicleToAdd));
 
                 if (misc.isNotNull(vehicleToAdd)) {
-                    vehicleToAdd.coord = misc.getPlayerCoordJSON(player);
-
+                    //TODO: cuando spawneamos coche en personalgarage que no spawnee encima del player, sino en coordenadas especificas dependiendo de cada garage
+                    vehicleToAdd.coord = garageInfo.garage.pickcoord;
+                    misc.log.debug("vehicleToAdd: after: " + JSON.stringify(vehicleToAdd));
+                    
                     new vehicle(vehicleToAdd);
                 }
-                await this.updateInGarageInDB(player, vehicle_id);
-                await this.updatePlayerVehicles(player);
-
+                if(garageInfo.isPersonalGarage){
+                    await this.updateInGarageInDB(player, garageInfo.vehicle_id);
+                    await this.updatePlayerVehicles(player);
+                }
             }
         });
     }
@@ -158,6 +173,7 @@ class GarageSingleton {
                 let execute = '';
                 execute += `app.loadGarage('${garage}');`; // JSON.stringify(allVehicles)
                 execute += `app.loadVehicles('${JSON.stringify(allVehicles)}');`;
+                execute += `app.isPersonalGarage('true');`;
                 misc.log.debug("pickCarFromGarage all vehicles : " + JSON.stringify(allVehicles));
                 player.call("cGarageMenu-CarSelectMenu", [player.lang, execute]);
                 needToBuy = false;

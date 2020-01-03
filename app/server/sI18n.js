@@ -722,6 +722,21 @@ const i18n = {
 
 	},
 
+	sPoliceJob: {
+		younotinthisfaction: {
+			eng: 'You are not a police',
+			rus: 'Вам нужна медицинская помощь',
+			ger: 'Sie brauchen eine medizinische Hilfe',
+			br: 'Você precisa de ajuda médica', 
+			zhs: '你需要医疗救治',
+			zht: '你需要醫療救治',
+			cs: 'Potřebuješ zzdravotní pomoc',
+		},
+
+		
+
+	},
+
 	sJob: {
 		start: {
 			eng: 'You started work as',

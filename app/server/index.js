@@ -14,6 +14,8 @@ require('./Jobs/sOrangeCollector');
 require('./Jobs/sMariaCollector');
 require('./Jobs/sCluckinBellCourier');
 require('./Factions/Police/sPolice');
+require('./Factions/sFactionsJob');
+require('./Factions/Police/sPoliceJob');
 require('./Basic/sMenu');
 require('./Basic/sGPS');
 require('./3rd/betternotifs.js');

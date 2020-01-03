@@ -12,18 +12,29 @@
     <div class="b3-close" @click="exit">X</div>
 
     <div class="container bg-white rounded-lg">
-      <h1><b><i class="fas fa-warehouse"></i> {{ garage.name }}</b></h1>
+      <h1><b>{{ garage.name }}</b></h1>
       <p class="float-right"><b>Cantidad vehiculos: {{ allVehicles.length }}</b></p>
       <div class="clearfix"></div>
       <table class="table table-hover mt-4">
+        <thead>
+          <tr>
+            <td>#</td>
+            <td>Marca</td>
+            <td>Modelo</td>
+            <td>Matricula</td>
+            <td>Combustible</td>
+            <td></td>
+          </tr>
+        </thead>
         <tbody>
           <tr v-for="(vehicle, index) in allVehicles">
             <th scope="row">{{index + 1}}</th>
             <td class="text-capitalize">{{vehicle.model}}</td>
             <td class="text-capitalize">{{vehicle.title}}</td>
-            <td class="text-capitalize">{{vehicle.numberPlate}} <i class="fas fa-id-card-alt"></i></td>
-            <td class="text-capitalize">{{vehicle.fuel}}<i class="fas fa-gas-pump"></i></td>
-            <td><a class="btn btn-success float-right text-white" @click="pickVehicle(vehicle.id)"><i class="fas fa-car"></i> <i class="fas fa-angle-right"></i></a></td>
+            <td class="text-capitalize">{{vehicle.numberPlate}}</td>
+            <td class="text-capitalize">{{vehicle.fuel}}</td>
+            <td v-if="canSpawnVehicle(vehicle)"><a class="btn btn-success float-right text-white" @click="pickVehicle(vehicle.id)">Retirar</a></td>
+            <td v-else><a class="btn btn-secondary float-right text-white">Retirar</a></td>
           </tr>
         </tbody>
       </table>
@@ -40,11 +51,15 @@
     data: {
       garage: {},
       allVehicles: {},
+      isPersonal: null
     },
     methods: {
       buyGarage: function () {
         this.exit();
         mp.trigger("cMisc-CallServerEvent", "sGarageSingleton-BuyGarage");
+      },
+      canSpawnVehicle: function(vehicle){
+        return (this.garage.playerRank === undefined && vehicle.minimunRank === undefined) || (vehicle.minimunRank <= this.garage.playerRank);
       },
       exit: function () {
         mp.trigger("cCloseCef");
@@ -54,11 +69,20 @@
       },
       pickVehicle: function (vehicle_id) {
         this.exit();
-        mp.trigger("cMisc-CallServerEvent", "sGarageSingleton-PickVehicle", vehicle_id);
+        var obj = {
+          vehicle_id: vehicle_id,
+          garage: this.garage,
+          garageVehicles: this.allVehicles,
+          isPersonalGarage: this.isPersonal
+        };
+        mp.trigger("cMisc-CallServerEvent", "sGarageSingleton-PickVehicle", JSON.stringify(obj));
       },
       loadVehicles: function (str) {
         this.allVehicles = JSON.parse(str);
       },
+      isPersonalGarage: function(str){
+        this.isPersonal = str==="true";
+      }
     }
   });
 

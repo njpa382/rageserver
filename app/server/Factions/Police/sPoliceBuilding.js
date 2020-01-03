@@ -6,7 +6,7 @@ const i18n = require('../../sI18n');
 class PoliceBuilding extends sBuilding {
 	constructor() {
 		super();
-		this.mainEntranceData = {
+		/*this.mainEntranceData = {
 			outPos: {x: -1107.097, y: -846.088, z: 19.317, rot: 129.39, dim: 0},
 			inPos: {x: 437.286, y: -978.417, z: 30.69, rot: 178.7, dim: 0},
 		
@@ -26,7 +26,11 @@ class PoliceBuilding extends sBuilding {
 			inMarkerR: 0.75,
 			inMarkerCol: [30, 144, 255, 15],
 		}
-		this.createMainEntrance();
+		this.createMainEntrance();*/
+		//uper.createClothingShape({x: 454.028, y: -991.645, z: 30.69, rot: 184.33, dim: 0});
+
+		
+
 	}
 
 	createMainEntrance() {
