@@ -5,36 +5,36 @@ const CollectorJob = require('./sCollectorJob');
 const sInventoryManager = require('../Basic/Inventory/sInventoryManager');
 
 
-class MariaCollector extends CollectorJob {
+class StoneCollector extends CollectorJob {
     constructor() {
         var childrenInfo = {};
-        childrenInfo.d = { name: "Maria Collector", x: 2212.994, y: 5577.482, z: 53.786, rot: 0, dim: 0, blipInfo: {id:140, color: 25}};
+        childrenInfo.d = { name: "Stone Collector", x: 2963.963, y: 2757.009, z: 43.219, rot: 207.19, dim: 0, blipInfo: {id:618, color: 73}};
         childrenInfo.collectorInfo = {
-            item_id: 1,
-            refined_items_ids: [2],
-            refined_items_probability:[100],
-            refined_items_prices:[500],
+            item_id: 3,
+            refined_items_ids: [4,5,6,7],
+            refined_items_probability:[30, 85, 99, 100],
+            refined_items_prices:[200, 500, 1000, 5000],
             max_item_quantity: 50,
             refined_items_equivalent: 5
         };        
-        childrenInfo.posToDrop = {x: -273.107, y: 2197.09, z: 129.837};
-        childrenInfo.sellPosition = {x: -1172.152, y: -1571.8, z: 4.664};
+        childrenInfo.posToDrop = {x: 1109.088, y: -2008.24, z: 31.038};
+        childrenInfo.sellPosition = {x: -622.361, y: -231.108, z: 38.057};
         childrenInfo.checkPoints = [
-            {x: 2234.38, y: 5577.286, z: 53.932 },
-            {x: 2226.166, y: 5578.286, z: 53.932 },
-            {x: 2219.275, y: 5575.25, z: 53.932 },
+            {x: 2970.791, y: 2776.561, z: 38.362 },
+            {x: 2950.072, y: 2769.37, z: 38.969 },
+            {x: 2970.542, y: 2801.577, z: 41.577 },
         ];
         childrenInfo.treeMarkersList = [];
         
-        misc.log.debug("childenInfo: " + JSON.stringify(childrenInfo));
+        misc.log.debug("StoneCollector childenInfo: " + JSON.stringify(childrenInfo));
         super(childrenInfo);
-        
+
         mp.events.add({
-            "sMariaCollector-StartWork" : (player) => {
+            "sStoneCollector-StartWork" : (player) => {
                 this.startWork(player);
             },
         
-            "sMariaCollector-FinishWork" : (player) => {
+            "sStoneCollector-FinishWork" : (player) => {
                 this.finishWork(player);
             }        
         });
@@ -43,7 +43,7 @@ class MariaCollector extends CollectorJob {
     pressedKeyOnMainShape(player) {
         let execute = '';
         if (player.job.name === this.name) execute = `app.loadFinish();`;
-        player.call("cMariaCollector-OpenMainMenu", [player.lang, execute]);
+        player.call("cStoneCollector-OpenMainMenu", [player.lang, execute]);
         super.pressedKeyOnMainShape(player);
     }
 
@@ -65,4 +65,4 @@ class MariaCollector extends CollectorJob {
         super.setWorkingClothesForWoman(player);
     }    
 }
-new MariaCollector();
+new StoneCollector();

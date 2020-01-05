@@ -12,6 +12,7 @@ require('./Business/sCommercialCarDealership');
 require('./Business/sGasStation');
 require('./Jobs/sOrangeCollector');
 require('./Jobs/sMariaCollector');
+require('./Jobs/sStoneCollector');
 require('./Jobs/sCluckinBellCourier');
 require('./Factions/Police/sPolice');
 require('./Factions/sFactionsJob');

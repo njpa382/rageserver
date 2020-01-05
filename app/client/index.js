@@ -11,6 +11,7 @@ require('./Basic/cVehicle');
 require('./Basic/cGarageMenu');
 require('./Jobs/cOrangeCollector');
 require('./Jobs/cMariaCollector');
+require('./Jobs/cStoneCollector');
 require('./Factions/cGarage.js');
 require('./Factions/cHospital.js');
 require('./Factions/cPolice.js');
