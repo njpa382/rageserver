@@ -3,6 +3,9 @@ const misc = require('../../../sMisc');
 const i18n = require('../../../sI18n');
 const inventory = require('../../../Basic/Inventory/sInventoryManager');
 const dineroSucioId = 8;
+const tickDivided = 10;
+const tickPorcentage = 2;
+const tickTotalPorcentage = tickPorcentage * tickDivided;
 
 mp.events.add({
     "playerEnterColshape": (player, shape) => {
@@ -13,12 +16,14 @@ mp.events.add({
 
     "playerExitColshape": (player, shape) => {
         //detectar si esta en un robo, de esta shape y cancelar el robo.
-        if (misc.isNotNull(player.robo) ) {
+        if (misc.isNotNull(player.robo)) {
+            if(player.robo.inProgress) player.notify(`~r~${i18n.get('sPoliceJob', 'stopRobo', player.lang)}!`);
             clearInterval(player.robo.intervalRobo);
             clearTimeout(player.robo.timeOut);
+            clearTimeout(player.robo.ticktimeOut);
         }
         //player.robo.inProgress = false;
-        player.robo = null;
+        player.robo = null;        
     },
 
     "sKeys-E": (player) => {
@@ -30,18 +35,17 @@ mp.events.add({
     },
 
 });
- 
+
 class Robo {
     constructor() {
         this.roboList = [
             {
                 id: 0,
                 name: "Banco Central",
-                dineroTotal: 100000,
-                tiempoTotal: 60,
-                tiempoTick: 10,
-                dineroTick: 1000,
-                startTime: 30,
+                dineroActual: 100000,
+                dineroMaximo: 100000,
+                tiempoTotal: 120,
+                policeResponseTime: 30,
                 inProgress: false,
                 coord: { x: 255.447, y: 224.548, z: 100.876, rot: 50 }
             }
@@ -50,9 +54,11 @@ class Robo {
 
         mp.events.add({
             "sRobo-StartRobo": async (player, str) => {
+                player.notify(`~r~${i18n.get('sPoliceJob', 'startRobo', player.lang)}!`);
+                player.call("cRobo-sendNotifications");
                 var frontInfo = JSON.parse(str);
                 player.robo.inProgress = true;
-                this.startTimer(player);
+                this.startTimer(player);//
             }
         });
     }
@@ -63,20 +69,24 @@ class Robo {
     }
 
     setTickTimer(player) {
-        player.robo.intervalRobo = setInterval(function () {
-            misc.log.debug("Evento TICK");
-            player.notify(`${i18n.get('basic', 'earned1', player.lang)} ~g~$${player.robo.dineroTick}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
-            inventory.addToInventory(player, dineroSucioId, player.robo.dineroTick);
-        }, player.robo.tiempoTick * 1000);
+
+        player.robo.ticktimeOut = setTimeout(function () {
+            player.robo.intervalRobo = setInterval(function () {
+                misc.log.debug("Evento TICK");
+                player.notify(`${i18n.get('basic', 'earned1', player.lang)} ~g~$${(tickPorcentage * player.robo.dineroActual) / 100}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
+                inventory.addToInventory(player, dineroSucioId, (tickPorcentage * player.robo.dineroActual) / 100);
+            }, ((player.robo.tiempoTotal - 30) / tickDivided) * 1000);
+        }, player.robo.policeResponseTime * 1000);
     }
 
     setCompleteTimer(player) {
-        player.robo.timeOut = setTimeout(function(){
+        player.robo.timeOut = setTimeout(function () {
             player.robo.inProgress = false;
             clearInterval(player.robo.intervalRobo);
             misc.log.debug("ROBO COMPLETO");
-            inventory.addToInventory(player, dineroSucioId, player.robo.dineroTotal);
-            player.notify(`${i18n.get('basic', 'earned1', player.lang)} ~g~$${player.robo.dineroTotal}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
+            var dineroSucioCantidad = player.robo.dineroActual - ((tickTotalPorcentage * player.robo.dineroActual) / 100);
+            inventory.addToInventory(player, dineroSucioId, dineroSucioCantidad);
+            player.notify(`${i18n.get('sPoliceJob', 'roboFinalizado', player.lang)} ~g~$${player.robo.dineroActual}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
         }, player.robo.tiempoTotal * 1000);
     }
 

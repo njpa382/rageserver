@@ -743,6 +743,36 @@ const i18n = {
 			cs: 'Potřebuješ zzdravotní pomoc',
 		},
 
+		startRobo: {
+			eng: 'Comenzando Robo',
+			rus: 'Вам нужна медицинская помощь',
+			ger: 'Sie brauchen eine medizinische Hilfe',
+			br: 'Você precisa de ajuda médica', 
+			zhs: '你需要医疗救治',
+			zht: '你需要醫療救治',
+			cs: 'Potřebuješ zzdravotní pomoc',
+		},
+
+		roboFinalizado: {
+			eng: 'You got all the money. You earned ',
+			rus: 'Вам нужна медицинская помощь',
+			ger: 'Sie brauchen eine medizinische Hilfe',
+			br: 'Você precisa de ajuda médica', 
+			zhs: '你需要医疗救治',
+			zht: '你需要醫療救治',
+			cs: 'Potřebuješ zzdravotní pomoc',
+		},
+
+		stopRobo: {
+			eng: 'Robo suspendido',
+			rus: 'Вам нужна медицинская помощь',
+			ger: 'Sie brauchen eine medizinische Hilfe',
+			br: 'Você precisa de ajuda médica', 
+			zhs: '你需要医疗救治',
+			zht: '你需要醫療救治',
+			cs: 'Potřebuješ zzdravotní pomoc',
+		},
+
 		
 
 	},
