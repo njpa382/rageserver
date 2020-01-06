@@ -1,4 +1,5 @@
 const business = require('../Business/sBusiness');
+const playerSingleton = require('../Basic/sPlayer');
 
 
 class TimeSingleton {
@@ -12,10 +13,12 @@ class TimeSingleton {
 			if (!player.loggedIn) return;
 			player.addHP();
 			player.jailEvent();
+			playerSingleton.saveAccount(player);
 		}	
 	}
 
 	every5MinutesEvent() {
+
 
 	}
 

@@ -2,7 +2,6 @@ const misc = require('../../../sMisc');
 const clothes = require('../../../Character/sClothes');
 const building = require('./sPrisonBuilding');
 
-
 class Prison {
 	constructor() {
 		mp.events.add({
@@ -81,6 +80,14 @@ class Prison {
 			this.updateWantedLevel();
 			clothes.loadPlayerClothes(this);
 			misc.log.debug(`${this.name} ended jail`);
+		}
+
+		player.removeAllJail = function() {
+			this.jail.inside = 0;
+			this.jail.time = 0;
+			this.jail.violations = [];
+			this.updateWantedLevel();
+			misc.query(`UPDATE usersJail set violations = '[]' ,time = ${this.jail.inside} ,inside = ${this.jail.time} where id = ${player.guid}`);
 		}
 
 	}

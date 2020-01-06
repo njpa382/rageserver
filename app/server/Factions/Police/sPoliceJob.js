@@ -40,18 +40,23 @@ class PoliceJob extends FactionJob {
             "sPoliceJob-removerCargos": async (player, str) => {
                 var frontInfo = JSON.parse(str);
                 misc.log.debug("sPoliceJob-removerCargos: " + str);
+                var targetPlayer = misc.getPlayerById(misc.getGuidFromDNI(frontInfo.targetPlayerInformation.dni));
+                this.removeJailHistory(targetPlayer);
+
             },
             "sPoliceJob-arrestar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
                 misc.log.debug("sPoliceJob-arrestar: " + str);
+                var targetPlayer = misc.getPlayerById(misc.getGuidFromDNI(frontInfo.targetPlayerInformation.dni));
+                targetPlayer.startJail();
             },
             "sPoliceJob-multar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
                 misc.log.debug("sPoliceJob-multar: " + str);
             },
-            "sPoliceJob-cachear": async (player, str) => {
+            "sPoliceJob-confiscar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
-                misc.log.debug("sPoliceJob-cachear: " + str);
+                misc.log.debug("sPoliceJob-confiscar: " + str);
             },
             "sPoliceJob-esposar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
@@ -78,6 +83,11 @@ class PoliceJob extends FactionJob {
         player.call("sPoliceJob-OpenMainMenu", [player.lang, execute]);
     }
 
+    async removeJailHistory(player) {
+        player.removeAllJail();
+        player.notify(`~r~${i18n.get('sPoliceJob', 'jailStatusRemoved', player.lang)}!`);
+    }
+
     openInteractionMenu(player) {
         if (player.job.isActive && player.faction.faction_id === faction_id_const) {
             const nearestPlayer = misc.getNearestPlayerInRange(player, player.position, 1);
@@ -85,6 +95,9 @@ class PoliceJob extends FactionJob {
             misc.log.debug("Jugador cercano: " + JSON.stringify(nearestPlayer));
 
             var playerInformation = this.generatePlayerInfo(nearestPlayer);
+
+            misc.log.debug("Jugador cercano - playerInformation : " + JSON.stringify(playerInformation));
+
 
             let execute = '';
             execute = `app.loadTargetPlayerInformation('${JSON.stringify(playerInformation)}');`;
@@ -97,6 +110,8 @@ class PoliceJob extends FactionJob {
         playerInformation.dni = nearestPlayer.dni;
         playerInformation.isArrested = misc.isNull(nearestPlayer.isArrested) ? false : nearestPlayer.isArrested;
         playerInformation.fullName = nearestPlayer.firstName + " " + nearestPlayer.lastName;
+        playerInformation.invetory = nearestPlayer.inventory;
+        playerInformation.cash = nearestPlayer.money.cash;
         return playerInformation;
     }    
 

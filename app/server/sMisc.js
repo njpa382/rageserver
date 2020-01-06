@@ -113,7 +113,7 @@ class MiscSingleton {
 		const players = mp.players.toArray();
 		const playersInRange = [];
 		for (const player of players) {
-			if(originPlayer.guid === player.guid) continue;
+			//if(originPlayer.guid === player.guid) continue;
 			if (player.dist(position) < range) {
 				playersInRange.push(player);
 			}

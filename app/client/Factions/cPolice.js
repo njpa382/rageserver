@@ -21,5 +21,4 @@ mp.events.add(
 		misc.openCef("package://RP/Browsers/Factions/Police/policeJob.html", lang);
 		misc.injectCef(inject);
 	},
-
 });

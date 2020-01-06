@@ -15,6 +15,7 @@ require('./Jobs/sMariaCollector');
 require('./Jobs/sStoneCollector');
 require('./Jobs/sCluckinBellCourier');
 require('./Factions/Police/sPolice');
+require('./Factions/Police/Robo/sRobo');
 require('./Factions/sFactionsJob');
 require('./Factions/Police/sPoliceJob');
 require('./Basic/sMenu');

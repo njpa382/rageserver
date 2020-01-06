@@ -78,6 +78,14 @@ class PlayerSingleton {
         //        player.loggedIn = false;
     }
 
+    async saveAsyncAccount(player) {
+        player.saveBasicData();
+        vehiclesSingleton.savePlayerVehicles(player.guid);
+        prison.savePlayerAccount(player);
+        //        misc.log.debug(`${player.name} disconnected`);
+        //        player.loggedIn = false;
+    }
+
     loadPlayerTemplate(player) {
         player.loggedIn = false;
         player.lang = 'eng';
@@ -208,6 +216,5 @@ function playerExitVehicleHandler(player) {
 }
 
 mp.events.add("playerExitVehicle", playerExitVehicleHandler);
-
-
+// Save by enter Vehicle
 

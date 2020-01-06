@@ -22,11 +22,51 @@
 					</div>
 					<div class="modal-body">
 						<p>Cantidad de la multa:</p>
-						<input type="text" v-model="priceMulta" class="form-control">
+
+						<table class="table">
+							<tr class="cursor-pointer" :class="getClass(multaSeleccionada, desc)" v-for="desc in descripcionesMulta"
+								@click="multaSeleccionada = toggleSelection(multaSeleccionada, desc)">
+								<td>{{desc.description}}</td>
+								<td class="text-success">${{desc.multa}}</td>
+							</tr>
+						</table>
+						<p class="text-danger" v-if="mostrarFeedback">Selecciona una puta multa pinche pendejo
+							retrasado!!</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 						<button type="button" class="btn btn-primary" @click="multar()">Multar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="inventoryModal" tabindex="-1" role="dialog" aria-labelledby="inventoryModal"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="inventoryModal">Inventario</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<h2 class="text-center text-success"><b>DINERO: ${{ targetPlayerInformation.cash }}</b></h2>
+						<p>Objetos:</p>
+						<table class="table">
+							<tr class="cursor-pointer" :class="getClass(objetoAConfiscar, item)" v-for="item in targetPlayerInformation.invetory"
+								@click="objetoAConfiscar = toggleSelection(objetoAConfiscar, item)">
+								<td>{{item.name}}</td>
+								<td>${{item.quantity}}</td>
+							</tr>
+						</table>
+						<p class="text-danger" v-if="mostrarFeedback">Selecciona un puto objeto pinche pendejo
+							retrasado!!</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-primary" @click="confiscar()">Confiscar</button>
 					</div>
 				</div>
 			</div>
@@ -43,17 +83,17 @@
 					<a @click="arrestar()" class="btn btn-primary text-white">Arrestar</a>
 				</div>
 				<div class="col-4">
-					<a class="btn btn-primary text-white" data-toggle="modal" data-target="#multarModal">Multar</a>
+					<a class="btn btn-primary text-white" data-toggle="modal" data-target="#multarModal" @click="mostrarFeedback = false">Multar</a>
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-6 mt-5">
-					<a @click="cachear()" class="btn btn-primary text-white">Cachear</a>
+					<a class="btn btn-primary text-white" data-toggle="modal" data-target="#inventoryModal" @click="mostrarFeedback = false">Cachear</a>
 				</div>
 				<div class="col-6 mt-5">
-					<a @click="esposar()" v-if="!targetPlayerInformation.isArrested" class="btn btn-primary text-white">Poner esposas</a>
+					<a @click="esposar()" v-if="!targetPlayerInformation.isArrested"
+						class="btn btn-primary text-white">Poner esposas</a>
 					<a @click="esposar()" v-else class="btn btn-primary text-white">Quitar esposas</a>
 				</div>
-
 			</div>
 		</div>
 
@@ -71,28 +111,57 @@
 			targetPlayerInformation: {},
 			currentPatientText: "Datos personales",
 			increaseText: "Increase healing speed",
-			priceMulta: ""
+			priceMulta: "",
+			descripcionesMulta: [
+				{
+					id: 1,
+					description: "Lleva droga duraaaaaaaaa",
+					multa: "5000",
+					tiempo: "300"
+				},
+				{
+					id: 2,
+					description: "Lleva droga blandaaaaaa",
+					multa: "2000",
+					tiempo: "150"
+				}
+			],
+			multaSeleccionada: null,
+			objetoAConfiscar: null,
+			mostrarFeedback: false
 		},
 		methods: {
 
-			removerCargos() {	
-				app.exit();		
+			removerCargos() {
+				app.exit();
 				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-removerCargos", this.generateFrontInfo());
 			},
 
 			arrestar() {
 				app.exit();
-				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-arrestar", this.generateFrontInfo());				
+				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-arrestar", this.generateFrontInfo());
 			},
 
 			multar() {
-				app.exit();
-				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-multar", this.generateFrontInfo());
+				this.mostrarFeedback = false;
+				if (this.multaSeleccionada === null) {
+					this.mostrarFeedback = true;
+				}
+				else {
+					app.exit();
+					mp.trigger("cMisc-CallServerEvent", "sPoliceJob-multar", this.generateFrontInfo());
+				}
 			},
 
-			cachear() {
-				app.exit();
-				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-cachear", this.generateFrontInfo());
+			confiscar() {
+				this.mostrarFeedback = false;
+				if (this.objetoAConfiscar === null) {
+					this.mostrarFeedback = true;
+				}
+				else {
+					app.exit();
+					mp.trigger("cMisc-CallServerEvent", "sPoliceJob-confiscar", this.generateFrontInfo());
+				}
 			},
 
 			esposar() {
@@ -102,14 +171,32 @@
 
 			loadTargetPlayerInformation: function (str) {
 				this.targetPlayerInformation = JSON.parse(str);
+				for (i = 0 ; i<this.targetPlayerInformation.invetory.lenght ; i++) {
+					this.targetPlayerInformation.invetory[i].id = this.targetPlayerInformation.invetory[i].item_id;
+				}
 			},
 
 			generateFrontInfo: function () {
 				var obj = {
 					targetPlayerInformation: this.targetPlayerInformation,
 					priceMulta: this.priceMulta,
+					multaSeleccionada: this.multaSeleccionada,
+					objetoAConfiscar: this.objetoAConfiscar
 				};
 				return JSON.stringify(obj);
+			},
+
+			toggleSelection: function (obj, compare) {
+				this.mostrarFeedback = false;
+
+				if (obj === null || obj.id !== compare.id)
+					obj = compare;
+				else
+					obj = null;
+				return obj;
+			},
+			getClass: function (obj, compare) {
+				return obj !== null && obj.id === compare.id ? 'table-success' : '';
 			},
 
 			exit: function () {
@@ -118,7 +205,7 @@
 		}
 	});
 
-	
+
 
 	function loadRusLang() {
 		app.currentPatientText = "Текущий пациент";
