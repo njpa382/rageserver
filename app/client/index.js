@@ -15,6 +15,7 @@ require('./Jobs/cStoneCollector');
 require('./Factions/cGarage.js');
 require('./Factions/cHospital.js');
 require('./Factions/cPolice.js');
+require('./Factions/cRobo.js');
 require('./Factions/cPrison.js');
 require('./Basic/cMenu');
 require('./Basic/cGPS');

@@ -31,8 +31,7 @@ class GarageSingleton {
                 if (!player.loggedIn) return;
                 if (misc.isNull(player.canOpenGarageMenu) || player.canOpenGarageMenu <= 0) return;
                 var garageObj = this.listGarages.filter(g => g.id === player.canOpenGarageMenu)[0];
-                var garage = JSON.stringify(garageObj);
-                misc.log.debug("player.garageShapeType: " + player.garageShapeType);
+                var garage = JSON.stringify(garageObj);                
 
                 if (player.garageShapeType === savecoord) {
                     this.buyAndSaveCartInGarage(player, garage);
