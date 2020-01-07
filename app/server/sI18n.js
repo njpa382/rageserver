@@ -773,6 +773,16 @@ const i18n = {
 			cs: 'Potřebuješ zzdravotní pomoc',
 		},
 
+		otroRoboProgreso: {
+			eng: 'Otro Robo en progreso. Volver mas tarde',
+			rus: 'Вам нужна медицинская помощь',
+			ger: 'Sie brauchen eine medizinische Hilfe',
+			br: 'Você precisa de ajuda médica', 
+			zhs: '你需要医疗救治',
+			zht: '你需要醫療救治',
+			cs: 'Potřebuješ zzdravotní pomoc',
+		},
+
 		
 
 	},

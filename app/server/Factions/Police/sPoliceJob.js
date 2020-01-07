@@ -158,8 +158,7 @@ class PoliceJob extends FactionJob {
         // Remove all weapons
         player.removeAllWeapons();
         super.finishWork(player);
-    }
-
+    }   
 
 }
 new PoliceJob();

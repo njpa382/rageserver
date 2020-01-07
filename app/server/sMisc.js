@@ -121,6 +121,10 @@ class MiscSingleton {
 		return playersInRange;
 	}
 
+	getAllPlayer() {
+		return mp.players.toArray();
+	}
+
 	getNearestPlayerInRange(originPlayer, position, range) {
 		const playersInRange = this.getPlayersInRange(originPlayer, position, range);
 		if (!playersInRange) return false;
@@ -194,7 +198,6 @@ class MiscSingleton {
         var numero = guid + algorithDNI;
         return numero.toString(16).toUpperCase() + "-" + this.getLetraDNI(numero);
     }
-
 
     getGuidFromDNI(dni) {
 

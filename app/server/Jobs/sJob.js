@@ -97,6 +97,8 @@ class Job {
     }
 
     isPlayerWorksHere(player) {
+        misc.log.debug("player.job.name: " + player.job.name);
+        misc.log.debug("this.name: " + this.name);
         if (player.job.name && player.job.name === this.name) return true;
         return false;
     }
