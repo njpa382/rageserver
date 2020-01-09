@@ -37,7 +37,7 @@ mp.events.add({
     "sKeys-E": (player) => {
         if (!player.loggedIn) return;
         if (misc.isNull(player.robo) || player.robo.inProgress) return;
-        if(roboInProgress) {
+        if (roboInProgress) {
             player.notify(`~r~${i18n.get('sPoliceJob', 'otroRoboProgreso', player.lang)}!`);
             return;
         }
@@ -50,7 +50,7 @@ mp.events.add({
 
 class Robo {
     constructor() {
-        this.roboList = [
+        /*this.roboList = [
             {
                 id: 0,
                 name: "Banco Central",
@@ -60,8 +60,9 @@ class Robo {
                 policeResponseTime: 30,
                 coord: { x: 255.447, y: 224.548, z: 100.876, rot: 50 }
             }
-        ];
-        this.createRoboLocations();
+        ];*/
+
+        this.generateInitialRobos();
 
         mp.events.add({
             "sRobo-StartRobo": async (player, str) => {
@@ -76,9 +77,21 @@ class Robo {
         });
     }
 
+    async generateInitialRobos() {
+        this.roboList = await this.getUpdatedRobosFromDB();
+        this.roboList.forEach(element => {
+            element.coord = JSON.parse(element.coord);
+        });
+        this.createRoboLocations();
+    }
+
     async startTimer(player) {
         this.setTickTimer(player);
         this.setCompleteTimer(player);
+    }
+
+    async getUpdatedRobosFromDB() {
+        return await misc.query(`SELECT * FROM robos`);
     }
 
     setTickTimer(player) {
@@ -106,6 +119,7 @@ class Robo {
 
     createRoboLocations() {
         this.roboList.forEach(element => {
+            misc.log.debug("element: " + JSON.stringify(element));
             mp.markers.new(1, new mp.Vector3(element.coord.x, element.coord.y, element.coord.z), 5,
                 {
                     color: [0, 160, 0, 30],
