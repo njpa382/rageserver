@@ -1,6 +1,6 @@
 const business = require('../Business/sBusiness');
 const playerSingleton = require('../Basic/sPlayer');
-
+const roboObject = require('../Factions/Police/Robo/sRobo');
 
 class TimeSingleton {
 	constructor() {
@@ -15,15 +15,15 @@ class TimeSingleton {
 			player.jailEvent();
 			playerSingleton.saveAccount(player);
 		}	
+		
 	}
 
 	every5MinutesEvent() {
-
-
+		roboObject.rellenarRoboTick();
 	}
 
 	everyHourEvent() {
-		business.payTaxes();
+		business.payTaxes();		
 	}
 
 	runTimer(isFirstRunning) {
