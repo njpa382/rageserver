@@ -1,8 +1,9 @@
 #! /bin/bash
 echo "1. Reiniciar servidor GTA "
-echo "2. Ver logs "
-echo "3. Abrir BBDD "
-echo "4. Backup BBDD "
+echo "2. Ver Logs "
+echo "3. Ver Logs tiempo real"
+echo "4. Abrir BBDD "
+echo "5. Backup BBDD "
 echo -n "Elige una opcion:"
 read opcion
 echo "La opcion seleccionada es $opcion"
@@ -20,10 +21,14 @@ case $opcion in
         ;;
     3)
         echo "Opcion 3"
-        mysql -u root -p-Largun217 -D ragerp
-        ;;
+        tail -F serverLogs.log
+        ;;	
     4)
         echo "Opcion 4"
+        mysql -u root -p-Largun217 -D ragerp
+        ;;
+    5)
+        echo "Opcion 5"
         now=$(date +"%Y_%m_%d__%H_%M_%S")
         mysqldump -u root -p-Largun217 ragerp > backups/ragerp_$now.sql
         ;;

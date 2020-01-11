@@ -1,30 +1,46 @@
 ﻿<html>
 <meta charset="utf-8">
-<link rel="stylesheet" href="../bootstrap.min.css">
-<link rel="stylesheet" href="../all.min.css">
+<link rel="stylesheet" href="../../../bootstrap.min.css">
+<link rel="stylesheet" href="../../../animate.css">
+<!-- <link rel="stylesheet" href="../../../all.min.css"> -->
 <link rel="stylesheet" href="collector.css">
 <script src="../../../jquery-3.4.1.min.js"></script>
 <script src="../../../bootstrap.bundle.min.js"></script>
 <script src="../../../vue.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.12.0/js/all.js" data-auto-a11y="true" data-auto-replace-svg="true"
+  data-auto-add-css="true"></script>
 
 <body>
-  <section id="app">
-    <div class="b3-close" @click="exit">X</div>
+  <section id="app" @keyup.esc="exit" tabindex="0" ref="divClose">
 
-    <div class="message">
-      <h2>{{robo.name}}</h2>   
-      <br><br>
-      Dinero Maximo a robar: {{robo.dineroTotal}} en {{robo.tiempoTotal}}s
-      <br><br>
-      Ten cuidado, cuando se empiece el robo la policia va a ser alertada.
-      <br><br>
-      No podras salir de la zona del robo, si sales, el robo se cancelara.
+    <div class="float-right bg-white p-3" @click="exit"><i class="fas fa-times"></i></div>
+
+    <!-- <div class="card">
+      <div class="card-body">
+        <h2>{{robo.name}}</h2>
+        <p>Dinero Maximo a robar: {{robo.dineroActual}} en {{robo.tiempoTotal}}s</p>
+        <p>Ten cuidado, cuando se empiece el robo la policia va a ser alertada.</p>
+        <p>No podras salir de la zona del robo, si sales, el robo se cancelara.</p>
+      </div>
+    </div> -->
+
+    <div class="card text-center rounded-0 fixed-bottom animated fadeInUpBig">
+      <div class="card-header">
+        {{robo.name}}
+      </div>
+      <div class="card-body">
+        <p>Dinero Maximo a robar: {{robo.dineroActual}} en {{robo.tiempoTotal}}s</p>
+        <p>Ten cuidado, cuando se empiece el robo la policia va a ser alertada.</p>
+        <p>No podras salir de la zona del robo, si sales, el robo se cancelara.</p>
+      </div>
+      <div class="card-footer text-muted">
+        <div class="btn btn-primary" v-if="start" @click="empezarRobo">Robar</div>
+      </div>
     </div>
 
-    <div class="buttons" id="app">
-      <div class="button" v-if="start" @click="empezarRobo">{{ startText }}</div>
-    </div>
-    <section id="app">
+    
+
+    <section>
 </body>
 
 </html>
@@ -35,12 +51,12 @@
     el: '#app',
     data: {
       robo: {},
-      start: true,
-      startText: "Empezar Robo!",
+      start: true
     },
     methods: {
       loadRobo: function (str) {
         this.robo = JSON.parse(str);
+        this.$refs.divClose.focus();
       },
       empezarRobo: function () {
         this.exit();
