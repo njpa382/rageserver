@@ -84,13 +84,13 @@ class RegiserSingleton extends AbstractAuth {
             from: `${mailer.getMailAdress()}`,
             to: `${d.email}`,
             subject: `Success registration.`,
-            text: `Hello! Thank you for registration. Here is info about your account, in case you will forget it: FirstName: ${d.firstName} LastName: ${d.lastName} Password: ${d.pass}`,
-            html: ` <b>Hello!</b><br>
-                    Thank you for registration.<br>
-                    Here is info about your account, in case you will forget it:<br>
-                    <b>FirstName:</b> ${d.firstName}<br>
-                    <b>LastName:</b> ${d.lastName}<br>
-                    <b>Password:</b> ${d.pass}<br>`, 
+            text: `Hola! Gracias por registrarte. Aqui tienes informacion de tu cuenta, en el caso que lo olvides: Primer nombre: ${d.firstName} Apellido: ${d.lastName} Contraseña: ${d.pass}`,
+            html: ` <b>Hola!</b><br>
+                    Gracias por registrarte.<br>
+                    Aqui tienes informacion de tu cuenta, en el caso que lo olvides ( Tu contraseña se guarda encriptada en nuestros servidores y no puede ser recuperada. Guardala bien):<br>
+                    <b>Primer nombre:</b> ${d.firstName}<br>
+                    <b>Apellido:</b> ${d.lastName}<br>
+                    <b>Contraseña:</b> ${d.pass}<br>`, 
         }
         mailer.sendMail(mail);
         player.call("cInjectCef", [`app.showInfo('Success! Now you can log in.');`]);
