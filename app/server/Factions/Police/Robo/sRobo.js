@@ -115,18 +115,18 @@ class Robo {
             //Actualizar los robos de en la DB y en memoria.            
         }, player.robo.tiempoTotal * 1000);
     }
-
+//{"x":255.097,"y":255.566,"z":101.876,"rot":83.89,"dim":0
     createRoboLocations() {
         this.shapes = [];
         this.roboList.forEach(element => {
             misc.log.debug("element: " + JSON.stringify(element));
-            mp.markers.new(1, new mp.Vector3(element.coord.x, element.coord.y, element.coord.z), 5,
+            mp.markers.new(1, new mp.Vector3(255.097,255.566,101.876), 5,
                 {
                     color: [0, 160, 0, 30],
                     visible: true,
                 });
 
-            var roboShape = mp.colshapes.newSphere(element.coord.x, element.coord.y, element.coord.z, 5.5);
+            var roboShape = mp.colshapes.newSphere(255.097, 255.566, 101.876, 5.5);
             roboShape.roboInformation = element;
             this.shapes.push(roboShape);
         });
@@ -138,7 +138,7 @@ class Robo {
         });
         this.shapes = [];
         this.roboList.forEach(element => {
-            var roboShape = mp.colshapes.newSphere(element.coord.x, element.coord.y, element.coord.z, 5.5);
+            var roboShape = mp.colshapes.newSphere(255.097, 255.566, 101.876, 5.5);
             roboShape.roboInformation = element;
             this.shapes.push(roboShape);
         });
