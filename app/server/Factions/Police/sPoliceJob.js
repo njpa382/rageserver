@@ -79,7 +79,7 @@ class PoliceJob extends FactionJob {
 
     }
 
-    updateMultasActuales(targetPlayerInformation, multaSeleccionada, policeDni) {
+    async updateMultasActuales(targetPlayerInformation, multaSeleccionada, policeDni) {
 
         var playerDNI = targetPlayerInformation.dni;
         var multa_id = multaSeleccionada.id;
