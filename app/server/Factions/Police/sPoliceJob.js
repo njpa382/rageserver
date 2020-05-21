@@ -140,6 +140,8 @@ class PoliceJob extends FactionJob {
         var playerInfoFromGame = misc.getPlayerByDNI(nearestPlayer.dni);
         playerInformation.multasActuales = playerInfoFromGame.money.fines;
 
+        misc.log.debug("playerInformation.multasActuales : " + JSON.stringify(playerInformation.multasActuales));
+
         return playerInformation;
     }   
 
