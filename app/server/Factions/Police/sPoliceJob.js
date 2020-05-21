@@ -83,7 +83,7 @@ class PoliceJob extends FactionJob {
 
         var playerDNI = targetPlayerInformation.dni;
         var multa_id = multaSeleccionada.id;
-        var datetime = new Date();
+        var datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var policeDni = policeDni;
 
         await misc.query(`INSERT INTO multas ('playerDNI', 'multa_id', 'datetime','policeDni') VALUES (`+ playerDNI +`,`+ multa_id +`,`+ datetime +`,`+ policeDni +`)`);
