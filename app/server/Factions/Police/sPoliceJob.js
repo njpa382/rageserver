@@ -2,6 +2,7 @@ const misc = require('../../sMisc');
 const i18n = require('../../sI18n');
 const Job = require('../../Jobs/sJob');
 const FactionJob = require('../../Factions/sFactionsJob');
+const inventoryManager = require('../../Basic/Inventory/sInventoryManager');
 
 const faction_id_const = 1;
 
@@ -57,11 +58,8 @@ class PoliceJob extends FactionJob {
             "sPoliceJob-confiscar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
                 misc.log.debug("sPoliceJob-confiscar: " + str);
-                misc.log.debug("sPoliceJob-confiscar: player " + JSON.stringify(player));
                 var objetoAConfiscar = str.objetoAConfiscar;                
-                this.confiscarObjeto(objetoAConfiscar, player.id);    
-
-
+                this.confiscarObjeto(objetoAConfiscar, player.guid);
             },
             "sPoliceJob-esposar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
@@ -83,7 +81,11 @@ class PoliceJob extends FactionJob {
     }
 
     confiscarObjeto(itemInformation, targetInventoryPlayerId) {
-        
+        misc.log.debug("confiscarObjeto");
+        inventoryManager.removeFromInventory(itemInformation.user_id, itemInformation.item.id, itemInformation.quantity);
+        misc.log.debug("confiscarObjeto: Removido del target");
+        inventoryManager.addToInventory(targetInventoryPlayerId, itemInformation.item.id, itemInformation.quantity);
+        misc.log.debug("confiscarObjeto: Agregado al policia");
     }
 
     pressedKeyOnMainShape(player) {
