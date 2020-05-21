@@ -58,7 +58,7 @@ class PoliceJob extends FactionJob {
             "sPoliceJob-confiscar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
                 misc.log.debug("sPoliceJob-confiscar: " + str);
-                var objetoAConfiscar = str.objetoAConfiscar;                
+                var objetoAConfiscar = frontInfo.objetoAConfiscar;                
                 this.confiscarObjeto(objetoAConfiscar, player.guid);
             },
             "sPoliceJob-esposar": async (player, str) => {
