@@ -54,13 +54,7 @@ class PoliceJob extends FactionJob {
             "sPoliceJob-multar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
                 misc.log.debug("sPoliceJob-multar: " + str);
-                /**
-                playerDNI
-                multa_id
-                datetime
-                policeDni
-                 * 
-                */
+                this.updateMultasActuales(frontInfo.targetPlayerInformation, frontInfo.multaSeleccionada, player.dni);
             },
             "sPoliceJob-confiscar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
@@ -83,6 +77,16 @@ class PoliceJob extends FactionJob {
             }
         });
 
+    }
+
+    updateMultasActuales(targetPlayerInformation, multaSeleccionada, policeDni) {
+
+        var playerDNI = targetPlayerInformation.dni;
+        var multa_id = multaSeleccionada.id;
+        var datetime = new Date();
+        var policeDni = policeDni;
+
+        await misc.query(`INSERT INTO multas ('playerDNI', 'multa_id', 'datetime','policeDni') VALUES (`+ playerDNI +`,`+ multa_id +`,`+ datetime +`,`+ policeDni +`)`);
     }
 
     async confiscarObjeto(itemInformation,playerToRemoveItem, targetPlayer) {
