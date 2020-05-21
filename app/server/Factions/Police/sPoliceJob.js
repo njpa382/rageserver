@@ -137,8 +137,14 @@ class PoliceJob extends FactionJob {
             playerInformation.descripcionesMulta.push(element);
         });
 
+        playerInformation.multasActuales = await this.generateMultasActualesFromDB(nearestPlayer.dni);
+
         return playerInformation;
-    }    
+    }   
+    
+    async getUpdatedMultasFromDB(playerDni) {
+        return await misc.query(`SELECT multasActuales.*,multas.description,multas.price FROM multasActuales, multas where multasActuales.playerDNI = '` + playerDni + `' AND multasActuales.multa_id = multas.id`);
+    }
 
     async getUpdatedMultasFromDB() {
         return await misc.query(`SELECT * FROM multas`);
