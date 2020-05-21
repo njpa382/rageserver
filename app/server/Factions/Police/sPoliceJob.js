@@ -118,7 +118,7 @@ class PoliceJob extends FactionJob {
         playerInformation.fullName = nearestPlayer.firstName + " " + nearestPlayer.lastName;
         playerInformation.invetory = nearestPlayer.inventory;
         playerInformation.cash = nearestPlayer.money.cash;
-        playerInformation.descripcionesMulta = [
+        /*playerInformation.descripcionesMulta = [
             {
                 id: 1,
                 description: "Lleva droga duraaaaaaaaa",
@@ -131,9 +131,15 @@ class PoliceJob extends FactionJob {
                 multa: "2000",
                 tiempo: "150"
             }
-        ];
+        ];*/
+        playerInformation.descripcionesMulta = this.getUpdatedMultasFromDB();
         return playerInformation;
     }    
+
+    getUpdatedMultasFromDB() {
+        return misc.query(`SELECT * FROM multas`);
+    }
+
 
     setWorkingClothesForMan(player) {
         this.giveInitialSet(player);
