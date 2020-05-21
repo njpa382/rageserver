@@ -112,20 +112,7 @@
 			currentPatientText: "Datos personales",
 			increaseText: "Increase healing speed",
 			priceMulta: "",
-			descripcionesMulta: [
-				{
-					id: 1,
-					description: "Lleva droga duraaaaaaaaa",
-					multa: "5000",
-					tiempo: "300"
-				},
-				{
-					id: 2,
-					description: "Lleva droga blandaaaaaa",
-					multa: "2000",
-					tiempo: "150"
-				}
-			],
+			descripcionesMulta: [],
 			multaSeleccionada: null,
 			objetoAConfiscar: null,
 			mostrarFeedback: false
@@ -174,6 +161,7 @@
 				for (i = 0 ; i<this.targetPlayerInformation.invetory.lenght ; i++) {
 					this.targetPlayerInformation.invetory[i].id = this.targetPlayerInformation.invetory[i].item_id;
 				}
+				this.descripcionesMulta = targetPlayerInformation.descripcionesMulta;
 			},
 
 			generateFrontInfo: function () {

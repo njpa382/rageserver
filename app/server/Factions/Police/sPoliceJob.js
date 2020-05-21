@@ -57,7 +57,6 @@ class PoliceJob extends FactionJob {
             },
             "sPoliceJob-confiscar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
-                misc.log.debug("sPoliceJob-confiscar: " + str);
                 var objetoAConfiscar = frontInfo.objetoAConfiscar; 
                 var playerToRemoveItem = misc.getPlayerByDNI(frontInfo.targetPlayerInformation.dni);        
                 this.confiscarObjeto(objetoAConfiscar, playerToRemoveItem, player);
@@ -72,9 +71,7 @@ class PoliceJob extends FactionJob {
                 } else {
                     targetPlayer.playAnimation('mp_arresting', 'idle', 1, 2);
                     targetPlayer.isArrested = true;
-                }
-
-                
+                }                
                 misc.log.debug("sPoliceJob-esposar: " + str);
             }
         });
@@ -82,9 +79,8 @@ class PoliceJob extends FactionJob {
     }
 
     async confiscarObjeto(itemInformation,playerToRemoveItem, targetPlayer) {
-        misc.log.debug("confiscarObjeto: " + itemInformation.item_id);
         await inventoryManager.removeFromInventory(playerToRemoveItem, itemInformation.item_id, itemInformation.quantity);
-        misc.log.debug("confiscarObjeto: Removido del target");
+        //TODO: Mandar el objeto a un lugar comun en comisaria. 
     }
 
     pressedKeyOnMainShape(player) {
@@ -122,6 +118,20 @@ class PoliceJob extends FactionJob {
         playerInformation.fullName = nearestPlayer.firstName + " " + nearestPlayer.lastName;
         playerInformation.invetory = nearestPlayer.inventory;
         playerInformation.cash = nearestPlayer.money.cash;
+        playerInformation.descripcionesMulta = [
+            {
+                id: 1,
+                description: "Lleva droga duraaaaaaaaa",
+                multa: "5000",
+                tiempo: "300"
+            },
+            {
+                id: 2,
+                description: "Lleva droga blandaaaaaa",
+                multa: "2000",
+                tiempo: "150"
+            }
+        ];
         return playerInformation;
     }    
 
