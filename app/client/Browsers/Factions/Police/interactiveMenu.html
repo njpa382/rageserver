@@ -86,13 +86,16 @@
 					<a class="btn btn-primary text-white" data-toggle="modal" data-target="#multarModal" @click="mostrarFeedback = false">Multar</a>
 				</div>
 				<div class="clearfix"></div>
-				<div class="col-6 mt-5">
+				<div class="col-4 mt-5">
 					<a class="btn btn-primary text-white" data-toggle="modal" data-target="#inventoryModal" @click="mostrarFeedback = false">Cachear</a>
 				</div>
-				<div class="col-6 mt-5">
+				<div class="col-4 mt-5">
 					<a @click="esposar()" v-if="!targetPlayerInformation.isArrested"
 						class="btn btn-primary text-white">Poner esposas</a>
 					<a @click="esposar()" v-else class="btn btn-primary text-white">Quitar esposas</a>
+				</div>
+				<div class="col-4">
+					<a @click="enviarCarcel()" class="btn btn-primary text-white">Enviar Carcel</a>
 				</div>
 				<div class="col-12 mt-5">
 					<table class="table text-white">
@@ -136,6 +139,11 @@
 			arrestar() {
 				app.exit();
 				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-arrestar", this.generateFrontInfo());
+			},
+
+			enviarCarcel() {
+				app.exit();
+				mp.trigger("cMisc-CallServerEvent", "sPoliceJob-addJail", this.generateFrontInfo());
 			},
 
 			multar() {

@@ -45,6 +45,14 @@ class PoliceJob extends FactionJob {
                 this.removeJailHistory(targetPlayer);
 
             },
+            "sPoliceJob-addJail": async (player, str) => {
+                var frontInfo = JSON.parse(str);
+                misc.log.debug("sPoliceJob-addJail: " + str);
+
+                var playerInfoFromGame = misc.getPlayerByDNI(frontInfo.targetPlayerInformation.dni);
+                playerInfoFromGame.addViolation(2,"Por que el policia quiere.");
+                playerInfoFromGame.startJail();
+            },
             "sPoliceJob-arrestar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
                 misc.log.debug("sPoliceJob-arrestar: " + str);
