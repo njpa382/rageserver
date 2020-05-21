@@ -132,7 +132,15 @@ class PoliceJob extends FactionJob {
                 tiempo: "150"
             }
         ];*/
-        playerInformation.descripcionesMulta = this.getUpdatedMultasFromDB();
+
+        this.multasList = this.getUpdatedMultasFromDB();
+        playerInformation.descripcionesMulta = [];
+
+
+        this.multasList.forEach(element => {
+            playerInformation.descripcionesMulta.push(element);
+        });
+
         return playerInformation;
     }    
 
