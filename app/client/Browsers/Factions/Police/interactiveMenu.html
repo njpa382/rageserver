@@ -27,7 +27,7 @@
 							<tr class="cursor-pointer" :class="getClass(multaSeleccionada, desc)" v-for="desc in descripcionesMulta"
 								@click="multaSeleccionada = toggleSelection(multaSeleccionada, desc)">
 								<td>{{desc.description}}</td>
-								<td class="text-success">${{desc.multa}}</td>
+								<td class="text-success">${{desc.price}}</td>
 							</tr>
 						</table>
 						<p class="text-danger" v-if="mostrarFeedback">Selecciona una puta multa pinche pendejo
