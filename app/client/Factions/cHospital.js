@@ -6,9 +6,15 @@ mp.events.add(
 	"render" : () => drawLightInHospital(),
 	"cHospital-DisableHealthRegeneration" : () => mp.game.player.setHealthRechargeMultiplier(0.0),
 
-	"cHospital-ShowDoctorMenu" : (lang, inject) => {
+	"cHospital-ShowHospitalMenu" : (lang, inject) => {
 		misc.prepareToCef(500);
 		misc.openCef("package://RP/Browsers/Factions/Hospital/interactiveMenu.html", lang);
+		misc.injectCef(inject);
+	},
+
+	"cHospital-OpenMainMenu" : (lang, inject) => {
+		misc.prepareToCef(500);
+		misc.openCef("package://RP/Browsers/Factions/Hospital/hospitalJob.html", lang);
 		misc.injectCef(inject);
 	},
 

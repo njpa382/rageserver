@@ -4,7 +4,7 @@ const Job = require('../../Jobs/sJob');
 const FactionJob = require('../../Factions/sFactionsJob');
 const inventoryManager = require('../../Basic/Inventory/sInventoryManager');
 
-const faction_id_const = 1;
+const faction_id_const = 2;
 
 
 
@@ -46,7 +46,7 @@ class HospitalJob extends FactionJob {
     pressedKeyOnMainShape(player) {
         let execute = '';
         if (player.job.name === this.name) execute = `app.loadFinish();`;
-        player.call("sPoliceJob-OpenMainMenu", [player.lang, execute]);
+        player.call("cHospital-OpenMainMenu", [player.lang, execute]);
     }    
 
     async openInteractionMenu(player) {
@@ -62,7 +62,7 @@ class HospitalJob extends FactionJob {
 
             let execute = '';
             execute = `app.loadTargetPlayerInformation('${JSON.stringify(playerInformation)}');`;
-            player.call("sPoliceJob-ShowPoliceMenu", [player.lang, execute]);
+            player.call("cHospital-ShowHospitalMenu", [player.lang, execute]);
         }
     }
 
