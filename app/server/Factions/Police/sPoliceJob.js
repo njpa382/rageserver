@@ -54,6 +54,13 @@ class PoliceJob extends FactionJob {
             "sPoliceJob-multar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
                 misc.log.debug("sPoliceJob-multar: " + str);
+                /**
+                playerDNI
+                multa_id
+                datetime
+                policeDni
+                 * 
+                */
             },
             "sPoliceJob-confiscar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
@@ -118,20 +125,6 @@ class PoliceJob extends FactionJob {
         playerInformation.fullName = nearestPlayer.firstName + " " + nearestPlayer.lastName;
         playerInformation.invetory = nearestPlayer.inventory;
         playerInformation.cash = nearestPlayer.money.cash;
-        /*playerInformation.descripcionesMulta = [
-            {
-                id: 1,
-                description: "Lleva droga duraaaaaaaaa",
-                multa: "5000",
-                tiempo: "300"
-            },
-            {
-                id: 2,
-                description: "Lleva droga blandaaaaaa",
-                multa: "2000",
-                tiempo: "150"
-            }
-        ];*/
 
         this.multasList = await this.getUpdatedMultasFromDB();
         playerInformation.descripcionesMulta = [];
