@@ -2,6 +2,28 @@
    "Map": {
       "Objects": {
          "MapObject": [
+		{
+               "Type": "Prop",
+               "Position": {
+                  "X": "441",
+                  "Y": "-982",
+                  "Z": "30"
+               },
+               "Rotation": {
+                  "X": "1.00179113E-05",
+                  "Y": "2.23118E-05",
+                  "Z": "-5.00895567E-06"
+               },
+               "Hash": "1316648054",
+               "Dynamic": "false",
+               "Quaternion": {
+                  "X": "8.742278E-08",
+                  "Y": "1.94707184E-07",
+                  "Z": "-4.37114025E-08",
+                  "W": "1"
+               },
+               "Door": "false"
+            },
             {
                "Type": "Prop",
                "Position": {
