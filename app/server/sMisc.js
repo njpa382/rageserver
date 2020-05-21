@@ -96,6 +96,20 @@ class MiscSingleton {
 		return returnPlayer;
 	}
 
+	getPlayerByDNI(dni) {
+		const players = mp.players.toArray();
+		var returnPlayer = undefined;
+		for (const player of players) {
+			this.log.debug("dni: " + dni + " - player.dni: " + player.dni);
+			if(dni === player.dni) {
+				returnPlayer = player;
+			}
+
+		}
+		this.log.debug("returnPlayer: " + returnPlayer);
+		return returnPlayer;
+	}
+
 	getNearestPlayerInRange(position, range) {
 		const playersInRange = this.getPlayersInRange(position, range);
 		if (!playersInRange) return false;

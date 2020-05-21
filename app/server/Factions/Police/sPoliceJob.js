@@ -58,8 +58,9 @@ class PoliceJob extends FactionJob {
             "sPoliceJob-confiscar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
                 misc.log.debug("sPoliceJob-confiscar: " + str);
-                var objetoAConfiscar = frontInfo.objetoAConfiscar;                
-                this.confiscarObjeto(objetoAConfiscar, player.guid);
+                var objetoAConfiscar = frontInfo.objetoAConfiscar; 
+                var playerToRemoveItem = misc.getPlayerByDNI(frontInfo.targetPlayerInformation.dni);        
+                this.confiscarObjeto(objetoAConfiscar, playerToRemoveItem, player);
             },
             "sPoliceJob-esposar": async (player, str) => {
                 var frontInfo = JSON.parse(str);
@@ -80,11 +81,11 @@ class PoliceJob extends FactionJob {
 
     }
 
-    async confiscarObjeto(itemInformation, targetInventoryPlayerId) {
+    async confiscarObjeto(itemInformation,playerToRemoveItem, targetPlayer) {
         misc.log.debug("confiscarObjeto: " + itemInformation.item_id);
-        await inventoryManager.removeFromInventory(itemInformation.user_id, itemInformation.item_id, itemInformation.quantity);
+        await inventoryManager.removeFromInventory(playerToRemoveItem, itemInformation.item_id, itemInformation.quantity);
         misc.log.debug("confiscarObjeto: Removido del target");
-        //await inventoryManager.addToInventory(targetInventoryPlayerId, itemInformation.item_id, itemInformation.quantity);
+        await inventoryManager.addToInventory(targetPlayer, itemInformation.item_id, itemInformation.quantity);
         misc.log.debug("confiscarObjeto: Agregado al policia");
     }
 
