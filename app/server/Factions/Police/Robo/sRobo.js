@@ -42,7 +42,6 @@ mp.events.add({
 
     "sKeys-E": (player) => {
         if (!player.loggedIn) return;
-        misc.log.debug("E: player.robo: " + JSON.stringify(player.robo));
         if (misc.isNull(player.robo)) return;
         if (roboInProgress) {
             player.notify(`~r~${i18n.get('sPoliceJob', 'otroRoboProgreso', player.lang)}!`);
@@ -84,7 +83,6 @@ class Robo {
         this.roboList.forEach(element => {
             element.coord = JSON.parse(element.coord);
         });
-        misc.log.debug("updateRoboList + " + JSON.stringify(this.roboList));
     }
 
     async startTimer(player) {
@@ -101,7 +99,6 @@ class Robo {
         player.robo.ticktimeOut = setTimeout(function () {
             robarTick(player);
             player.robo.intervalRobo = setInterval(function () {
-                misc.log.debug("Evento TICK");
                 robarTick(player);
             }, ((player.robo.tiempoTotal - 30) / tickDivided) * 1000);
         }, player.robo.policeResponseTime * 1000);
@@ -119,7 +116,6 @@ class Robo {
     createRoboLocations() {
         this.shapes = [];
         this.roboList.forEach(element => {
-            misc.log.debug("element: " + JSON.stringify(element));
             mp.markers.new(1, new mp.Vector3(element.coord.x, element.coord.y, element.coord.z), 5,
                 {
                     color: [0, 160, 0, 30],
@@ -145,7 +141,6 @@ class Robo {
     }
 
     async rellenarRoboTick() {
-        misc.log.debug("Evento TICK: everyMinuteEvent");
 
         if (roboInProgress) return;
         //TODO: SE PUEDE MEJORAR aun mas!!!
@@ -153,12 +148,10 @@ class Robo {
         
         for ( var i = 0 ; i < this.roboList.length ; i ++ ) {
             var element = this.roboList[i];
-            misc.log.debug("Evento TICK: everyMinuteEvent: " + JSON.stringify(element));
             if (element.dineroMaximo !== element.dineroActual) {
                 var cantidadDineroParaAgregar = (element.dineroMaximo * element.reposicionPorcentageTick) / 100;
                 var dineroActualProyectado = element.dineroActual + cantidadDineroParaAgregar;
                 dineroActualProyectado = dineroActualProyectado > element.dineroMaximo ? element.dineroMaximo : dineroActualProyectado;
-                misc.log.debug("Evento TICK: dineroActualProyectado: " + dineroActualProyectado);
                 await misc.query(`UPDATE robos set dineroActual = ${dineroActualProyectado} where id = ${element.id}`);
             }
         }
@@ -199,7 +192,6 @@ function robarTick(player) {
     player.robo.dineroRobado += dineroARobar;
     player.notify(`${i18n.get('basic', 'earned1', player.lang)} ~g~$${dineroARobar}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
     inventory.addToInventory(player, dineroSucioId, dineroARobar);
-    misc.log.debug("player.robo.dineroRobado: Tick: " + player.robo.dineroRobado);
 
 }
 
@@ -208,7 +200,6 @@ function robarCompletado(player) {
     player.robo.dineroRobado += dineroSucioCantidad;
     inventory.addToInventory(player, dineroSucioId, dineroSucioCantidad);
     player.notify(`${i18n.get('sPoliceJob', 'roboFinalizado', player.lang)} ~g~$${player.robo.dineroActual}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
-    misc.log.debug("player.robo.dineroRobado: " + player.robo.dineroRobado);
     removeMoneyFromBankInDB(player.robo, player.robo.dineroRobado);
 }
 
