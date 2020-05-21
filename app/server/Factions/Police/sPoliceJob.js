@@ -80,7 +80,7 @@ class PoliceJob extends FactionJob {
 
     }
 
-    confiscarObjeto(itemInformation, targetInventoryPlayerId) {
+    async confiscarObjeto(itemInformation, targetInventoryPlayerId) {
         misc.log.debug("confiscarObjeto");
         await inventoryManager.removeFromInventory(itemInformation.user_id, itemInformation.item_id, itemInformation.quantity);
         misc.log.debug("confiscarObjeto: Removido del target");
