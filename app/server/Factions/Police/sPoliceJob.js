@@ -86,7 +86,7 @@ class PoliceJob extends FactionJob {
         var datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var policeDni = policeDni;
 
-        await misc.query(`INSERT INTO multas ('playerDNI', 'multa_id', 'datetime','policeDni') VALUES (`+ playerDNI +`,`+ multa_id +`,`+ datetime +`,`+ policeDni +`)`);
+        await misc.query(`INSERT INTO multas ('playerDNI', 'multa_id', 'datetime','policeDni') VALUES ('`+ playerDNI +`',`+ multa_id +`,'`+ datetime +`','`+ policeDni +`')`);
     }
 
     async confiscarObjeto(itemInformation,playerToRemoveItem, targetPlayer) {
