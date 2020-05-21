@@ -80,22 +80,20 @@ class HospitalJob extends FactionJob {
     setWorkingClothesForMan(player) {
         this.giveInitialSet(player);
         // Set Uniform
-        player.setClothes(3, 0, 0, 2);
-        player.setClothes(8, 58, 0, 2);
-        player.setClothes(6, 25, 0, 2);
-        player.setClothes(4, 35, 0, 2);
-        player.setClothes(11, 55, 0, 2);
+        player.setClothes(11, 12, 0, 0); // Tops
+		player.setClothes(3, 12, 0, 0); // Tops
+		player.setClothes(8, 12, 0, 0); // Tops
+		player.setClothes(4, 20, 0, 0); // Legs
         super.setWorkingClothesForMan(player);
     }
 
     setWorkingClothesForWoman(player) {
         this.giveInitialSet(player);
         // Set Uniform
-        player.setClothes(3, 0, 0, 2);
-        player.setClothes(8, 58, 0, 2);
-        player.setClothes(6, 25, 0, 2);
-        player.setClothes(4, 35, 0, 2);
-        player.setClothes(11, 55, 0, 2);
+        player.setClothes(11, 27, 0, 0); // Tops
+		player.setClothes(3, 0, 0, 0); // Tops
+		player.setClothes(8, 2, 0, 0); // Tops
+		player.setClothes(4, 23, 0, 0); // Legs
         super.setWorkingClothesForWoman(player);
     }
 
@@ -103,14 +101,8 @@ class HospitalJob extends FactionJob {
         // Remove all weapons
         player.removeAllWeapons();
 
-        // pistol
-        player.giveWeapon(0xBFE256D4, 500);
-        // assault tonfa
-        player.giveWeapon(0x678B81B1, 500);
         // assault tazer
         player.giveWeapon(0x3656C8C1, 500);
-        // assault shotgun
-        player.giveWeapon(0x555AF99A, 500);
     }
 
     finishWork(player) {
