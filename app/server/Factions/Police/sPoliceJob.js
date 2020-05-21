@@ -94,13 +94,13 @@ class PoliceJob extends FactionJob {
         player.notify(`~r~${i18n.get('sPoliceJob', 'jailStatusRemoved', player.lang)}!`);
     }
 
-    openInteractionMenu(player) {
+    async openInteractionMenu(player) {
         if (player.job.isActive && player.faction.faction_id === faction_id_const) {
             const nearestPlayer = misc.getNearestPlayerInRange(player, player.position, 1);
             if (!nearestPlayer) return;
             misc.log.debug("Jugador cercano: " + JSON.stringify(nearestPlayer));
 
-            var playerInformation = this.generatePlayerInfo(nearestPlayer);
+            var playerInformation = await this.generatePlayerInfo(nearestPlayer);
 
             misc.log.debug("Jugador cercano - playerInformation : " + JSON.stringify(playerInformation));
 
@@ -111,7 +111,7 @@ class PoliceJob extends FactionJob {
         }
     }
 
-    generatePlayerInfo(nearestPlayer) {
+    async generatePlayerInfo(nearestPlayer) {
         var playerInformation = {};
         playerInformation.dni = nearestPlayer.dni;
         playerInformation.isArrested = misc.isNull(nearestPlayer.isArrested) ? false : nearestPlayer.isArrested;
@@ -133,9 +133,8 @@ class PoliceJob extends FactionJob {
             }
         ];*/
 
-        this.multasList = this.getUpdatedMultasFromDB();
+        this.multasList = await this.getUpdatedMultasFromDB();
         playerInformation.descripcionesMulta = [];
-
 
         this.multasList.forEach(element => {
             playerInformation.descripcionesMulta.push(element);
@@ -144,8 +143,8 @@ class PoliceJob extends FactionJob {
         return playerInformation;
     }    
 
-    getUpdatedMultasFromDB() {
-        return misc.query(`SELECT * FROM multas`);
+    async getUpdatedMultasFromDB() {
+        return await misc.query(`SELECT * FROM multas`);
     }
 
 
