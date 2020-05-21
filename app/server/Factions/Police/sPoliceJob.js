@@ -86,7 +86,13 @@ class PoliceJob extends FactionJob {
         var datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var policeDni = policeDni;
 
-        await misc.query(`INSERT INTO multasActuales (playerDNI, multa_id, datetime,policeDni) VALUES ('`+ playerDNI +`',`+ multa_id +`,'`+ datetime +`','`+ policeDni +`')`);
+        //{"date":"12/27/2019, 8:02:14 PM","val":45,"txt":"Transfer to Hospital"}
+
+
+        var playerToAddFine = misc.getPlayerByDNI(playerDNI);
+        playerToAddFine.newFine(multaSeleccionada.price, multaSeleccionada.description);
+
+        //await misc.query(`INSERT INTO multasActuales (playerDNI, multa_id, datetime,policeDni) VALUES ('`+ playerDNI +`',`+ multa_id +`,'`+ datetime +`','`+ policeDni +`')`);
     }
 
     async confiscarObjeto(itemInformation,playerToRemoveItem, targetPlayer) {
