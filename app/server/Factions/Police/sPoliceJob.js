@@ -82,17 +82,11 @@ class PoliceJob extends FactionJob {
     async updateMultasActuales(targetPlayerInformation, multaSeleccionada, policeDni) {
 
         var playerDNI = targetPlayerInformation.dni;
-        var multa_id = multaSeleccionada.id;
-        var datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var policeDni = policeDni;
-
-        //{"date":"12/27/2019, 8:02:14 PM","val":45,"txt":"Transfer to Hospital"}
-
+        //TODO: Agregar DNI del policia que multo
 
         var playerToAddFine = misc.getPlayerByDNI(playerDNI);
         playerToAddFine.newFine(multaSeleccionada.price, multaSeleccionada.description);
-
-        //await misc.query(`INSERT INTO multasActuales (playerDNI, multa_id, datetime,policeDni) VALUES ('`+ playerDNI +`',`+ multa_id +`,'`+ datetime +`','`+ policeDni +`')`);
     }
 
     async confiscarObjeto(itemInformation,playerToRemoveItem, targetPlayer) {
@@ -143,14 +137,11 @@ class PoliceJob extends FactionJob {
             playerInformation.descripcionesMulta.push(element);
         });
 
-        playerInformation.multasActuales = await this.generateMultasActualesFromDB(nearestPlayer.dni);
+        var playerInfoFromGame = misc.getPlayerByDNI(nearestPlayer.dni);
+        playerInformation.multasActuales = playerInfoFromGame.money.fines;
 
         return playerInformation;
     }   
-    
-    async generateMultasActualesFromDB(playerDni) {
-        return await misc.query(`SELECT multasActuales.*,multas.description,multas.price FROM multasActuales, multas where multasActuales.playerDNI = '` + playerDni + `' AND multasActuales.multa_id = multas.id`);
-    }
 
     async getUpdatedMultasFromDB() {
         return await misc.query(`SELECT * FROM multas`);
