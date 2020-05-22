@@ -21,7 +21,11 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
 	misc.log.debug("---Pruebas de armas ---");
 	
 	var weapon_hash = mp.players.local.allWeapons; 
-	misc.log.debug("---Pruebas de armas --->" + JSON.stringify(weapon_hash) + " - lenght:" + weapon_hash.length);
+
+	weapon_hash.forEach(element => {
+		misc.log.debug("---Pruebas de armas --->" + JSON.stringify(element));
+
+	});
 
  });
 
