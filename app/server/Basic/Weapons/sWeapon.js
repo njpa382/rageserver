@@ -15,3 +15,12 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
 	let weaponHash = mp.joaat(weapon);
 	player.giveWeapon(weaponHash, parseInt(ammo) || 10000);
   });
+
+  mp.events.addCommand("weapons", (player, fullText) => {
+
+	
+
+	misc.log.debug("Armas del juegador: " + JSON.stringify(player.weapons.all));
+
+  });
+
