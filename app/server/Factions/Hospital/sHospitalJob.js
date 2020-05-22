@@ -43,7 +43,7 @@ class HospitalJob extends FactionJob {
 				if (killer) killername = killer.name;
 				misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killername}`);
             },            
-            
+
             "sHospital-SpawnAfterDeath" : (player) => {
 				this.spawnAfterDeath(player);
 			},
@@ -140,3 +140,34 @@ class HospitalJob extends FactionJob {
 
 }
 new HospitalJob();
+
+function loadUser(player) {
+	player.call("cHospital-DisableHealthRegeneration");
+	player.healingSpeed = 0;
+	player.canStartHeal = false;
+
+	player.stopHealing = function() {
+		if (this.healingSpeed === 0) return;
+		this.healingSpeed = 0;
+		this.outputChatBox(`!{0, 200, 0}${i18n.get('sHospital', 'finishedHealing', this.lang)}!`);
+		misc.log.debug(`${this.name} finished healing. HP: ${this.health}`);
+	}
+	
+	player.startHealing = function() {
+		if (this.healingSpeed > 0) return;
+		this.healingSpeed = 25;
+		player.outputChatBox(`!{0, 200, 0}${i18n.get('sHospital', 'startedHealing', this.lang)}!`);
+		misc.log.debug(`${this.name} start healing. HP: ${this.health}`);
+	}
+
+	player.addHP = function() {
+		if (this.healingSpeed === 0) return;
+		this.health += this.healingSpeed;
+		this.notify(`~g~+ ${this.healingSpeed}hp`);
+		misc.log.debug(`${this.name} got ${this.healingSpeed}hp. Total: ${this.health}`);
+		if (this.health <= 100) return;
+		this.health = 100;
+		this.stopHealing();
+	}
+}
+module.exports.loadUser = loadUser;

@@ -173,7 +173,7 @@ class Hospital extends sFaction {
 
 
 
-
+/*
 function loadUser(player) {
 	player.call("cHospital-DisableHealthRegeneration");
 	player.healingSpeed = 0;
@@ -204,7 +204,7 @@ function loadUser(player) {
 	}
 }
 module.exports.loadUser = loadUser;
-
+*/
 
 
 mp.events.addCommand({
