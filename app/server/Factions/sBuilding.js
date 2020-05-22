@@ -22,8 +22,8 @@ class building {
 	}
 
 	createDoubleEntrance(d) {
-		if (d.outBlipId) this.createBlip(d.outBlipId, d.outPos, d.outBlipCol, d.outBlipName, d.outBlipScale, d.outPos.dim);
-		if (d.inBlipId) this.createBlip(d.inBlipId, d.inPos, d.inBlipCol, d.inBlipName, d.inBlipScale, d.inPos.dim);
+		//if (d.outBlipId) this.createBlip(d.outBlipId, d.outPos, d.outBlipCol, d.outBlipName, d.outBlipScale, d.outPos.dim);
+		//if (d.inBlipId) this.createBlip(d.inBlipId, d.inPos, d.inBlipCol, d.inBlipName, d.inBlipScale, d.inPos.dim);
 		
 		const outShape = mp.colshapes.newSphere(d.outPos.x, d.outPos.y, d.outPos.z, d.outShapeR);
 		outShape.dimension = d.outPos.dim;

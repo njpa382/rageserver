@@ -1,5 +1,6 @@
 const Garage = require('../sGarage');
 
+/*
 const garageData = {
 	basic: {
 		outPos: { x: -1121.295, y: -843.354, z: 12.966, rot: 310.88, dim: 0 },
@@ -25,3 +26,4 @@ const liftData = {
 	shapesList: [],
 }
 new Garage(garageData, liftData);
+*/

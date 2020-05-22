@@ -14,7 +14,7 @@ class HospitalJob extends FactionJob {
         var jobParamenters = {};
         jobParamenters.basicInformation = {
             name: "Hospital Job", x: 269.299, y: -1361.497, z: 24.538, rot: 0,
-            dim: 0, faction_id: faction_id_const, className: "sHospitalJob", blipInfo: { id: 526, color: 3 , newPosition: true, x: -496, y:-337 ,z: 34}
+            dim: 0, faction_id: faction_id_const, className: "sHospitalJob", blipInfo: { id: 61, color: 1 , newPosition: true, x: -496, y:-337 ,z: 34}
         };
         /*jobParamenters.basicInformation = {
             name: "Police", x: 429.284, y: -998.777, z: 25.739, rot: 84.36,

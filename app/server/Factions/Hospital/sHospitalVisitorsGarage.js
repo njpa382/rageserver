@@ -1,6 +1,6 @@
 const Garage = require('../sGarage');
 const i18n = require('../../sI18n');
-
+/*
 const garageData = {
 	basic: {
 		outPos: { x: -515.651, y: -295.108, z: 34.795, rot: 201.06, dim: 0 },
@@ -32,3 +32,4 @@ garage.enterLift = function(player, floor) {
 	const d = garage.getLiftEnterPos(floor);
 	player.tp(d);
 }
+*/
