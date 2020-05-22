@@ -21,17 +21,17 @@ class HospitalJob extends FactionJob {
         };*/
 
         jobParamenters.pickVehicleCoords = [
-            //{ x: 428.908, y: -1000.204, z: 25.78, rot: 295.54, spawn: { x: 431.2, y: -997.116, z: 25.763, rot: 176.75 } },
+            { x: -498.594, y: -341.825, z: 34.502, rot: 262.5, spawn: { x: -488.944, y: -342.966, z: 34.366, rot: 261.19 } },
             //{ x: 438.975, y: -999.889, z: 25.774, rot: 173.55, spawn: { x: 436.206, y: -997.36, z: 25.769, rot: 177.29 } },
         ];
 
         jobParamenters.dropVehicleCoords = [
-            //{ x: 446.895, y: -996.799, z: 25.767, rot: 183.93 },
+            { x: -485.604, y: -331.616, z: 34.364, rot: 83.42 },
             //{ x: 452.167, y: -997.041, z: 25.763, rot: 173.36 },
         ];
 
         jobParamenters.factionVehiclesList = [
-            //{ model: "police3", minimunRank: 1, title: "Police 3", fuel: 40, id: 0, numberPlate: "POLICE000" },
+            { model: "ambulance", minimunRank: 1, title: "Ambulance", fuel: 40, id: 0, numberPlate: "AMBULANCE000" },
         ];
 
         super(jobParamenters);
@@ -114,4 +114,4 @@ class HospitalJob extends FactionJob {
     }   
 
 }
-//new HospitalJob();
+new HospitalJob();
