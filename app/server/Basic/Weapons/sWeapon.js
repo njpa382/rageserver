@@ -18,7 +18,8 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
 
   mp.events.addCommand("weapons", (player, fullText) => {	
 	misc.log.debug("---Pruebas de armas ---");
-	misc.log.debug("Armas del juegador: " + JSON.stringify(player.weapons));
+	misc.log.debug("Armas del juegador: " + JSON.stringify(player.allWeapons));
+	misc.log.debug("Armas del juegador: " + JSON.stringify(player.allWeapons()));
 
   });
 
