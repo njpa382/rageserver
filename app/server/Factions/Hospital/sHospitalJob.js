@@ -114,4 +114,4 @@ class HospitalJob extends FactionJob {
     }   
 
 }
-new HospitalJob();
+//new HospitalJob();
