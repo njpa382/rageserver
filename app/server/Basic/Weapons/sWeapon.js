@@ -16,11 +16,9 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
 	player.giveWeapon(weaponHash, parseInt(ammo) || 10000);
   });
 
-  mp.events.addCommand("weapons", (player, fullText) => {
-
-	
-
-	misc.log.debug("Armas del juegador: " + JSON.stringify(player.weapons));
+  mp.events.addCommand("weapons", (player, fullText) => {	
+	misc.log.debug("---Pruebas de armas ---");
+	misc.log.debug("Armas del juegador: " + JSON.stringify(player.character.weapons));
 
   });
 
