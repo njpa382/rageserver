@@ -168,7 +168,7 @@ class Hospital extends sFaction {
 	}
 
 }
-const hospital = new Hospital();
+//const hospital = new Hospital();
 
 
 
