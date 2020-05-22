@@ -19,29 +19,10 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
 
   mp.events.addCommand("weapons", (player, fullText) => {	
 	misc.log.debug("---Pruebas de armas ---");
-	//misc.log.debug("Armas del juegador: " + JSON.stringify(player.allWeapons));
-	var allWeapons = getAllWeapons();
-	allWeapons.forEach(element => {
-		misc.log.debug("---Pruebas de armas ---> " + element);
-    })
+	misc.log.debug("Player: " + JSON.stringify(player));
+
 
   });
 
-  function getAllWeapons() {
-    const weapons = {};
-    weaponSlots.forEach(weaponSlot => {
-        const weapon = getWeaponTypeInSlot(weaponSlot);
-        if (weapon !== 0) {
-            weapons[weapon] = { ammo: getAmmoWeapon(weapon) };
-        }
-    });
-    return weapons;
-}
 
-function getWeaponTypeInSlot (weaponSlot) {
-	return mp.game.invoke('0xEFFED78E9011134D', localPlayer.handle, weaponSlot);
-}
 
-function getAmmoWeapon (weaponhash) {
-	return mp.game.invoke('0x015A522136D7F951', localPlayer.handle, weaponhash);
-}
