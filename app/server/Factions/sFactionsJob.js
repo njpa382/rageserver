@@ -98,6 +98,7 @@ class FactionJob extends Job {
 	}
 
     showSelectVehicleMenu(player) {
+        if (!this.isPlayerWorksHere(player)) return false;
         var allVehicles = misc.isNotNull(this.factionVehiclesList) ? this.factionVehiclesList : [];
         /*allVehicles.forEach(function(item){
             item.whoCanOpen = JSON.stringify([player.guid]);

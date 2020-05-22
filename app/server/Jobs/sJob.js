@@ -96,10 +96,11 @@ class Job {
         clothes.loadPlayerClothes(player);
     }
 
-    isPlayerWorksHere(player) {
-        misc.log.debug("player.job.name: " + player.job.name);
-        misc.log.debug("this.name: " + this.name);
-        if (player.job.name && player.job.name === this.name) return true;
+    isPlayerWorksHere(player) {       
+        if (player.job.name && player.job.name === this.name) {
+            misc.log.debug(`${player.name} is working as ${this.name}`);
+            return true;
+        }        
         return false;
     }
 
