@@ -20,7 +20,7 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
   mp.events.addCommand("weapons", (player, fullText) => {	
 	misc.log.debug("---Pruebas de armas ---");
 	
-	var weapon_hash = mp.players.local.weapon; 
+	var weapon_hash = mp.players.local.allWeapons; 
 	misc.log.debug("---Pruebas de armas --->" + weapon_hash);
 
  });
