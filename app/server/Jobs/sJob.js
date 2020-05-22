@@ -61,7 +61,18 @@ class Job {
     }
 
     createBlip(generalInformation) {
-        this.blip = mp.blips.new(generalInformation.blipInfo.id, new mp.Vector3(generalInformation.x, generalInformation.y, generalInformation.z),
+
+        var x = generalInformation.x;
+        var y = generalInformation.y;
+        var z = generalInformation.z;
+
+        if (misc.isNotNull(generalInformation.blipInfo.newPosition) && generalInformation.blipInfo.newPosition) {
+            x=generalInformation.blipInfo.x;
+            y=generalInformation.blipInfo.y;
+            z=generalInformation.blipInfo.z;
+        } 
+
+        this.blip = mp.blips.new(generalInformation.blipInfo.id, new mp.Vector3(x, y, z),
         {	
             name: this.name,
             shortRange: true,
