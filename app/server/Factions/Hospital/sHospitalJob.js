@@ -2,7 +2,6 @@ const misc = require('../../sMisc');
 const i18n = require('../../sI18n');
 const Job = require('../../Jobs/sJob');
 const FactionJob = require('../../Factions/sFactionsJob');
-const inventoryManager = require('../../Basic/Inventory/sInventoryManager');
 
 const faction_id_const = 2;
 
