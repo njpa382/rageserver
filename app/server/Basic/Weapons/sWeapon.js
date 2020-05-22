@@ -21,7 +21,13 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
 	misc.log.debug("---Pruebas de armas ---");
 	
 	var gamePlayer = misc.getPlayerByDNI(player.dni);
-	misc.log.debug("Player: " + JSON.stringify(gamePlayer));
+
+	var playerWeapons = NAPI.Player.GetPlayerWeapons(player);
+
+foreach(weapon in playerWeapons) {
+	misc.log.debug("Player weapon: " + JSON.stringify(weapon));
+}
+
 
   });
 
