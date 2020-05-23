@@ -200,7 +200,7 @@ class FactionJob extends Job {
             player.notify(`~r~${i18n.get(this.className, 'younotinthisfaction', this.lang)}!`);
         }
         */
-       if(player.job.isActive) {
+       if(misc.isNull(player.job.isActive)) {
             misc.log.debug("startWork XXXXXXXXXXXXXXXXXXX");
             super.startWork(player);
             player.job = { name: player.faction.name, faction_id: player.faction.faction_id, isActive: true };
