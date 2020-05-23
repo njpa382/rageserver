@@ -12,6 +12,12 @@ mp.events.add(
 		misc.injectCef(inject);
 	},
 
+	"cHospital-OpenDeathMenu" : (lang, inject) => {
+		misc.prepareToCef(500);
+		misc.openCef("package://RP/Browsers/Factions/Hospital/interactiveDeathMenu.html", lang);
+		misc.injectCef(inject);
+	},
+
 	"cHospital-OpenMainMenu" : (lang, inject) => {
 		misc.prepareToCef(500);
 		misc.openCef("package://RP/Browsers/Factions/Hospital/hospitalJob.html", lang);

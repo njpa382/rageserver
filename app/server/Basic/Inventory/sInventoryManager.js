@@ -62,6 +62,7 @@ class InventorySingleton {
 	}
 
 	updatePlayerWeapons(player) {
+		player.removeAllWeapons();
 		player.inventory.forEach(element => { 
 			if(misc.isNotNull(element.realName)) {
 				misc.log.debug("Arma en inventario: " + element.realName);

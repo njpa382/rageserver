@@ -41,21 +41,27 @@ class HospitalJob extends FactionJob {
 
         mp.events.add({
             "playerDeath" : (player, reason, killer) => {
-				player.call("cMisc-CallServerEvenWithTimeout", ["sHospital-SpawnAfterDeath", 10000]);
+				//player.call("cMisc-CallServerEvenWithTimeout", ["sHospital-SpawnAfterDeath", 10000]);
                 //misc.log.debug("Armas actuales: " + JSON.stringify(player.weapons.all));
                 inventoryManager.emptyInventory(player);
                 player.removeAllWeapons();
                 player.changeMoney(-player.money.cash);
                 let killername;
 				if (killer) killername = killer.name;
-				misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killername}`);
+                misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killername}`);
+                this.openDeathMenu(player);
             },            
 
             "sHospital-SpawnAfterDeath" : (player) => {
 				this.spawnAfterDeath(player);
 			},
         });
+    }
 
+    async openDeathMenu(player) {
+        let execute = '';
+        execute = `app.targetPlayerInformation('${JSON.stringify(player)}');`;
+        player.call("cHospital-OpenDeathMenu", [player.lang, execute]);        
     }
 
     spawnAfterDeath(player) {
