@@ -54,6 +54,15 @@ class InventorySingleton {
 		var inv = await misc.query(`SELECT inv.*, items.name, items.description FROM inventory AS inv INNER JOIN items ON inv.item_id = items.item_id WHERE user_id = '${player.guid}'`);
 		//misc.log.debug("Inventory Keys during update: " + Object.keys(inv[0]));
 		player.inventory = misc.isNotNull(inv) ? inv : [];
+		this.updatePlayerWeapons(player);
+	}
+
+	updatePlayerWeapons(player) {
+		player.inventory.forEach(element => { 
+			if(misc.isNotNull(element.realName)) {
+				misc.log.debug("Arma en inventario: " + element.realName);
+			}
+		});
 	}
 
 	existItem(player, item_id) {
