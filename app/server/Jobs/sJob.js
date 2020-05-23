@@ -28,10 +28,10 @@ mp.events.add({
     },
     
     "sKeys-E" : (player) => {
-        if (!player.loggedIn || !player.canOpen.job) return;
+        //if (!player.loggedIn || !player.canOpen.job) return;
         //if (player.job.name && player.job.name !== player.canOpen.job) return player.notify(`~r~${i18n.get('basic', 'workingOnOtherJob', player.lang)}!`);
-        const job = getJobByName(player.canOpen.job);
-        job.pressedKeyOnMainShape(player);
+        //const job = getJobByName(player.canOpen.job);
+        //job.pressedKeyOnMainShape(player);
     },
 
 });
