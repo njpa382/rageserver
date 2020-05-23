@@ -3,6 +3,8 @@ const i18n = require('../../sI18n');
 const Job = require('../../Jobs/sJob');
 const FactionJob = require('../../Factions/sFactionsJob');
 const hospitalBuilding = require('./sHospitalBuilding');
+const inventoryManager = require('../../Basic/Inventory/sInventoryManager');
+
 
 const faction_id_const = 2;
 
@@ -41,6 +43,7 @@ class HospitalJob extends FactionJob {
             "playerDeath" : (player, reason, killer) => {
 				player.call("cMisc-CallServerEvenWithTimeout", ["sHospital-SpawnAfterDeath", 10000]);
                 //misc.log.debug("Armas actuales: " + JSON.stringify(player.weapons.all));
+                inventoryManager.emptyInventory(player);
                 let killername;
 				if (killer) killername = killer.name;
 				misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killername}`);
