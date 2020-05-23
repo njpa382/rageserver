@@ -96,10 +96,6 @@ class FactionJob extends Job {
     openInteractionMenu(player) {        
         misc.log.debug("NO TIENE MENU ESTA FACCION");
     }
-    
-    getFactionID() {        
-        misc.log.debug("NO TIENE IMPLEMENTACION PARA OBTENER FACTION");
-	}
 
     showSelectVehicleMenu(player) {
         if (!this.isPlayerWorksHere(player)) return false;
@@ -188,7 +184,8 @@ class FactionJob extends Job {
     isFromThisFaction(player) {
         misc.log.debug("player.faction.faction_id: " + player.faction.faction_id);
         misc.log.debug("this.faction_id: " + this.faction_id);
-        misc.log.debug("getFactionID: " + this.getFactionID());
+        misc.log.debug("this.className: " + this.className);
+        misc.log.debug("this.blipInfo: " + this.blipInfo);
         return player.faction.faction_id === this.faction_id;
     }
 
