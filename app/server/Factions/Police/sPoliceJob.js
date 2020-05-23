@@ -105,10 +105,13 @@ class PoliceJob extends FactionJob {
     pressedKeyOnMainShape(player) {
         misc.log.debug("player.faction.faction_id: " + player.faction.faction_id);
         misc.log.debug("this.faction_id: " + this.faction_id);
-        if(player.faction.faction_id != this.faction_id) return;
+        
         let execute = '';
         if (player.job.name === this.name) execute = `app.loadFinish();`;
-        player.call("sPoliceJob-OpenMainMenu", [player.lang, execute]);
+        
+        if (player.faction.faction_id == this.faction_id) {
+            player.call("sPoliceJob-OpenMainMenu", [player.lang, execute]);
+        }
     }
 
     async removeJailHistory(player) {
