@@ -21,12 +21,10 @@ class FactionJob extends Job {
 
             "playerEnterColshape": (player, shape) => {
                 misc.log.debug("sFaction : playerEnterColshape");
+                if (!player.loggedIn || !this.isPlayerWorksHere(player)) return;
 
                 misc.log.debug("shape.factionShapeType: " + shape.factionShapeType);
                 misc.log.debug("shape.spawnCoords: " + shape.spawnCoords);
-                if (!player.loggedIn || !this.isPlayerWorksHere(player)) return;
-
-                
                 player.job.vehicleSpawnCoords = shape.spawnCoords;
                 player.canOpenFaction = shape.factionShapeType;               
 
@@ -97,6 +95,10 @@ class FactionJob extends Job {
 
     openInteractionMenu(player) {        
         misc.log.debug("NO TIENE MENU ESTA FACCION");
+    }
+    
+    getFactionID() {        
+        misc.log.debug("NO TIENE IMPLEMENTACION PARA OBTENER FACTION");
 	}
 
     showSelectVehicleMenu(player) {
@@ -186,6 +188,7 @@ class FactionJob extends Job {
     isFromThisFaction(player) {
         misc.log.debug("player.faction.faction_id: " + player.faction.faction_id);
         misc.log.debug("this.faction_id: " + this.faction_id);
+        misc.log.debug("getFactionID: " + this.getFactionID());
         return player.faction.faction_id === this.faction_id;
     }
 

@@ -130,6 +130,10 @@ class PoliceJob extends FactionJob {
         }
     }
 
+    getFactionID() {
+        return faction_id_const;
+    }
+
     async generatePlayerInfo(nearestPlayer) {
         var playerInformation = {};
         playerInformation.dni = nearestPlayer.dni;
