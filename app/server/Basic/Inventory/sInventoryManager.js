@@ -50,6 +50,10 @@ class InventorySingleton {
 		}
 	}
 
+	async emptyInventory(player) {
+		await misc.query(`DELETE from inventory WHERE user_id = '${player.guid}'`);
+	}
+
 	async updateInventory(player) {		
 		var inv = await misc.query(`SELECT inv.*, items.name, items.description, items.realName FROM inventory AS inv INNER JOIN items ON inv.item_id = items.item_id WHERE user_id = '${player.guid}'`);
 		//misc.log.debug("Inventory Keys during update: " + Object.keys(inv[0]));
