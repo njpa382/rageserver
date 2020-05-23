@@ -186,18 +186,24 @@ class FactionJob extends Job {
         misc.log.debug("player.faction.faction_id: " + player.faction.faction_id);
         misc.log.debug("this.faction_id: " + this.faction_id);
         misc.log.debug("this.className: " + this.className);
-        misc.log.debug("this.blipInfo: " + this.blipInfo);
+        
         return player.faction.faction_id === this.faction_id;
     }
 
     startWork(player) {
+        
+        /*
         if (this.isFromThisFaction(player)) {
             super.startWork(player);
             player.job = { name: this.name, faction_id: this.faction_id, isActive: true };
         } else {
             player.notify(`~r~${i18n.get(this.className, 'younotinthisfaction', this.lang)}!`);
         }
+        */
 
+       super.startWork(player);
+       player.job = { name: player.faction.name, faction_id: player.faction.faction_id, isActive: true };
+       misc.log.debug("this.blipInfo: " + JSON.stringify(player.job));
         //this.dropMarker.showFor(player);
         //this.sellMarker.showFor(player);
     }
