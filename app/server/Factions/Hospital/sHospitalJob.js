@@ -60,7 +60,7 @@ class HospitalJob extends FactionJob {
                 //NO USAR EL PLAYER SINO EL TARGET DEL FRONT
                 var frontInfo = JSON.parse(str);
                 var targetPlayer = misc.getPlayerById(misc.getGuidFromDNI(frontInfo.targetPlayerInformation.dni));
-				this.spawnAfterRevive(player, targetPlayer);
+				this.spawnAfterRevive(targetPlayer);
             },
         });
     }
@@ -87,7 +87,7 @@ class HospitalJob extends FactionJob {
 		misc.log.debug(`${player.name} transfered to Hospital. Fine: $${pay}`);
     }
     
-    spawnAfterRevive(medic, player) {
+    spawnAfterRevive(player) {
         if (!player.loggedIn) return;
 		player.spawn(new mp.Vector3(player.position));
 		player.health = 1;
@@ -98,9 +98,8 @@ class HospitalJob extends FactionJob {
 		const pay = misc.roundNum(dist / 20);
 		player.newFine(pay, `${i18n.get('sHospital', 'transferTo', player.lang)}`);
 
-		const tp = { x: medic.position.x + 5, y: medic.position.y + 5, z: medic.position.z + 2, rot: 46.77, dim: 0 };
+		const tp = { x: player.position.x, y: player.position.y, z: player.position.z + 1, rot: 46.77, dim: 0 };
         player.tp(tp);
-        misc.log.debug("spawnAfterRevive: player.position" + JSON.stringify(medic.position));
     }
 
     pressedKeyOnMainShape(player) {
