@@ -98,7 +98,7 @@ class HospitalJob extends FactionJob {
 		const pay = misc.roundNum(dist / 20);
 		player.newFine(pay, `${i18n.get('sHospital', 'transferTo', player.lang)}`);
 
-		const tp = { x: 275.446, y: -1361.11, z: 24.5378, rot: 46.77, dim: 0 };
+		const tp = { x: medic.position.x + 5, y: medic.position.y + 5, z: medic.position.z + 2, rot: 46.77, dim: 0 };
         player.tp(tp);
         misc.log.debug("spawnAfterRevive: player.position" + JSON.stringify(medic.position));
     }
