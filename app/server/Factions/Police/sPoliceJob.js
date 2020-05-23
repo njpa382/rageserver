@@ -104,8 +104,10 @@ class PoliceJob extends FactionJob {
 
     pressedKeyOnMainShape(player) {
         let execute = '';
-        if (player.job.name === this.name) execute = `app.loadFinish();`;
-        player.call("sPoliceJob-OpenMainMenu", [player.lang, execute]);
+        if (player.job.name === this.name) {
+            execute = `app.loadFinish();`;
+            player.call("sPoliceJob-OpenMainMenu", [player.lang, execute]);
+        }
     }
 
     async removeJailHistory(player) {
