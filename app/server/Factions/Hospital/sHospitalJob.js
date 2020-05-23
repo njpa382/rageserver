@@ -53,10 +53,6 @@ class HospitalJob extends FactionJob {
 
     }
 
-    getFactionID() {
-        return faction_id_const;
-    }
-
     spawnAfterDeath(player) {
 		if (!player.loggedIn) return;
 		player.spawn(new mp.Vector3(player.position));

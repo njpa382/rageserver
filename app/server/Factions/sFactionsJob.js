@@ -21,6 +21,7 @@ class FactionJob extends Job {
 
             "playerEnterColshape": (player, shape) => {
                 misc.log.debug("sFaction : playerEnterColshape");
+                misc.log.debug("this.className: " + this.className);
                 if (!player.loggedIn || !this.isPlayerWorksHere(player)) return;
 
                 misc.log.debug("shape.factionShapeType: " + shape.factionShapeType);
