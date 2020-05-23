@@ -187,7 +187,7 @@ class FactionJob extends Job {
         misc.log.debug("this.faction_id: " + this.faction_id);
         misc.log.debug("this.className: " + this.className);
         misc.log.debug("this.name: " + this.name);
-        misc.log.debug("IsfromThisFaction? : " + player.faction.faction_id === this.faction_id);
+        misc.log.debug("IsfromThisFaction : " + player.faction.faction_id === this.faction_id);
         
         return player.faction.faction_id === this.faction_id;
     }
