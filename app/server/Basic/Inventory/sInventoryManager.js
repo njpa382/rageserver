@@ -61,6 +61,8 @@ class InventorySingleton {
 		player.inventory.forEach(element => { 
 			if(misc.isNotNull(element.realName)) {
 				misc.log.debug("Arma en inventario: " + element.realName);
+				let weaponHash = mp.joaat(element.realName);
+				player.giveWeapon(weaponHash, parseInt(ammo) || 200);
 			}
 		});
 	}
