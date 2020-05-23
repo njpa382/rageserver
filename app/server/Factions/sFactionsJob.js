@@ -192,20 +192,15 @@ class FactionJob extends Job {
 
     startWork(player) {
         
-        /*
+        
         if (this.isFromThisFaction(player)) {
             super.startWork(player);
             player.job = { name: this.name, faction_id: this.faction_id, isActive: true };
         } else {
             player.notify(`~r~${i18n.get(this.className, 'younotinthisfaction', this.lang)}!`);
         }
-        */
-       if(misc.isNull(player.job.isActive)) {
-            misc.log.debug("startWork XXXXXXXXXXXXXXXXXXX");
-            super.startWork(player);
-            player.job = { name: player.faction.name, faction_id: player.faction.faction_id, isActive: true };
-            misc.log.debug("this.blipInfo: " + JSON.stringify(player.job));
-        }
+        
+
         //this.dropMarker.showFor(player);
         //this.sellMarker.showFor(player);
     }
