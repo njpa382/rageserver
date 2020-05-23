@@ -17,6 +17,10 @@
 
 		</div>
 
+		<div class="buttons" id="app">
+			<div class="button" @click="revive">Revivir</div>
+		</div>
+
 		<div class="b3-close" id="close-button" @click="exit">X</div>
 	</section>
 </body>
@@ -44,6 +48,11 @@
 					targetPlayerInformation: this.targetPlayerInformation,
 				};
 				return JSON.stringify(obj);
+			},
+
+			revive: function () {
+				this.exit();
+				mp.trigger("cMisc-CallServerEvent", "sHospital-revivePlayer", this.generateFrontInfo());
 			},
 
 			toggleSelection: function (obj, compare) {

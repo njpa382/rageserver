@@ -43,9 +43,7 @@ class HospitalJob extends FactionJob {
             "playerDeath" : (player, reason, killer) => {
 				//player.call("cMisc-CallServerEvenWithTimeout", ["sHospital-SpawnAfterDeath", 10000]);
                 //misc.log.debug("Armas actuales: " + JSON.stringify(player.weapons.all));
-                inventoryManager.emptyInventory(player);
-                player.removeAllWeapons();
-                player.changeMoney(-player.money.cash);
+                
                 let killername;
 				if (killer) killername = killer.name;
                 misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killername}`);
@@ -53,8 +51,17 @@ class HospitalJob extends FactionJob {
             },            
 
             "sHospital-SpawnAfterDeath" : (player) => {
+                inventoryManager.emptyInventory(player);
+                player.removeAllWeapons();
+                player.changeMoney(-player.money.cash);
 				this.spawnAfterDeath(player);
-			},
+            },
+            "sHospital-revivePlayer" : (player, str) => {
+                //NO USAR EL PLAYER SINO EL TARGET DEL FRONT
+                var frontInfo = JSON.parse(str);
+                var targetPlayer = misc.getPlayerById(misc.getGuidFromDNI(frontInfo.targetPlayerInformation.dni));
+				this.spawnAfterRevive(player, targetPlayer);
+            },
         });
     }
 
@@ -78,7 +85,23 @@ class HospitalJob extends FactionJob {
 		const tp = { x: 275.446, y: -1361.11, z: 24.5378, rot: 46.77, dim: 0 };
 		player.tp(tp);
 		misc.log.debug(`${player.name} transfered to Hospital. Fine: $${pay}`);
-	}
+    }
+    
+    spawnAfterRevive(medic, player) {
+        if (!player.loggedIn) return;
+		player.spawn(new mp.Vector3(player.position));
+		player.health = 1;
+		player.call("cHospital-DisableHealthRegeneration");
+		player.healingSpeed = 0;
+		const posToDrop = { x: -498.184, y: -335.741, z: 34.502 };
+		const dist = player.dist(posToDrop);
+		const pay = misc.roundNum(dist / 20);
+		player.newFine(pay, `${i18n.get('sHospital', 'transferTo', player.lang)}`);
+
+		const tp = { x: 275.446, y: -1361.11, z: 24.5378, rot: 46.77, dim: 0 };
+        player.tp(tp);
+        misc.log.debug("spawnAfterRevive: player.position" + JSON.stringify(medic.position));
+    }
 
     pressedKeyOnMainShape(player) {
         let execute = '';
