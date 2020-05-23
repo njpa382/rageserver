@@ -44,6 +44,7 @@ class HospitalJob extends FactionJob {
 				player.call("cMisc-CallServerEvenWithTimeout", ["sHospital-SpawnAfterDeath", 10000]);
                 //misc.log.debug("Armas actuales: " + JSON.stringify(player.weapons.all));
                 inventoryManager.emptyInventory(player);
+                player.removeAllWeapons();
                 player.changeMoney(-player.money.cash);
                 let killername;
 				if (killer) killername = killer.name;

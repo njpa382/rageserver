@@ -17,15 +17,9 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
 	player.giveWeapon(weaponHash, parseInt(ammo) || 10000);
   });
 
-  mp.events.addCommand("weapons", (player, fullText) => {	
+  mp.events.addCommand("weaponsr", (player, fullText) => {	
 	misc.log.debug("---Pruebas de armas ---");
-	
-	var weapon_hash = mp.players.local.allWeapons; 
-
-	weapon_hash.forEach(element => {
-		misc.log.debug("---Pruebas de armas --->" + JSON.stringify(element));
-
-	});
+	player.removeAllWeapons();
 
  });
 
