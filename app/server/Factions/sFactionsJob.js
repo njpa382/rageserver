@@ -193,12 +193,14 @@ class FactionJob extends Job {
     }
 
     startWork(player) {
-        
-        
+
+        misc.log.debug("sFaction : startWork");
         if (this.isFromThisFaction(player)) {
+            misc.log.debug("sFaction : is from this faction");
             super.startWork(player);
             player.job = { name: this.name, faction_id: this.faction_id, isActive: true };
         } else {
+            misc.log.debug("sFaction : is NOT from this faction");
             player.notify(`~r~${i18n.get(this.className, 'younotinthisfaction', this.lang)}!`);
         }
         
