@@ -141,7 +141,7 @@ class HospitalJob extends FactionJob {
     }   
 
 }
-//new HospitalJob();
+new HospitalJob();
 
 function loadUser(player) {
 	player.call("cHospital-DisableHealthRegeneration");
