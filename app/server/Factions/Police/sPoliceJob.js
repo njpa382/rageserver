@@ -13,7 +13,7 @@ class PoliceJob extends FactionJob {
 
         var jobParamenters = {};
         jobParamenters.basicInformation = {
-            name: "Police Job", x: 441.211, y: -976.772, z: 30.69, rot: 0,
+            name: "Police", x: 441.211, y: -976.772, z: 30.69, rot: 0,
             dim: 0, faction_id: faction_id_const, className: "sPoliceJob", blipInfo: { id: 526, color: 3 }
         };
         /*jobParamenters.basicInformation = {
