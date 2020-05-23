@@ -21,10 +21,12 @@ class FactionJob extends Job {
 
             "playerEnterColshape": (player, shape) => {
                 misc.log.debug("sFaction : playerEnterColshape");
-                if (!player.loggedIn || !this.isPlayerWorksHere(player)) return;
 
                 misc.log.debug("shape.factionShapeType: " + shape.factionShapeType);
                 misc.log.debug("shape.spawnCoords: " + shape.spawnCoords);
+                if (!player.loggedIn || !this.isPlayerWorksHere(player)) return;
+
+                
                 player.job.vehicleSpawnCoords = shape.spawnCoords;
                 player.canOpenFaction = shape.factionShapeType;               
 
