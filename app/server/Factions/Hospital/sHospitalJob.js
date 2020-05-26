@@ -43,9 +43,9 @@ class HospitalJob extends FactionJob {
             "playerDeath" : (player, reason, killer) => {
 				//player.call("cMisc-CallServerEvenWithTimeout", ["sHospital-SpawnAfterDeath", 10000]);
                 //misc.log.debug("Armas actuales: " + JSON.stringify(player.weapons.all));                
-                if (player.vehicle) {
+                //if (player.vehicle) {
                     player.removeFromVehicle();
-                }
+                //}
                 let killername;
 				if (killer) killername = killer.name;
                 misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killername}`);
