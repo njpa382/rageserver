@@ -42,8 +42,7 @@ class HospitalJob extends FactionJob {
         mp.events.add({
             "playerDeath" : (player, reason, killer) => {
 				//player.call("cMisc-CallServerEvenWithTimeout", ["sHospital-SpawnAfterDeath", 10000]);
-                //misc.log.debug("Armas actuales: " + JSON.stringify(player.weapons.all));
-                
+                //misc.log.debug("Armas actuales: " + JSON.stringify(player.weapons.all));                
                 if (player.vehicle) {
                     player.removeFromVehicle();
                 }
@@ -63,6 +62,7 @@ class HospitalJob extends FactionJob {
                 //NO USAR EL PLAYER SINO EL TARGET DEL FRONT
                 var frontInfo = JSON.parse(str);
                 var targetPlayer = misc.getPlayerById(misc.getGuidFromDNI(frontInfo.targetPlayerInformation.dni));
+                targetPlayer.newFine(2000, "Costo de revivir");
 				this.spawnAfterRevive(targetPlayer);
             },
         });
