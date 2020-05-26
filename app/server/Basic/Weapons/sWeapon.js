@@ -17,11 +17,14 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
 	player.giveWeapon(weaponHash, parseInt(ammo) || 10000);
   });
 
-  mp.events.addCommand("weaponsr", (player, fullText) => {	
-	misc.log.debug("---Pruebas de armas ---");
-	player.removeAllWeapons();
-
+  mp.events.addCommand("removeVehicle", (player, fullText) => {	
+	if (player.vehicle) {
+		player.removeFromVehicle();
+	}
  });
+
+
+
 
 
 
