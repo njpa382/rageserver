@@ -24,6 +24,12 @@ mp.events.add(
 		misc.injectCef(inject);
 	},
 
+	"cMuerto-sendNotifications" : (tittle, subtittle) => {
+		mp.game.ui.setNotificationTextEntry("STRING");
+		mp.game.ui.setNotificationMessage("CHAR_BANK_MAZE", "CHAR_BANK_MAZE", false, 4, tittle, subtittle);
+		mp.game.ui.drawNotification(true, false);
+	},
+
 });
 
 // This need to be reworked.

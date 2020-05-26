@@ -44,9 +44,10 @@ class HospitalJob extends FactionJob {
 				//player.call("cMisc-CallServerEvenWithTimeout", ["sHospital-SpawnAfterDeath", 10000]);
                 //misc.log.debug("Armas actuales: " + JSON.stringify(player.weapons.all));                
                 //if (player.vehicle) {
-                    player.removeFromVehicle();
+                player.removeFromVehicle();
                 //}
                 let killername;
+                notifyMedics(player.name,"");
 				if (killer) killername = killer.name;
                 misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killername}`);
                 this.openDeathMenu(player);
@@ -71,6 +72,15 @@ class HospitalJob extends FactionJob {
                 targetPlayer.health = 100;
                 targetPlayer.newFine(1000, "Costo de curar");
             },
+        });
+    }
+
+    notifyMedics(tittle, subtittle) {
+        var players = misc.getAllPlayer();
+        players.forEach(player => {
+            if (player.job.isActive && player.faction.faction_id === faction_id_const) {
+                player.call("cMuerto-sendNotifications", ["Jugador " + tittle + " esta muy mal herido. Necesita ayuda. Se solicita medico urgente!", subtittle]);
+            }
         });
     }
 
