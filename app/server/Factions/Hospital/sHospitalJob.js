@@ -65,6 +65,12 @@ class HospitalJob extends FactionJob {
                 targetPlayer.newFine(2000, "Costo de revivir");
 				this.spawnAfterRevive(targetPlayer);
             },
+            "sHospital-healAll" : (player, str) => {
+                var frontInfo = JSON.parse(str);
+                var targetPlayer = misc.getPlayerById(misc.getGuidFromDNI(frontInfo.targetPlayerInformation.dni));
+                targetPlayer.health = 100;
+                targetPlayer.newFine(1000, "Costo de curar");
+            },
         });
     }
 

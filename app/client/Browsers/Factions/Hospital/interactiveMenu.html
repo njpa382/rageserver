@@ -21,6 +21,10 @@
 			<div class="button" @click="revive">Revivir</div>
 		</div>
 
+		<div class="buttons" id="app">
+			<div class="button" @click="healAll">Heal</div>
+		</div>
+
 		<div class="b3-close" id="close-button" @click="exit">X</div>
 	</section>
 </body>
@@ -53,6 +57,11 @@
 			revive: function () {
 				this.exit();
 				mp.trigger("cMisc-CallServerEvent", "sHospital-revivePlayer", this.generateFrontInfo());
+			},
+
+			healAll: function () {
+				this.exit();
+				mp.trigger("cMisc-CallServerEvent", "sHospital-healAll", this.generateFrontInfo());
 			},
 
 			toggleSelection: function (obj, compare) {
