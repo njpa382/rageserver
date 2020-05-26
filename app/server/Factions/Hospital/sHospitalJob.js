@@ -113,7 +113,7 @@ class HospitalJob extends FactionJob {
 
     async openInteractionMenu(player) {
         if (player.job.isActive && player.faction.faction_id === faction_id_const) {
-            const nearestPlayer = misc.getNearestPlayerInRange(player, player.position, 1);
+            const nearestPlayer = misc.getNearestPlayerInRange(player, player.position, 3);
             if (!nearestPlayer) return;
             misc.log.debug("Jugador cercano: " + JSON.stringify(nearestPlayer));
 
