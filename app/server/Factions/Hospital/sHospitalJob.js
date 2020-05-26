@@ -47,7 +47,7 @@ class HospitalJob extends FactionJob {
                 player.removeFromVehicle();
                 //}
                 let killername;
-                notifyMedics(player.name,"");
+                this.notifyMedics(player.name,"");
 				if (killer) killername = killer.name;
                 misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killername}`);
                 this.openDeathMenu(player);
