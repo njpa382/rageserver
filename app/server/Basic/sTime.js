@@ -23,7 +23,7 @@ class TimeSingleton {
 		const players = mp.players.toArray();
 		for (const player of players) {
 			if (!player.loggedIn) return;
-			playerSingleton.getSalary(player);
+			player.getSalary(player);
 		}	
 	}
 
