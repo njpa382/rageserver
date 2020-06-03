@@ -199,6 +199,10 @@ class MiscSingleton {
 		return !this.isNull(obj);
 	}
 
+	isEmpty(obj) {
+		return obj.length = 0 ? true : false;
+	}
+
 	getLetraDNI(numero) {
         numero = numero % 26;
         var letra = 'PUOIAFSDLKJGHTYMNBQWERVCXZ';
