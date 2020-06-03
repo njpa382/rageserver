@@ -1,6 +1,7 @@
 const business = require('../Business/sBusiness');
 const playerSingleton = require('../Basic/sPlayer');
 const roboObject = require('../Factions/Police/Robo/sRobo');
+const faction = require('../Factions/sFaction');
 
 class TimeSingleton {
 	constructor() {
@@ -23,7 +24,7 @@ class TimeSingleton {
 		const players = mp.players.toArray();
 		for (const player of players) {
 			if (!player.loggedIn) return;
-			player.getSalary(player);
+			faction.paySalary(player);
 		}	
 	}
 
