@@ -101,12 +101,6 @@ class faction {
 		return false;
 	}
 
-	paySalary(player) {
-		if(faction.isWorking(player)) {
-			misc.log.debug(`${player.name} esta trabajando  y se le pagara un salario de ${player.faction.salary}`);
-		}		
-	}
-
 	setWorking(player, status) {
 		player.faction.working = status;
 	}

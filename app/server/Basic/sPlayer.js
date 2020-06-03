@@ -78,6 +78,12 @@ class PlayerSingleton {
         //        player.loggedIn = false;
     }    
 
+    paySalary(player) {
+        if(faction.isWorking(player)) {
+			misc.log.debug(`${player.name} esta trabajando  y se le pagara un salario de ${player.faction.salary}`);
+		}	
+    }
+
     async saveAsyncAccount(player) {
         player.saveBasicData();
         vehiclesSingleton.savePlayerVehicles(player.guid);
