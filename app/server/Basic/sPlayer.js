@@ -78,6 +78,12 @@ class PlayerSingleton {
         //        player.loggedIn = false;
     }
 
+    getSalary(player) {
+        if(faction.isWorking(player)) {            
+            faction.paySalary(player);
+        }
+    }
+
     async saveAsyncAccount(player) {
         player.saveBasicData();
         vehiclesSingleton.savePlayerVehicles(player.guid);

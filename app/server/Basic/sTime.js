@@ -20,6 +20,11 @@ class TimeSingleton {
 
 	every5MinutesEvent() {
 		roboObject.rellenarRoboTick();
+		const players = mp.players.toArray();
+		for (const player of players) {
+			if (!player.loggedIn) return;
+			playerSingleton.getSalary(player);
+		}	
 	}
 
 	everyHourEvent() {

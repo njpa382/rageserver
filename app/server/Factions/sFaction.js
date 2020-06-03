@@ -101,6 +101,10 @@ class faction {
 		return false;
 	}
 
+	paySalary(player) {
+		misc.log.debug(`${player.name} esta trabajando  y se le pagara un salario de ${player.faction.salary}`);
+	}
+
 	setWorking(player, status) {
 		player.faction.working = status;
 	}
@@ -279,12 +283,15 @@ module.exports.createNewUser = createNewUser;
 
 
 async function loadUser(player) {
-	const d = await misc.query(`SELECT * FROM usersfaction f1 INNER JOIN factions f2 ON f1.faction_id = f2.id WHERE f1.user_id = '${player.guid}' LIMIT 1`);
+	//const d = await misc.query(`SELECT * FROM usersfaction f1 INNER JOIN factions f2 ON f1.faction_id = f2.id WHERE f1.user_id = '${player.guid}' LIMIT 1`);
+	const d = await misc.query(`SELECT * FROM usersfaction f1 INNER JOIN factions f2 ON f1.faction_id = f2.id INNER JOIN factionsSalary fs on f1.faction_id = fs.faction_id AND f1.rank = fs.rank WHERE f1.user_id = '${player.guid}' LIMIT 1 ;`);
+
 	if (misc.isNotNull(d[0])) {
 		player.faction = {
 			name: d[0].name,
 			rank: d[0].rank,
 			faction_id: d[0].faction_id,
+			salary: d[0].salary,
 			//LARGUI, LOS SIGUIENTES DOS PARAMETROS NO EXISTEN EN LA CONSULTA
 			//info:  JSON.parse(d[0].info),
 			//working: false,
@@ -295,6 +302,7 @@ async function loadUser(player) {
 			name: "Ciudadano",
 			rank: 0,
 			faction_id: 0,
+			salary: 0,
 			//info:  "",
 			//working: false,
 		}
