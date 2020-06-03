@@ -14,6 +14,7 @@ class TimeSingleton {
 			player.addHP();
 			player.jailEvent();
 			playerSingleton.saveAccount(player);
+			playerSingleton.paySalary(player);
 		}	
 		
 	}
@@ -23,7 +24,7 @@ class TimeSingleton {
 		const players = mp.players.toArray();
 		for (const player of players) {
 			if (!player.loggedIn) return;
-			playerSingleton.paySalary(player);
+			//playerSingleton.paySalary(player);
 		}	
 	}
 
