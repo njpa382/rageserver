@@ -79,7 +79,8 @@ class PlayerSingleton {
     }    
 
     paySalary(player) {
-        misc.log.debug("Verificando Salario. - " + player.faction.working)
+        misc.log.debug("Verificando Salario. - " + player.faction.working);
+        misc.log.debug("Verificando Salario. - " + player.faction.salary)
         if(player.faction.working) {
 			misc.log.debug(`${player.name} esta trabajando  y se le pagara un salario de ${player.faction.salary}`);
 		}	
