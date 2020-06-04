@@ -31,3 +31,4 @@ class Camorra extends Mafia {
 
     
 } 
+new Camorra();
