@@ -2,7 +2,7 @@ const misc = require('../sMisc');
 const i18n = require('../sI18n');
 const Job = require('./sJob');
 const sInventoryManager = require('../Basic/Inventory/sInventoryManager');
-
+const dineroSucioId = 8;
 
 class CollectorJob extends Job {
     constructor(childrenInfo) {
@@ -168,7 +168,11 @@ class CollectorJob extends Job {
             var refinedItem = sInventoryManager.getItem(player, this.collectorInfo.refined_items_ids[i]);
             if(misc.isNotNull(refinedItem)) {
                 var earnedMoney = refinedItem.quantity * this.collectorInfo.refined_items_prices[i];
-                player.changeMoney(earnedMoney);
+                if (this.collectorInfo.ilegal) {
+                    inventory.addToInventory(player, dineroSucioId, earnedMoney);
+                } else {
+                    player.changeMoney(earnedMoney);
+                }                
                 player.notify(`${i18n.get('basic', 'earned1', player.lang)} ~g~$${earnedMoney}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
                 sInventoryManager.removeFromInventory(player, this.collectorInfo.refined_items_ids[i], refinedItem.quantity);
             }

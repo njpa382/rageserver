@@ -14,6 +14,7 @@ class MariaCollector extends CollectorJob {
             refined_items_ids: [2],
             refined_items_probability:[100],
             refined_items_prices:[500],
+            ilegal:true,
             max_item_quantity: 50,
             refined_items_equivalent: 5
         };        

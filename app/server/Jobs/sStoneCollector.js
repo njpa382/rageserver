@@ -15,6 +15,7 @@ class StoneCollector extends CollectorJob {
             refined_items_probability:[30, 85, 99, 100],
             refined_items_prices:[200, 500, 1000, 5000],
             max_item_quantity: 50,
+            ilegal:false,
             refined_items_equivalent: 5
         };        
         childrenInfo.posToDrop = {x: 1109.088, y: -2008.24, z: 31.038};
