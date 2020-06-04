@@ -3,7 +3,6 @@ const mafia = require('../../Mafias/Mafia');
 class Yakuza extends Mafia {
 
     constructor() {
-
         var jobParamenters = {};
         jobParamenters.basicInformation = {
             name: "Mafia_Yakuza", x: -498.413, y: -383.206, z: 34.708, rot: 0,
@@ -27,9 +26,7 @@ class Yakuza extends Mafia {
         mp.events.add({
             
         });
-
     }
-
     
 } 
 new Yakuza();
