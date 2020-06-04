@@ -169,7 +169,7 @@ class CollectorJob extends Job {
             if(misc.isNotNull(refinedItem)) {
                 var earnedMoney = refinedItem.quantity * this.collectorInfo.refined_items_prices[i];
                 if (this.collectorInfo.ilegal) {
-                    inventory.addToInventory(player, dineroSucioId, earnedMoney);
+                    sInventoryManager.addToInventory(player, dineroSucioId, earnedMoney);
                 } else {
                     player.changeMoney(earnedMoney);
                 }                
