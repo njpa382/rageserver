@@ -1,5 +1,5 @@
 
-class Camorra extends Mafia {
+class CosaNostra extends Mafia {
 
     constructor() {
 

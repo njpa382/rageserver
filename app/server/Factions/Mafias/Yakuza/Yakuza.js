@@ -1,5 +1,5 @@
 
-class Camorra extends Mafia {
+class Yakuza extends Mafia {
 
     constructor() {
 
@@ -31,4 +31,4 @@ class Camorra extends Mafia {
 
     
 } 
-new Camorra();
+new Yakuza();
