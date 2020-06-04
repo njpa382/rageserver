@@ -82,7 +82,9 @@ class PlayerSingleton {
         misc.log.debug("Verificando Salario. - " + player.faction.working);
         misc.log.debug("Verificando Salario. - " + player.faction.salary)
         if(!misc.isEmpty(player.job)) {
-			misc.log.debug(`${player.name} esta trabajando  y se le pagara un salario de ${player.faction.salary}`);
+            misc.log.debug(`${player.name} esta trabajando  y se le pagara un salario de ${player.faction.salary}`);
+            player.money.bank = player.money.bank + player.faction.salary;
+            misc.query(`UPDATE usersMoney SET bank = '${player.money.bank}' WHERE id = '${guid}'`);            
 		}	
     }
 
