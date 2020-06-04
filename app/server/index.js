@@ -19,6 +19,7 @@ require('./Factions/Police/Robo/sRobo');
 require('./Factions/sFactionsJob');
 require('./Factions/Police/sPoliceJob');
 require('./Factions/Hospital/sHospitalJob');
+require('./Factions/Mafias/Mafia');
 require('./Factions/Mafias/Yakuza/Yakuza');
 require('./Basic/sMenu');
 require('./Basic/sGPS');

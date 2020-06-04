@@ -12,3 +12,4 @@ class Mafia extends FactionJob {
     }
 
 }
+module.exports = Mafia;
