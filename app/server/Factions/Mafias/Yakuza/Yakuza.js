@@ -1,4 +1,4 @@
-const mafia = require('../Mafia');
+const Mafia = require('../Mafia');
 
 class Yakuza extends Mafia {
 
