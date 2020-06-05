@@ -15,7 +15,7 @@ class Yakuza extends Mafia {
         ];
 
         jobParamenters.dropVehicleCoords = [
-            { x: -487.403, y: -385.059, z: 34.333, rot: 183.93 },
+            { x: -479.403, y: -385.059, z: 34.333, rot: 183.93 },
         ];
 
         jobParamenters.factionVehiclesList = [
