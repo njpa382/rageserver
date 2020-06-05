@@ -1,4 +1,5 @@
 const Mafia = require('../Mafia');
+const faction_id_const = 3;
 
 class Yakuza extends Mafia {
 

@@ -1,3 +1,6 @@
+const Mafia = require('../Mafia');
+const faction_id_const = 5;
+
 
 class Camorra extends Mafia {
     constructor() {
