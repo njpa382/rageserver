@@ -10,7 +10,6 @@ require('./Business/sClothingShop');
 require('./Business/sCheapCarDealership');
 require('./Business/sCommercialCarDealership');
 require('./Business/sGasStation');
-require('./Factions/Mafias/Yakuza/Yakuza');
 require('./Jobs/sOrangeCollector');
 require('./Jobs/sMariaCollector');
 require('./Jobs/sStoneCollector');
