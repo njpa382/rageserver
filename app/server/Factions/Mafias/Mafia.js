@@ -1,4 +1,5 @@
 const FactionJob = require('../../Factions/sFactionsJob');
+const misc = require('../../sMisc');
 
 
 class Mafia extends FactionJob {
