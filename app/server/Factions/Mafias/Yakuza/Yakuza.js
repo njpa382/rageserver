@@ -36,6 +36,7 @@ class Yakuza extends Mafia {
         
         misc.log.debug("this.faction_id: " + this.faction_id);
         misc.log.debug("player.job.name: " + player.job.name);
+        misc.log.debug("player.faction.faction_id: " + player.faction.faction_id);
         misc.log.debug("this.name: " + this.name);
         
         let execute = '';
