@@ -282,6 +282,7 @@ async function loadUser(player) {
 	//const d = await misc.query(`SELECT * FROM usersfaction f1 INNER JOIN factions f2 ON f1.faction_id = f2.id WHERE f1.user_id = '${player.guid}' LIMIT 1`);
 	const d = await misc.query(`SELECT * FROM usersfaction f1 INNER JOIN factions f2 ON f1.faction_id = f2.id INNER JOIN factionsSalary fs on f1.faction_id = fs.faction_id AND f1.rank = fs.rank WHERE f1.user_id = '${player.guid}' LIMIT 1 ;`);
 
+
 	if (misc.isNotNull(d[0])) {
 		player.faction = {
 			name: d[0].name,
