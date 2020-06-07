@@ -16,10 +16,6 @@ class PoliceJob extends FactionJob {
             name: "Police", x: 441.211, y: -976.772, z: 30.69, rot: 0,
             dim: 0, faction_id: faction_id_const, className: "sPoliceJob", blipInfo: { id: 526, color: 3 }
         };
-        /*jobParamenters.basicInformation = {
-            name: "Police", x: 429.284, y: -998.777, z: 25.739, rot: 84.36,
-            dim: 0, faction_id: faction_id_const, className: "sPoliceJob"
-        };*/
 
         jobParamenters.pickVehicleCoords = [
             { x: 428.908, y: -1000.204, z: 25.78, rot: 295.54, spawn: { x: 431.2, y: -997.116, z: 25.763, rot: 176.75 } },

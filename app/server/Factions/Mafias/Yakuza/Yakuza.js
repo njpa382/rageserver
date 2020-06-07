@@ -28,6 +28,21 @@ class Yakuza extends Mafia {
             
         });
     }
+
+    pressedKeyOnMainShape(player) {
+        misc.log.debug("Abriendo Menu de mafia");
+        
+        misc.log.debug("this.faction_id: " + this.faction_id);
+        misc.log.debug("player.job.name: " + player.job.name);
+        misc.log.debug("this.name: " + this.name);
+        
+        let execute = '';
+        if (player.job.name === this.name) execute = `app.loadFinish();`;
+        
+        if (player.faction.faction_id == this.faction_id) {
+            player.call("cMafia-Yakuza-OpenMainMenu", [player.lang, execute]);
+        }
+    }
     
 } 
 new Yakuza();
