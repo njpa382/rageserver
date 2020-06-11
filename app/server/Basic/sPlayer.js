@@ -202,6 +202,11 @@ mp.events.addCommand({
         player.health = 100;
     },
 
+    "sKeys-F3" : (player) => {
+        if (!player.loggedIn) return;
+        misc.log.debug("Abriendo menu de interacciones personales!!!");
+    },
+
 });
 
 // Save Player bei allem möglichem
