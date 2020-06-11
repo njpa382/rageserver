@@ -14,22 +14,22 @@ class Mafia extends FactionJob {
 
     setWorkingClothesForMan(player) {
         // Set Uniform
-        player.setClothes(3, 0, 0, 2);
+        /*player.setClothes(3, 0, 0, 2);
         player.setClothes(8, 58, 0, 2);
         player.setClothes(6, 25, 0, 2);
         player.setClothes(4, 35, 0, 2);
         player.setClothes(11, 55, 0, 2);
-        super.setWorkingClothesForMan(player);
+        super.setWorkingClothesForMan(player);*/
     }
 
     setWorkingClothesForWoman(player) {
         // Set Uniform
-        player.setClothes(3, 0, 0, 2);
+        /*player.setClothes(3, 0, 0, 2);
         player.setClothes(8, 58, 0, 2);
         player.setClothes(6, 25, 0, 2);
         player.setClothes(4, 35, 0, 2);
         player.setClothes(11, 55, 0, 2);
-        super.setWorkingClothesForWoman(player);
+        super.setWorkingClothesForWoman(player);*/
     }
 }
 module.exports = Mafia;

@@ -9,7 +9,7 @@ class Yakuza extends Mafia {
         var jobParamenters = {};
         jobParamenters.basicInformation = {
             name: "Mafia_Yakuza", x: -498.413, y: -383.206, z: 34.708, rot: 0,
-            dim: 0, faction_id: faction_id_const, className: "Yakuza", blipInfo: { id: 526, color: 3 }
+            dim: 0, faction_id: faction_id_const, className: "Yakuza", blipInfo: { id: 303, color: 1 }
         };
  
         jobParamenters.pickVehicleCoords = [
