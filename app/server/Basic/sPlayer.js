@@ -14,6 +14,15 @@ const garages = require('../Basic/Garage/sGarageSingleton');
 
 class PlayerSingleton {
 
+    constructor() {
+        mp.events.add({
+            "sKeys-F3" : (player) => {
+                if (!player.loggedIn) return;
+                misc.log.debug("Abriendo menu de interacciones personales!!!");
+			},
+        });
+    }
+
     async createNewUser(player, email, firstName, lastName, pass) {
         const firstSpawn = {
             x: -164,
@@ -59,7 +68,7 @@ class PlayerSingleton {
         await Promise.all([q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]);
 
         misc.log.debug(`${player.name} logged in`);
-    }
+    }    
 
     getDNIorGenerate(dni, guid) {
         if (misc.isNotNull(dni)) return dni;
@@ -228,9 +237,3 @@ function playerExitVehicleHandler(player) {
 mp.events.add("playerExitVehicle", playerExitVehicleHandler);
 // Save by enter Vehicle
 
-mp.events.add("sKeys-F3", playerOpenGeneralMenuInformation);
-
-function playerOpenGeneralMenuInformation(player) { 
-    if (!player.loggedIn) return;
-    misc.log.debug("Abriendo menu de interacciones personales!!!");
-}
