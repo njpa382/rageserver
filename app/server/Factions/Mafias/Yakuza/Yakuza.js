@@ -22,10 +22,10 @@ class Yakuza extends Mafia {
 
         jobParamenters.factionVehiclesList = [
             { model: "chino", minimunRank: 1, title: "Yakuza 1 ", fuel: 40, id: 0, numberPlate: "Yakuza000" },
-            { model: "enduro", minimunRank: 1, title: "Yakuza 5 ", fuel: 40, id: 0, numberPlate: "Yakuza005" },
-            { model: "chino2", minimunRank: 3, title: "Yakuza 2 ", fuel: 40, id: 0, numberPlate: "Yakuza001" },
-            { model: "patriot", minimunRank: 6, title: "Yakuza 3 ", fuel: 40, id: 0, numberPlate: "Yakuza002" },
-            { model: "stretch", minimunRank: 8, title: "Yakuza 4 ", fuel: 40, id: 0, numberPlate: "Yakuza004" },
+            { model: "enduro", minimunRank: 1, title: "Yakuza 5 ", fuel: 40, id: 1, numberPlate: "Yakuza005" },
+            { model: "chino2", minimunRank: 3, title: "Yakuza 2 ", fuel: 40, id: 2, numberPlate: "Yakuza001" },
+            { model: "patriot", minimunRank: 6, title: "Yakuza 3 ", fuel: 40, id: 3, numberPlate: "Yakuza002" },
+            { model: "stretch", minimunRank: 8, title: "Yakuza 4 ", fuel: 40, id: 4, numberPlate: "Yakuza004" },
         ];
         
         super(jobParamenters);
