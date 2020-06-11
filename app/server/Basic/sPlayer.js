@@ -200,12 +200,7 @@ mp.events.addCommand({
     'hp': (player) => {
         if (player.adminlvl < 1) return;
         player.health = 100;
-    },
-
-    "sKeys-F3" : (player) => {
-        if (!player.loggedIn) return;
-        misc.log.debug("Abriendo menu de interacciones personales!!!");
-    },
+    },   
 
 });
 
@@ -233,3 +228,9 @@ function playerExitVehicleHandler(player) {
 mp.events.add("playerExitVehicle", playerExitVehicleHandler);
 // Save by enter Vehicle
 
+mp.events.add("sKeys-F3", playerOpenGeneralMenuInformation);
+
+function playerOpenGeneralMenuInformation(player) { 
+    if (!player.loggedIn) return;
+    misc.log.debug("Abriendo menu de interacciones personales!!!");
+}
