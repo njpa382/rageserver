@@ -16,7 +16,11 @@ class TimeSingleton {
 			player.jailEvent();
 			playerSingleton.saveAccount(player);
 		}
-		
+	}
+
+	every5MinutesEvent() {
+
+
 		let player = mp.players.at(0);
 		misc.log.debug(`${player.name} Puede hablar a todo el mundo`);
 		mp.players.forEach((_player) => {
@@ -26,9 +30,6 @@ class TimeSingleton {
 		});
 
 
-	}
-
-	every5MinutesEvent() {
 		roboObject.rellenarRoboTick();
 		const players = mp.players.toArray();
 		for (const player of players) {
