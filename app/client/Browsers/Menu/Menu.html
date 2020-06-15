@@ -36,15 +36,15 @@
 			<span>{{ d.loyality }}</span>
 			<div>{{ d.i18n.loyality }}</div>
 		</div>
-		<div class="b-item" @click="$emit('set-tab', 2)">
+		<div class="b-item" @click="$emit('set-tab', 3)">
 			<img src="img/vehicles.png">
 			<span>{{ d.vehicles.length }}</span>
-			<div>{{ d.i18n.tabs[2] }}</div>
+			<div>{{ d.i18n.tabs[3] }}</div>
 		</div>
-		<div class="b-item" @click="$emit('set-tab', 3)">
+		<div class="b-item" @click="$emit('set-tab', 4)">
 			<img src="img/violations.png">
 			<span style="color: tomato;">{{ d.violations.length }}</span>
-			<div>{{ d.i18n.tabs[3] }}</div>
+			<div>{{ d.i18n.tabs[4] }}</div>
 		</div>
 	</section>
 </script>
@@ -188,7 +188,7 @@
 			{{ d.i18n.noViolat }}!
 		</div>
 		<div class="violations-total" v-if="d.violations.length" >
-			{{ d.i18n.total }}: <span style="color: tomato;">{{ d.violations.length }} {{ d.i18n.tabs[3] }}</span> - <span style="color: tomato;">{{ total }} {{ d.i18n.minutes }}</span> {{ d.i18n.jTime }}
+			{{ d.i18n.total }}: <span style="color: tomato;">{{ d.violations.length }} {{ d.i18n.tabs[4] }}</span> - <span style="color: tomato;">{{ total }} {{ d.i18n.minutes }}</span> {{ d.i18n.jTime }}
 		</div>
 		<div v-if="d.violations.length" class="b-item" v-for="vio in d.violations"  @click="createGPSRoute('Prison')">
 			<img src="img/violations.png">
@@ -422,7 +422,7 @@ const app = new Vue({
 			],
 			languages: [ 'English', 'Russian', 'German', 'Brasilian', 'Simplified Chinese', 'Traditional Chinese', 'Czech'],
 			i18n: {
-				tabs: ['Home', 'GPS', 'Vehicles', 'Violations', 'Help', 'Settings', 'Inventory'],
+				tabs: ['Home', 'Inventory', 'GPS', 'Vehicles', 'Violations', 'Help', 'Settings'],
 				cash: 'cash',
 				loyality: 'loyality points',
 				gps: ["Basic", "Jobs", "Businesses"],
@@ -501,7 +501,7 @@ const app = new Vue({
 
 function loadRusLang() {
 	app.d.i18n = {
-		tabs: ['Главная', 'GPS', 'Транспорт', 'Нарушения', 'Помощь', 'Настройки'],
+		tabs: ['Главная', 'Inventory', 'GPS', 'Транспорт', 'Нарушения', 'Помощь', 'Настройки'],
 		cash: 'наличные',
 		loyality: 'очки лояльности',
 		gps: ["Основное", "Работы", "Бизнесы"],
@@ -563,7 +563,7 @@ function loadBrLang() {
 
 function loadZhsLang() {
 	app.d.i18n = {
-		tabs: ['首页', 'GPS', '载具', '暴力度', '帮助', '设置'],
+		tabs: ['首页', 'Inventory', 'GPS', '载具', '暴力度', '帮助', '设置'],
 		cash: '现金',
 		loyality: '忠诚点数',
 		gps: ["基本", "工作", "商业"],
@@ -617,7 +617,7 @@ function loadZhsLang() {
 
 function loadZhtLang() {
 	app.d.i18n = {
-		tabs: ['首頁', 'GPS', '載具', '暴力度', '幫助', '設置'],
+		tabs: ['首頁', 'Inventory', 'GPS', '載具', '暴力度', '幫助', '設置'],
 		cash: '現金',
 		loyality: '忠誠點數',
 		gps: ["基本", "工作", "商業"],
@@ -670,7 +670,7 @@ function loadZhtLang() {
 	
 function loadCsLang() {
 	app.d.i18n = {
-		tabs: ['Domů', 'GPS', 'Vozidla', 'Porušení', 'Pomoc', 'Nastavení'],
+		tabs: ['Domů', 'Inventory', 'GPS', 'Vozidla', 'Porušení', 'Pomoc', 'Nastavení'],
 				cash: 'peníze',
 				loyality: 'věrnostní body',
 				gps: ["Základní", "Práce", "Společnosti"],
