@@ -369,6 +369,10 @@ class tab {
 
 const home = new tab('#tab-home');
 
+const inventory = new tab('#tab-inventory', {
+	currentItem: 0,
+});
+
 const gps = new tab('#tab-gps', {
 	currentTab: 0,
 	businessId: 1,
@@ -395,9 +399,6 @@ const settings = new tab('#tab-settings', {
 	newPass: '',
 });
 
-const inventory = new tab('#tab-inventory', {
-	currentItem: 0,
-});
 
 
 const app = new Vue({
