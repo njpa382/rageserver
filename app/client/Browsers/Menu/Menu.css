@@ -4,8 +4,11 @@
 	background-size: cover;
 	font-family: Segoe UI;
 	font-weight: 100;
-	color: white;
-	text-align: center;
+}
+
+html, body{
+	color: white !important;
+	text-align: center !important;
 }
 
 .close {

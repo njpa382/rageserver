@@ -73,11 +73,6 @@
 				<a v-for="(playerToTrade, i) in d.nearPlayers">
 					<span>{{ playerToTrade.dni }}</span>
 				</a>-->
-				<p>¿Quieres darle este item a alguien cercano?</p>
-				<div class="form-group">
-					<label for="rangeTrade">Cantidad a dar: {{quantityTrade}}</label>
-					<input id="rangeTrade" type="range" v-model="quantityTrade" class="form-control-range" min="0" :max="d.inventory[currentItem].quantity" step="1">
-				</div>
 				<a class="btn btn-primary text-white" data-toggle="modal" data-target="#playerTradeModal">Dar</a>
 			</div>
 			
@@ -92,6 +87,11 @@
 							</button>
 						</div>
 						<div class="modal-body">
+							<p>¿Quieres darle este item a alguien cercano?</p>
+							<div class="form-group">								
+								<label for="rangeTrade">>Cantidad a dar: </label>
+								<input type="text" class="form-control" id="rangeTrade" placeholder="Last name" v-model="quantityTrade" required>
+							</div>
 							<table class="table">
 								<tr class="cursor-pointer" :class="getClass(playerTarget, playerToTrade)" v-for="(playerTarget, i) in d.nearPlayers"
 									@click="playerToTrade = playerTarget">
@@ -99,6 +99,7 @@
 								</tr>
 							</table>
 							<p class="text-danger" v-if="mostrarFeedbackTrade">Selecciona una persona pinche pendejo retrasado!!</p>
+							<p class="text-danger" v-if="badValueTrade">La cantidad debe ser entre 0 y {{d.inventory[currentItem].quantity}}.</p>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
