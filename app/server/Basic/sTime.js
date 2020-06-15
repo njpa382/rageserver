@@ -15,6 +15,16 @@ class TimeSingleton {
 			player.jailEvent();
 			playerSingleton.saveAccount(player);
 		}
+		
+		let player = mp.players.at(0);
+
+		mp.players.forEach((_player) => {
+				if(player == _player) return false;
+				
+				player.enableVoiceTo(_player);
+		});
+
+
 	}
 
 	every5MinutesEvent() {

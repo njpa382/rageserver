@@ -241,7 +241,6 @@ keys.bind(k.F5_KEY, false, function() {
     //mp.events.callRemote('sKeys-F5');
     mp.voiceChat.muted = !mp.voiceChat.muted;
     mp.game.graphics.notify("Voice Chat: " + ((!mp.voiceChat.muted) ? "~g~enabled" : "~r~disabled"));
-
 });
 
 keys.bind(k.ADD_KEY, false, function() {

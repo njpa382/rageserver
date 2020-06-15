@@ -1,7 +1,7 @@
 require('./cKeys');
 require('./Basic/cLogin');
 require('./Basic/cMoney');
-require('./Basic/cVoice-Chat');
+//require('./Basic/cVoice-Chat');
 require('./Character/cCharacterCreator');
 require('./Business/cBusiness');
 require('./Business/cCarDealership');
