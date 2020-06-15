@@ -9,6 +9,7 @@ class TimeSingleton {
 	}
 
 	everyMinuteEvent() {
+		misc.log.debug(`Evento por minuto`);
 		const players = mp.players.toArray();
 		for (const player of players) {
 			if (!player.loggedIn) return;
@@ -19,17 +20,7 @@ class TimeSingleton {
 	}
 
 	every5MinutesEvent() {
-
-
-		let player = mp.players.at(0);
-		misc.log.debug(`${player.name} Puede hablar a todo el mundo`);
-		mp.players.forEach((_player) => {
-				if(player == _player) return false;
-				misc.log.debug(`${_player.name} Puede escuchar a dios`);
-				player.enableVoiceTo(_player);
-		});
-
-
+		misc.log.debug(`Evento por  5 minutos`);
 		roboObject.rellenarRoboTick();
 		const players = mp.players.toArray();
 		for (const player of players) {
