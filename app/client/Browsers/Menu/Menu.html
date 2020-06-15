@@ -72,16 +72,16 @@
 				<span style="color:red;">Entregar objeto a:</span>
 				<a v-for="(playerToTrade, i) in d.nearPlayers">
 					<span>{{ playerToTrade.dni }}</span>
-				</a>-->
+				</a>
 				<p>¿Quieres darle este item a alguien cercano?</p>
 				<div class="form-group">
 					<label for="formControlRange">Cantidad a dar: </label>
 					<input type="range" v-model="quantityTrade" class="form-control-range" min="0" :max="100" step="1">
-				</div>
+				</div>-->
 				<a class="btn btn-primary text-white" data-toggle="modal" data-target="#playerTradeModal">Dar</a>
 			</div>
 			
-			<!--<div class="modal fade" id="playerTradeModal" tabindex="-1" role="dialog" aria-labelledby="playerTradeModal"
+			<div class="modal fade" id="playerTradeModal" tabindex="-1" role="dialog" aria-labelledby="playerTradeModal"
 			aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -109,7 +109,7 @@
 						</div>
 					</div>
 				</div>
-			</div>-->
+			</div>
 		</div>
 				
 				
