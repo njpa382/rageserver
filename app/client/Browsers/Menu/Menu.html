@@ -92,21 +92,17 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<h2 class="text-center text-success"><b>DINERO: ${{ targetPlayerInformation.cash }}</b></h2>
-						<p>Objetos:</p>
 						<table class="table">
-							<tr class="cursor-pointer" :class="getClass(objetoAConfiscar, item)" v-for="item in targetPlayerInformation.invetory"
-								@click="objetoAConfiscar = toggleSelection(objetoAConfiscar, item)">
-								<td>{{item.name}}</td>
-								<td>${{item.quantity}}</td>
+							<tr class="cursor-pointer" :class="getClass(playerTarget, playerToTrade)" v-for="(playerTarget, i) in d.nearPlayers"
+								@click="playerToTrade = playerTarget">
+								<td>{{playerToTrade.dni}}</td>
 							</tr>
 						</table>
-						<p class="text-danger" v-if="mostrarFeedback">Selecciona un puto objeto pinche pendejo
-							retrasado!!</p>
+						<p class="text-danger" v-if="mostrarFeedback">Selecciona una persona pinche pendejo retrasado!!</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						<button type="button" class="btn btn-primary" @click="confiscar()">Confiscar</button>
+						<button type="button" class="btn btn-primary" @click="darItem()">Dar</button>
 					</div>
 				</div>
 			</div>
@@ -458,11 +454,12 @@ const app = new Vue({
 	data: {
 		pName: '',
 		currentTab: 0,
+		playerToTrade: "",
+		mostrarFeedbackTrade: false,
 		d: {
 			cash: 0,
 			loyality: 0,
 			inventory: [],
-			testPlayers: "",
 			nearPlayers: [],
 			vehicles: [
 				//{ id: 54, title: "Declasse Tornado Custom", number: "FDG45GF", price: 15500, fTank: 55, fRate: 15 },
@@ -535,6 +532,19 @@ const app = new Vue({
 		},
 	},
 	methods: {
+		getClass: function (obj, compare) {
+			return obj !== null && obj.id === compare.id ? 'table-success' : '';
+		},
+		darItem() {
+			this.mostrarFeedbackTrade = false;
+			if (this.playerToTrade === null) {
+				this.mostrarFeedbackTrade = true;
+			}
+			else {
+				//app.exit();
+				//mp.trigger("cMisc-CallServerEvent", "sPoliceJob-confiscar", this.generateFrontInfo());
+			}
+		},
 		loadVehicles: function(str) {
 			this.d.vehicles = JSON.parse(str);
 		},
@@ -542,7 +552,6 @@ const app = new Vue({
 			this.d.inventory = JSON.parse(str);
 		},
 		loadNearPlayers: function(str) {
-			this.d.testPlayers = str;
 			this.d.nearPlayers = JSON.parse(str);
 		},
 		loadPassengers: function(str) {
