@@ -1,9 +1,9 @@
 const Use3d = true;
-const UseAutoVolume = false;
+const UseAutoVolume = true;
 
 const MaxRange = 50.0;
 
-mp.keys.bind(0x73, true, function() {
+mp.keys.bind(0x74, true, function() {
     mp.voiceChat.muted = !mp.voiceChat.muted;
     mp.game.graphics.notify("Voice Chat: " + ((!mp.voiceChat.muted) ? "~g~enabled" : "~r~disabled"));
 });
