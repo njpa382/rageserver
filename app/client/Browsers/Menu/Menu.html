@@ -75,19 +75,16 @@
 				</a>-->
 				<p>¿Quieres darle este item a alguien cercano?</p>
 				<div class="form-group">
-					<span>Cantidad a dar: {{quantityTrade}}</span>
-					<input type="range" v-model="quantityTrade" class="form-control-range" min="0" :max="d.inventory[currentItem].quantity" step="1">
+					<label for="rangeTrade">Cantidad a dar: {{quantityTrade}}</label>
+					<input id="rangeTrade" type="range" v-model="quantityTrade" class="form-control-range" min="0" :max="d.inventory[currentItem].quantity" step="1">
 				</div>
 				<a class="btn btn-primary text-white" data-toggle="modal" data-target="#playerTradeModal">Dar</a>
 			</div>
 			
-			<!--<div class="modal fade" id="playerTradeModal" tabindex="-1" role="dialog" aria-labelledby="playerTradeModal"
+			<div class="modal fade" id="playerTradeModal" tabindex="-1" role="dialog" aria-labelledby="playerTradeModal"
 			aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-						<div class="modal-body">
-							<p class="text-danger">PENDEJOOOOOOOOOOOOOOOOOO</p>
-						</div>
 						<div class="modal-header">
 							<h5 class="modal-title" id="playerTradeModal">Dar {{quantityTrade}} de {{ d.inventory[currentItem].name }} a:</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -109,7 +106,7 @@
 						</div>
 					</div>
 				</div>
-			</div>-->
+			</div>
 		</div>
 				
 				
