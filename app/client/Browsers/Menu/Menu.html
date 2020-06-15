@@ -60,9 +60,10 @@
 		<div class="veh-info">
 			<div class="veh-info_title">{{ d.inventory[currentItem].name }}</div>
 			<div class="veh-info_number">{{ d.inventory[currentItem].description }}</div>
-				<a v-for="(playerToTrade, i) in d.nearPlayers" @click="currentTab = i" :class="[{ active: currentTab === i }]">
+				<!--<a v-for="(playerToTrade, i) in d.nearPlayers" @click="currentTab = i" :class="[{ active: currentTab === i }]">
 					<span>{{ playerToTrade.dni }}</span>
-				</a>
+				</a>-->
+				<span>{{ d.nearPlayers[0].dni }}</span>
 		</div>		
 	</section>
 	<section class="info tab-vehicles" v-else>
