@@ -9,7 +9,7 @@ class TimeSingleton {
 	}
 
 	everyMinuteEvent() {
-		misc.log.debug(`Evento por minuto`);
+		//misc.log.debug(`Evento por minuto`);
 		const players = mp.players.toArray();
 		for (const player of players) {
 			if (!player.loggedIn) return;
@@ -20,7 +20,7 @@ class TimeSingleton {
 	}
 
 	every5MinutesEvent() {
-		misc.log.debug(`Evento por  5 minutos`);
+		//misc.log.debug(`Evento por  5 minutos`);
 		roboObject.rellenarRoboTick();
 		const players = mp.players.toArray();
 		for (const player of players) {
