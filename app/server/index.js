@@ -1,6 +1,7 @@
 require('./Basic/Auth/sLogin');
 require('./Basic/Auth/sRegister');
 require('./Basic/sChat');
+require('./Basic/voice-chat.js');
 require('./Basic/Inventory/sInventoryManager');
 require('./Basic/Garage/sGarageSingleton');
 require('./Basic/Weapons/sWeapon');
