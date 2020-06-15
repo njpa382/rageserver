@@ -24,6 +24,19 @@ class TimeSingleton {
 				if(player == _player) return false;
 				misc.log.debug(`${_player.name} Puede escuchar a dios`);
 				player.enableVoiceTo(_player);
+
+				_player.isListening = true;		
+		
+				_player.voiceAutoVolume = true;
+
+				_player.voiceVolume = 1.0;
+
+				_player.voice3d = true;
+
+
+
+
+
 		});
 	}
 
