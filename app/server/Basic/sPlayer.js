@@ -14,15 +14,6 @@ const garages = require('../Basic/Garage/sGarageSingleton');
 
 class PlayerSingleton {
 
-    constructor() {
-        mp.events.add({
-            "sKeys-F3" : (player) => {
-                if (!player.loggedIn) return;
-                misc.log.debug("Abriendo menu de interacciones personales!!!");
-			},
-        });
-    }
-
     async createNewUser(player, email, firstName, lastName, pass) {
         const firstSpawn = {
             x: -164,

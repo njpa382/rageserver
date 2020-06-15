@@ -52,6 +52,11 @@ class FactionJob extends Job {
             "sKeys-F4" : (player) => {
                 if (!player.loggedIn) return;
 				this.openInteractionMenu(player);
+            },
+            
+            "sKeys-F3" : (player) => {
+                if (!player.loggedIn) return;
+                misc.log.debug("Abriendo menu de interacciones personales!!!");
 			},
 
             "sFactionJob-StartWork": (player) => {
