@@ -51,6 +51,23 @@
 
 
 
+<script type="text/x-template" id="tab-inventory">
+	<section class="info tab-vehicles" v-if="d.inventory.length > 0">
+		<div class="veh-list xl">
+			<a class="veh-item" v-for="(item, i) in d.inventory"  @click="currentItem = i" :class="[{ active: currentItem === i }]">
+				<p>{{item.name}} <span class="item-quantity">{{item.quantity}}</span></p>				
+			</a>
+		</div>
+		<div class="veh-info">
+			<div class="veh-info_title">{{ d.inventory[currentItem].name }}</div>
+			<div class="veh-info_number">{{ d.inventory[currentItem].description }}</div>
+		</div>
+	</section>
+	<section class="info tab-vehicles" v-else>
+		<div class="no-veh">No tienes putos items desgraciao pobre!</div>
+	</section>
+</script>
+
 
 <script type="text/x-template" id="tab-gps">
 	<section class="info tab-vehicles">
@@ -272,23 +289,6 @@
 	</section>
 </script>
 
-
-<script type="text/x-template" id="tab-inventory">
-	<section class="info tab-vehicles" v-if="d.inventory.length > 0">
-		<div class="veh-list xl">
-			<a class="veh-item" v-for="(item, i) in d.inventory"  @click="currentItem = i" :class="[{ active: currentItem === i }]">
-				<p>{{item.name}} <span class="item-quantity">{{item.quantity}}</span></p>				
-			</a>
-		</div>
-		<div class="veh-info">
-			<div class="veh-info_title">{{ d.inventory[currentItem].name }}</div>
-			<div class="veh-info_number">{{ d.inventory[currentItem].description }}</div>
-		</div>
-	</section>
-	<section class="info tab-vehicles" v-else>
-		<div class="no-veh">No tienes putos items desgraciao pobre!</div>
-	</section>
-</script>
 
 
 
