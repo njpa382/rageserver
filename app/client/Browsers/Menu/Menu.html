@@ -63,7 +63,7 @@
 				<!--<a v-for="(playerToTrade, i) in d.nearPlayers" @click="currentTab = i" :class="[{ active: currentTab === i }]">
 					<span>{{ playerToTrade.dni }}</span>
 				</a>-->
-				<span>{{ d.nearPlayers[0].dni }}</span>
+				<span>{{ JSON.stringify(d.nearPlayers) }}</span>
 		</div>		
 	</section>
 	<section class="info tab-vehicles" v-else>
