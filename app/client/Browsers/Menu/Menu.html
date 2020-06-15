@@ -57,7 +57,7 @@
 <script type="text/x-template" id="tab-inventory">
 	<section class="info tab-vehicles" v-if="d.inventory.length > 0">
 		<div class="veh-list xl">
-			<a class="veh-item" v-for="(item, i) in d.inventory"  @click="currentItem = i; quantityTrade = '0';" :class="[{ active: currentItem === i }]">
+			<a class="veh-item" v-for="(item, i) in d.inventory"  @click="currentItem = i; quantityTrade = 0;" :class="[{ active: currentItem === i }]">
 				<p>{{item.name}} <span class="item-quantity">{{item.quantity}}</span></p>				
 			</a>
 		</div>
@@ -75,8 +75,8 @@
 				</a>-->
 				<p>¿Quieres darle este item a alguien cercano?</p>
 				<div class="form-group">
-					<span>Cantidad a dar:</span>
-					<input type="range" class="form-control-range" min="0" :max="d.inventory[currentItem].quantity" step="1">
+					<span>Cantidad a dar: {{quantityTrade}}</span>
+					<input type="range" v-model="quantityTrade" class="form-control-range" min="0" :max="d.inventory[currentItem].quantity" step="1">
 				</div>
 				<a class="btn btn-primary text-white" data-toggle="modal" data-target="#playerTradeModal">Dar</a>
 			</div>
@@ -423,6 +423,9 @@ const home = new tab('#tab-home');
 
 const inventory = new tab('#tab-inventory', {
 	currentItem: 0,
+	quantityTrade: 0,
+	playerToTrade: "",
+	mostrarFeedbackTrade: false
 });
 
 const gps = new tab('#tab-gps', {
@@ -458,9 +461,6 @@ const app = new Vue({
 	data: {
 		pName: '',
 		currentTab: 0,
-		quantityTrade: "0",
-		playerToTrade: "",
-		mostrarFeedbackTrade: false,
 		d: {
 			cash: 0,
 			loyality: 0,
