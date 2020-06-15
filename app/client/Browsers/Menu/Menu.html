@@ -75,7 +75,7 @@
 				</a>-->
 				<p>¿Quieres darle este item a alguien cercano?</p>
 				<div class="form-group">
-					<label for="formControlRange">Cantidad a dar: </label>
+					<label>Cantidad a dar: {{quantityTrade}}</label>
 					<input type="range" v-model="quantityTrade" class="form-control-range" min="0" max="100" step="1">
 				</div>
 				<a class="btn btn-primary text-white" data-toggle="modal" data-target="#playerTradeModal">Dar</a>
