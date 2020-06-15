@@ -21,8 +21,8 @@ class Menu {
                 execute += `app.loadPassengers('${vehicleAPI.getPassengersForPlayerMenu(player)}');`;
                 execute += `app.loadViolations('${JSON.stringify(player.jail.violations)}');`;
                 player.call("cMenu-Open", [player.lang, execute]);
-                misc.log.debug(`${player.name} opens menu`);
-                misc.log.debug(`${misc.getPlayersInRange(player, player.position, 2)}`);
+                misc.log.debug(`${player.name} opens menu`);                
+                misc.log.debug("Jugadores Cerca: " + JSON.stringify(misc.getPlayersInRange(player, player.position, 2)));
             },
             
             "sMenu-SetLang" : (player, id) => {
