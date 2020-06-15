@@ -61,11 +61,11 @@
 			<div class="veh-info_title">{{ d.inventory[currentItem].name }}</div>
 			<div class="veh-info_number">{{ d.inventory[currentItem].description }}</div>
 		</div>
-		<!--<div class="veh-list">
-			<a class="veh-item" v-for="(player, i) in d.nearPlayers" @click="currentTab = i" :class="[{ active: currentTab === i }]">
-				<span>{{ player }}</span>
+		<div class="veh-list">
+			<a class="veh-item" v-for="(playerToTrade, j) in d.nearPlayers" @click="currentTab = j" :class="[{ active: currentTab === j }]">
+				<span>{{ playerToTrade }}</span>
 			</a>
-		</div>-->
+		</div>
 	</section>
 	<section class="info tab-vehicles" v-else>
 		<div class="no-veh">No tienes putos items desgraciao pobre!</div>
