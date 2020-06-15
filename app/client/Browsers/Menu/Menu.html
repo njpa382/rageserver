@@ -60,7 +60,7 @@
 		<div class="veh-info">
 			<div class="veh-info_title">{{ d.inventory[currentItem].name }}</div>
 			<div class="veh-info_number">{{ d.inventory[currentItem].description }}</div>
-				<a class="veh-item" v-for="(playerToTrade, j) in d.nearPlayers" @click="currentTab = j" :class="[{ active: currentTab === j }]">
+				<a v-for="(playerToTrade, j) in d.nearPlayers" @click="currentTab = j" :class="[{ active: currentTab === j }]">
 					<span>{{ playerToTrade.dni }}</span>
 				</a>
 		</div>		
