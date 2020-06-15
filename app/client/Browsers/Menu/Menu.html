@@ -76,7 +76,7 @@
 				<a class="btn btn-primary text-white" data-toggle="modal" data-target="#playerTradeModal">Dar</a>
 			</div>
 			
-			<!-- <div class="modal fade" id="playerTradeModal" tabindex="-1" role="dialog" aria-labelledby="playerTradeModal"
+			<div class="modal fade" id="playerTradeModal" tabindex="-1" role="dialog" aria-labelledby="playerTradeModal"
 			aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -87,11 +87,11 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<p>¿Quieres darle este item a alguien cercano?</p>
+							<!-- <p>¿Quieres darle este item a alguien cercano?</p>
 							<div class="form-group">								
 								<label for="rangeTrade">>Cantidad a dar: {{quantityTrade}}</label>
 								<input type="text" class="form-control" id="rangeTrade" placeholder="Last name" v-model="quantityTrade" required>
-							</div>
+							</div> -->
 							<table class="table">
 								<tr class="cursor-pointer" :class="getClass(playerTarget, playerToTrade)" v-for="(playerTarget, i) in d.nearPlayers"
 									@click="playerToTrade = playerTarget">
@@ -107,7 +107,7 @@
 						</div>
 					</div>
 				</div>
-			</div> -->
+			</div>
 		</div>
 				
 				
