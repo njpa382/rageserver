@@ -23,7 +23,6 @@
 	</body>
 </html>
 
-
 <script type="text/x-template" id="tab-home">
 	<section class="info tab-home">
 		<div class="b-item" @click="createGPSRoute('ATM')">
@@ -61,6 +60,11 @@
 		<div class="veh-info">
 			<div class="veh-info_title">{{ d.inventory[currentItem].name }}</div>
 			<div class="veh-info_number">{{ d.inventory[currentItem].description }}</div>
+		</div>
+		<div class="veh-list">
+			<a class="veh-item" v-for="(player, i) in d.nearPlayers" @click="currentTab = i" :class="[{ active: currentTab === i }]">
+				<span>{{ player }}</span>
+			</a>
 		</div>
 	</section>
 	<section class="info tab-vehicles" v-else>
@@ -410,6 +414,7 @@ const app = new Vue({
 			cash: 0,
 			loyality: 0,
 			inventory: [],
+			nearPlayers: [],
 			vehicles: [
 				//{ id: 54, title: "Declasse Tornado Custom", number: "FDG45GF", price: 15500, fTank: 55, fRate: 15 },
 				//{ id: 4, title: "Declasse Tornado Custom", number: "FDG45GF", price: 15500, fTank: 55, fRate: 15 },
@@ -486,6 +491,9 @@ const app = new Vue({
 		},
 		loadInventory: function(str) {
 			this.d.inventory = JSON.parse(str);
+		},
+		loadNearPlayers: function(str) {
+			this.d.nearPlayers = JSON.parse(str);
 		},
 		loadPassengers: function(str) {
 			this.d.passengers = JSON.parse(str);
